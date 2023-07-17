@@ -112,6 +112,7 @@ namespace Assets.TValle.Tools.Editor.MeshNormalImporter
                 {
                     handles[i] = blendShapes[i].CalculeNormals(m_corrector, jobHandle);
                 }
+                jobHandle.Complete();
                 JobHandle.CompleteAll(handles);
                 handles.Dispose();
 

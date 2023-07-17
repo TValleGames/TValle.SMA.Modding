@@ -11,7 +11,7 @@ using UnityEngine;
 namespace Assets.TValle.Tools.Editor.MeshNormalImporter.Clases
 {
 
-    //[BurstCompile]
+    [BurstCompile(FloatPrecision.High, FloatMode.Default, CompileSynchronously = true)]
     public struct LoadBasisPointsJob : IJob
     {
         [ReadOnly]
@@ -67,6 +67,7 @@ namespace Assets.TValle.Tools.Editor.MeshNormalImporter.Clases
             pointIndexesOfPointPosition.Dispose();
         }
     }
+    [BurstCompile(FloatPrecision.High, FloatMode.Default, CompileSynchronously = true)]
     public struct LoadShapePointsJob : IJob
     {
         [ReadOnly]
@@ -106,7 +107,7 @@ namespace Assets.TValle.Tools.Editor.MeshNormalImporter.Clases
     /// <summary>
     /// only compatible with meshes with triangles as faces
     /// </summary>
-    //[BurstCompile]
+    [BurstCompile(FloatPrecision.High, FloatMode.Default, CompileSynchronously = true)]
     public struct LoadTriangleFacesJob : IJob
     {
         [ReadOnly]
@@ -179,7 +180,7 @@ namespace Assets.TValle.Tools.Editor.MeshNormalImporter.Clases
     }
 
 
-    //[BurstCompile]
+    [BurstCompile(FloatPrecision.High, FloatMode.Default, CompileSynchronously = true)]
     public struct CalculeFaceNormalsJob : IJobParallelFor
     {
         [ReadOnly]
@@ -211,7 +212,7 @@ namespace Assets.TValle.Tools.Editor.MeshNormalImporter.Clases
             calculedFaceNormals[index] = normal;
         }
     }
-    //[BurstCompile]
+    [BurstCompile(FloatPrecision.High, FloatMode.Default, CompileSynchronously = true)]
     public struct CalculeVertexNormalsJob : IJob
     {
         /// <summary>
@@ -222,7 +223,7 @@ namespace Assets.TValle.Tools.Editor.MeshNormalImporter.Clases
         [ReadOnly]
         public NativeArray<float3>.ReadOnly calculedFaceNormals;
 
-       
+
         public NativeArray<float3> calculedVertexNormals;
 
 
@@ -263,7 +264,7 @@ namespace Assets.TValle.Tools.Editor.MeshNormalImporter.Clases
 
         }
     }
-    //[BurstCompile]
+    [BurstCompile(FloatPrecision.High, FloatMode.Default, CompileSynchronously = true)]
     public struct CalculeCustomVertexNormalsJob : IJobParallelFor
     {
         [ReadOnly]
@@ -279,7 +280,7 @@ namespace Assets.TValle.Tools.Editor.MeshNormalImporter.Clases
             customVertexNormals[index] = importedVertexNormals[index] - calculedVertexNormals[index];
         }
     }
-    //[BurstCompile]
+    [BurstCompile(FloatPrecision.High, FloatMode.Default, CompileSynchronously = true)]
     public struct CalculeCorrectedVertexNormalsJob : IJobParallelFor
     {
         [ReadOnly]
@@ -295,7 +296,7 @@ namespace Assets.TValle.Tools.Editor.MeshNormalImporter.Clases
             correctedVertexNormals[index] = calculedVertexNormals[index] + customVertexNormals[index];
         }
     }
-    //[BurstCompile]
+    [BurstCompile(FloatPrecision.High, FloatMode.Default, CompileSynchronously = true)]
     public struct CalculeCorrectedDeltaNormalsJob : IJobParallelFor
     {
         [ReadOnly]
@@ -308,7 +309,7 @@ namespace Assets.TValle.Tools.Editor.MeshNormalImporter.Clases
 
         public void Execute(int index)
         {
-            correctedDeltaNormals[index] = importedVertexNormals[index] - correctedVertexNormals[index];
+            correctedDeltaNormals[index] = correctedVertexNormals[index] - importedVertexNormals[index];
         }
     }
 

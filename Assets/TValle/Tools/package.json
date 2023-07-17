@@ -1,0 +1,16 @@
+{
+  "name": "com.tvallegames.modding.tools",
+  "displayName": "TValle.Modding.Tools",
+  "description": "",
+  "version": "1.0.0",
+  "unity": "2022.3",
+  "dependencies": {
+    "com.unity.mathematics": "1.2.4",
+    "com.unity.burst": "1.8.4",
+    "com.unity.collections": "2.1.4"
+  },
+  "author": {
+    "name": "TValle",
+    "email": "tvallegames@gmail.com"
+  }
+}

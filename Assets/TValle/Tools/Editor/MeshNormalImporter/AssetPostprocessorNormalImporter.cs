@@ -14,6 +14,7 @@ namespace Assets.TValle.Tools.MeshNormalImporter
     public class AssetPostprocessorNormalImporter : AssetPostprocessor
     {
         static readonly HashSet<string> ShapesToZero = new HashSet<string>() { "BODY_Niple_OutSize_p", "BODY_Niple_OutSize_n" };
+        static readonly HashSet<string> ShapesToQuarter = new HashSet<string>() { "PEZON_Typo_Zero" };
 
         public const string label = "CorrectBlendShapeNormals";
         void OnPostprocessModel(GameObject g)
@@ -201,6 +202,11 @@ namespace Assets.TValle.Tools.MeshNormalImporter
                 {
                     deltaNormals = deltaNormals.Select(dn => new Vector3()).ToArray();
                     Debug.Log("Shape: " + shapeName + " delta Normals where set to Zero");
+                }
+                else if(ShapesToQuarter.Contains(shapeName))
+                {
+                    deltaNormals = m_corrector.correctedDeltaNormals.Reinterpret<Vector3>().Select(cn => cn * 0.25f).ToArray();
+                    Debug.Log("Shape: " + shapeName + " delta Normals where set to a Quarter");
                 }
                 else
                 {

@@ -2,6 +2,7 @@ fileFormatVersion: 2
 guid: b5568a08ae6e8f24090ad547630bf6f4
 labels:
 - CorrectBlendShapeNormals
+- CorrectFemaleBindPoses
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []

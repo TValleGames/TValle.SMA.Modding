@@ -8,7 +8,7 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace Assets.TValle.Tools.Editor.MeshNormalImporter.Clases
+namespace Assets.TValle.Tools.MeshNormalImporter.Clases
 {
 
     [BurstCompile(FloatPrecision.High, FloatMode.Default, CompileSynchronously = true)]

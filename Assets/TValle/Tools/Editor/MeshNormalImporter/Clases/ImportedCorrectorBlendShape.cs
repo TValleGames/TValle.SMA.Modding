@@ -8,7 +8,7 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace Assets.TValle.Tools.Editor.MeshNormalImporter.Clases
+namespace Assets.TValle.Tools.MeshNormalImporter.Clases
 {
     public class ImportedCorrectorBlendShape : ImportedCorrectorBase
     {
@@ -189,7 +189,7 @@ namespace Assets.TValle.Tools.Editor.MeshNormalImporter.Clases
         public JobHandle Init(JobHandle dependency)
         {
             dependency = InitBase(dependency);
-            m_points = new NativeList<float3>(importedVertices.Length, Allocator.Persistent);
+            //m_points = new NativeList<float3>(importedVertices.Length, Allocator.Persistent);
             m_customNormals = new NativeArray<float3>(importedVertices.Length, Allocator.Persistent);
 
             //

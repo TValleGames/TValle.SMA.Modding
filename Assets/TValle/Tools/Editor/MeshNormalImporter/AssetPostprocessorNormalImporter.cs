@@ -1,4 +1,4 @@
-﻿using Assets.TValle.Tools.Editor.MeshNormalImporter.Clases;
+﻿using Assets.TValle.Tools.MeshNormalImporter.Clases;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,10 +9,12 @@ using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 
-namespace Assets.TValle.Tools.Editor.MeshNormalImporter
+namespace Assets.TValle.Tools.MeshNormalImporter
 {
     public class AssetPostprocessorNormalImporter : AssetPostprocessor
     {
+        static readonly HashSet<string> ShapesToZero = new HashSet<string>() { "BODY_Niple_OutSize_p", "BODY_Niple_OutSize_n" };
+
         public const string label = "CorrectBlendShapeNormals";
         void OnPostprocessModel(GameObject g)
         {
@@ -25,7 +27,7 @@ namespace Assets.TValle.Tools.Editor.MeshNormalImporter
                 {
                     FixBlendShapeNormals(item);
                 }
-                Debug.Log("****Terminado*****");
+                Debug.Log("****Finished*****");
             }
         }
         void FixBlendShapeNormals(SkinnedMeshRenderer renderer)
@@ -146,7 +148,7 @@ namespace Assets.TValle.Tools.Editor.MeshNormalImporter
                 importedTriangles.Dispose();
                 importedVertices.Dispose();
                 importedNormals.Dispose();
-
+                m_corrector.Dispose();
             }
 
         }
@@ -194,7 +196,16 @@ namespace Assets.TValle.Tools.Editor.MeshNormalImporter
             }
             public void ModCorrectedDeltas()
             {
-                deltaNormals = m_corrector.correctedDeltaNormals.Reinterpret<Vector3>().ToArray();
+
+                if(ShapesToZero.Contains(shapeName))
+                {
+                    deltaNormals = deltaNormals.Select(dn => new Vector3()).ToArray();
+                    Debug.Log("Shape: " + shapeName + " delta Normals where set to Zero");
+                }
+                else
+                {
+                    deltaNormals = m_corrector.correctedDeltaNormals.Reinterpret<Vector3>().ToArray();
+                }
             }
             public void Correct()
             {

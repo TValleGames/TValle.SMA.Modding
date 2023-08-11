@@ -36,7 +36,7 @@ MonoBehaviour:
     colorBufferFormat: 74
     supportCustomPass: 1
     customBufferFormat: 8
-    supportedLitShaderMode: 2
+    supportedLitShaderMode: 3
     planarReflectionResolution:
       m_Values: 000100000004000000080000
       m_SchemaId:
@@ -54,9 +54,9 @@ MonoBehaviour:
     supportRuntimeAOVAPI: 0
     supportDitheringCrossFade: 1
     supportTerrainHole: 0
-    lightProbeSystem: 0
+    lightProbeSystem: 1
     probeVolumeMemoryBudget: 1024
-    probeVolumeBlendingMemoryBudget: 128
+    probeVolumeBlendingMemoryBudget: 256
     supportProbeVolumeStreaming: 0
     probeVolumeSHBands: 1
     supportRayTracing: 0

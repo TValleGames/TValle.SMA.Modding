@@ -8,9 +8,12 @@ using UnityEngine;
 
 namespace Assets.TValle.Tools.MeshBindPosesCorrector
 {
+    /// <summary>
+    /// Used Only by TValle, i mean, it requires de main female avatar
+    /// </summary>
     public class LoadBindPoseIntoMapWindow : EditorWindow
     {
-        [MenuItem("TValle/Windows/Load Bind Pose Into Map")]
+        [MenuItem("TValle/Windows/Load Bind Pose Into Map (DO NOT USE)")]
         static void Init()
         {
             LoadBindPoseIntoMapWindow window = EditorWindow.GetWindow<LoadBindPoseIntoMapWindow>(true, null, false);
@@ -20,6 +23,7 @@ namespace Assets.TValle.Tools.MeshBindPosesCorrector
 
 
         public GameObject femaleAvatar;
+        public SkinnedMeshRenderer mainMesh;
         public MapOfFemaleAvatarBindPoses targetMap;
         void OnGUI()
         {
@@ -35,6 +39,9 @@ namespace Assets.TValle.Tools.MeshBindPosesCorrector
             {
                 var renderers = femaleAvatar.GetComponentsInChildren<SkinnedMeshRenderer>();
                 Dictionary<string, (Transform, Matrix4x4)> data = new Dictionary<string, (Transform, Matrix4x4)>();
+                Transform[] mainbones = null;
+
+
                 for(int rendererIndex = 0; rendererIndex < renderers.Length; rendererIndex++)
                 {
                     var renderer = renderers[rendererIndex];
@@ -44,10 +51,11 @@ namespace Assets.TValle.Tools.MeshBindPosesCorrector
                     {
                         data.TryAdd(bones[i].name, (bones[i], bindPoses[i]));
                     }
-                   
+                    if(renderer == mainMesh)
+                        mainbones = renderer.bones;
                 }
 
-                targetMap.SetData(data);
+                targetMap.SetData(data, mainbones);
                 var fromMap = targetMap.GetData();
                 if(fromMap.Count == data.Count)
                 {

@@ -11,28 +11,40 @@ namespace Assets.TValle.Tools.MeshBindPosesCorrector.Maps
     {
         //just to remove the anoying alert
         internal string msg => m_msg;
+        static Dictionary<string, Matrix4x4> m_data;
 
         [SerializeField]
         [JustToReadUI]
         string m_msg = "DO NOT modify this data";
 
-        [HideInInspector]
+        //[HideInInspector]
         [SerializeField]
         [JustToReadUI]
         string[] m_names;
-        [HideInInspector]
+        //[HideInInspector]
         [SerializeField]
         [JustToReadUI]
         Matrix[] m_poses;
 
-        internal void SetData(Dictionary<string, (Transform, Matrix4x4)> data)
+        //[HideInInspector]
+        [SerializeField]
+        [JustToReadUI]
+        string[] m_mainBonesNames;
+
+
+        internal void SetData(Dictionary<string, (Transform, Matrix4x4)> data, Transform[] mainBones)
         {
             m_names = data.Keys.ToArray();
             m_poses = data.Values.Select(par => (Matrix)par.Item2).ToArray();
+            m_mainBonesNames = mainBones.Select(b => b.name).ToArray();
         }
         internal IReadOnlyDictionary<string, Matrix4x4> GetData()
+        {           
+            return m_names.Select((n, i) => (n, m_poses[i])).ToDictionary(par => par.n, par => (Matrix4x4)par.Item2); ;
+        }
+        internal IReadOnlyList<string> GetMainBonesData()
         {
-            return m_names.Select((n, i) => (n, m_poses[i])).ToDictionary(par => par.n, par => (Matrix4x4)par.Item2);
+            return m_mainBonesNames;
         }
 
         [Serializable]

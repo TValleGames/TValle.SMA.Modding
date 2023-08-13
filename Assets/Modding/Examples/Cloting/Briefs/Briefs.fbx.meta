@@ -10,6 +10,16 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Material1
+    second: {fileID: 2100000, guid: 98436f271145c4a4784fb995bc66a1ba, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material2
+    second: {fileID: 2100000, guid: 52b6de7664896c046bc0d2fe16943fa2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: initialShadingGroup
     second: {fileID: 2100000, guid: 98436f271145c4a4784fb995bc66a1ba, type: 2}
   materials:

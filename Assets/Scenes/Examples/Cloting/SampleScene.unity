@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 4
+  m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
@@ -2146,8 +2146,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_avatar: {fileID: 438879809}
   m_clothingAssets:
-  - {fileID: -5224478260895610075, guid: ef681847c74e17b41af82e14f63790f7, type: 3}
-  - {fileID: -6268238552560437597, guid: 70c33695db221fc40bc802f0932e1712, type: 3}
+  - {fileID: 7385155597828581536, guid: 70c33695db221fc40bc802f0932e1712, type: 3}
+  - {fileID: -4189495794929698001, guid: ef681847c74e17b41af82e14f63790f7, type: 3}
 --- !u!4 &1608388582
 Transform:
   m_ObjectHideFlags: 0

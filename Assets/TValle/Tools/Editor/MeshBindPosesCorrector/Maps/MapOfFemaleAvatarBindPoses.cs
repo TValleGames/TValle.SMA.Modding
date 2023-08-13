@@ -17,16 +17,16 @@ namespace Assets.TValle.Tools.MeshBindPosesCorrector.Maps
         [JustToReadUI]
         string m_msg = "DO NOT modify this data";
 
-        //[HideInInspector]
+        [HideInInspector]
         [SerializeField]
         [JustToReadUI]
         string[] m_names;
-        //[HideInInspector]
+        [HideInInspector]
         [SerializeField]
         [JustToReadUI]
         Matrix[] m_poses;
 
-        //[HideInInspector]
+        [HideInInspector]
         [SerializeField]
         [JustToReadUI]
         string[] m_mainBonesNames;

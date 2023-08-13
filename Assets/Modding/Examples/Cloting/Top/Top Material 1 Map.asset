@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e6cf2fcf30227f4694e82d05c124e48, type: 3}
+  m_Name: Top Material 1 Map
+  m_EditorClassIdentifier: 
+  m_displayId: TValle.ClotingMaterials.Top Sample Material 1 (only for educational
+    uses)
+  m_id: tvalle.clotingmaterials.topsamplematerial1onlyforeducationaluses
+  organization: TValle
+  category: ClotingMaterials
+  fullName: Top Sample Material 1 (only for educational uses)
+  inGameNames:
+  - language: 1
+    name: colorful stripes
+    isPlural: 1
+  version: 1
+  displayAutorsOnUsed: 0
+  autors:
+  - name: 81st-north
+    URL: https://www.cgtrader.com/81st-north
+  materialAddress:
+    m_AssetGUID: f1b538c5876e93b40b565aca3846178b
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  diffusionProfilesAddress:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0

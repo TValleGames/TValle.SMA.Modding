@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Top&Briefs (Mod Example)
+  m_Name: Briefs (Mod Example)
   m_EditorClassIdentifier: 
-  m_GroupName: Top&Briefs (Mod Example)
+  m_GroupName: Briefs (Mod Example)
   m_Data:
     m_SerializedData: []
   m_GUID: 39eab76843d67b74e81c82093de050b5
@@ -37,28 +37,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f1b538c5876e93b40b565aca3846178b
-    m_Address: Assets/Modding/Examples/Cloting/Top/Top Material 1.mat
+  - m_GUID: ef681847c74e17b41af82e14f63790f7
+    m_Address: Assets/Modding/Examples/Cloting/Briefs/Briefs.fbx
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 41594f80728781742a014b61fbd69c0d
-    m_Address: Assets/Modding/Examples/Cloting/Top/Top Material 2.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7d89c977f18cba647b7ff3cab34463c1
-    m_Address: Assets/Modding/Examples/Cloting/Top/Top Material 2 Map.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 38c205064dea094489583c14aaf2784b
-    m_Address: Assets/Modding/Examples/Cloting/Top/Top Material 1 Map.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 70c33695db221fc40bc802f0932e1712
-    m_Address: Assets/Modding/Examples/Cloting/Top/Top.fbx
+  - m_GUID: 6215cf1155f6bc54e943417464dca7f2
+    m_Address: Assets/Modding/Examples/Cloting/Briefs/Briefs ClothingItemMap.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

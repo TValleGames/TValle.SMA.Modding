@@ -49,8 +49,8 @@ namespace Assets.TValle.Tools.Runtime.Moddding.Cloting.Maps
         [Space]
         [Tooltip("Since the male and female avatars are different, it is important to know which gender this piece of clothing is for when creating random outfits.")]
         public Sex sex;
-        [Tooltip("it is important when creating random outfits.")]
-        public Type tipe;
+        [Tooltip("Are they underwear or stockings? either the upper body or lower body? It is important when creating random outfits.")]
+        public Type type;
         [Tooltip("probability that the generator will choose this item of clothing. (100% means that it will have the same opportunity as the rest of the clothes that also have 100%, 50% means half, and so on).")]
         [Range(0, 100)]
         public float chance = 100;

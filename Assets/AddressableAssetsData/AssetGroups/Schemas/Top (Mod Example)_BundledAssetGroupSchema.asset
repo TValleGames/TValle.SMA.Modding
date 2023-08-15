@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5d17a21594effb4e9591490b009e7aa, type: 3}
-  m_Name: Top&Briefs (Mod Example)_BundledAssetGroupSchema
+  m_Name: Top (Mod Example)_BundledAssetGroupSchema
   m_EditorClassIdentifier: 
-  m_Group: {fileID: 11400000, guid: f9bb51e70c36ee8429778b59fc6e0472, type: 2}
+  m_Group: {fileID: 11400000, guid: 369f34040685bdf44834827fb29d641c, type: 2}
   m_InternalBundleIdMode: 1
   m_Compression: 1
   m_IncludeAddressInCatalog: 1

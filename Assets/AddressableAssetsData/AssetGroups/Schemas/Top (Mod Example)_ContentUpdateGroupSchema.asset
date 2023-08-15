@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5834b5087d578d24c926ce20cd31e6d6, type: 3}
-  m_Name: Top&Briefs (Mod Example)_ContentUpdateGroupSchema
+  m_Name: Top (Mod Example)_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
-  m_Group: {fileID: 11400000, guid: f9bb51e70c36ee8429778b59fc6e0472, type: 2}
+  m_Group: {fileID: 11400000, guid: 369f34040685bdf44834827fb29d641c, type: 2}
   m_StaticContent: 0

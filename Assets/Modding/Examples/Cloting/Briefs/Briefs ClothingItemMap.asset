@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a517d83924375d84b80a7d0762ea312c, type: 3}
-  m_Name: Top ClothingItemMap
+  m_Name: Briefs ClothingItemMap
   m_EditorClassIdentifier: 
-  m_displayId: TValle.Cloting Items.Top Sample (only for educational uses)
-  m_id: tvalle.clotingitems.topsampleonlyforeducationaluses
+  m_displayId: TValle.Cloting Items.Briefs Sample (only for educational uses)
+  m_id: tvalle.clotingitems.briefssampleonlyforeducationaluses
   organization: TValle
   category: Cloting Items
-  fullName: Top Sample (only for educational uses)
+  fullName: Briefs Sample (only for educational uses)
   inGameNames:
   - language: 1
-    name: Top
+    name: Briefs
     isPlural: 0
   version: 1
   displayAutorsOnUsed: 1
@@ -27,21 +27,21 @@ MonoBehaviour:
   - name: 81st-north
     URL: https://www.cgtrader.com/81st-north
   address:
-    m_AssetGUID: 70c33695db221fc40bc802f0932e1712
-    m_SubObjectName: Top Mesh
+    m_AssetGUID: ef681847c74e17b41af82e14f63790f7
+    m_SubObjectName: Briefs Mesh
     m_SubObjectType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     m_EditorAssetChanged: 0
   layer: 3
   gameConfigsTessellation: 0
   canCollideAgainstSemen: 1
-  normalRecalculators: 3
+  normalRecalculators: 60
   heelConfig:
     toeHeigth: 0
     heelHeigth: 0
   breastConfig:
     siffnessModifier: 1
-    nippleProjectionModifier: 0.944
+    nippleProjectionModifier: 1
     nippleShapeModifier: 1
     distanceBetweenModifier: 1
   assConfig:
@@ -52,22 +52,20 @@ MonoBehaviour:
     wearModifier: 1
   anusConfig:
     wearModifier: 1
-  selfUndressingPosition: 1
-  covers: 10747907
+  selfUndressingPosition: 2
+  covers: 32828
   sex: 2
-  type: 4
+  type: 3
   chance: 100
   canWearStockings: 1
   materialsPerIndex:
   - materialIndex: 0
     materials:
-    - {fileID: 11400000, guid: 38c205064dea094489583c14aaf2784b, type: 2}
+    - {fileID: 11400000, guid: f60e6e07fd613194cb114d678082832e, type: 2}
   - materialIndex: 1
     materials:
-    - {fileID: 11400000, guid: 7d89c977f18cba647b7ff3cab34463c1, type: 2}
-  customScripts:
-  - type: CustomClothingItemScriptExample
-    script: {fileID: 11500000, guid: b12ee40c9e232b34bad4876c3dfae63a, type: 3}
+    - {fileID: 11400000, guid: 2fd694a7a799d604c9d067c3ac3daa61, type: 2}
+  customScripts: []
   customArmatureAddress:
     m_AssetGUID: 
     m_SubObjectName: 

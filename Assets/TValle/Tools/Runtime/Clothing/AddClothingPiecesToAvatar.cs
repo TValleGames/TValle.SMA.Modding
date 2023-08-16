@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Assets.TValle.Tools.Runtime.Cloting
+namespace Assets.TValle.Tools.Runtime.Clothing
 {
     public class AddClothingPiecesToAvatar : MonoBehaviour
     {

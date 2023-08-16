@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
+using UnityEditor.AddressableAssets.Build;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEditor.AddressableAssets.Settings.GroupSchemas;
 using UnityEditorInternal;
@@ -49,9 +50,14 @@ namespace Assets.TValle.Tools.Moddding
 
                 EditorGUILayout.LabelField("Check ONLY your Cloting Mods To export.");
                 m_modsDrawer.DoLayoutList();
+
+                EditorGUILayout.LabelField("", new GUIStyle("CN EntryWarnIcon"), GUILayout.Height(30));
+                EditorGUILayout.LabelField("Remember that when you publish a mod, you have to publish the whole folder, which includes the.bundle and.json files.", EditorStyles.wordWrappedLabel);
+                EditorGUILayout.LabelField("The.hash file is not necessary, but if it is there, it will be used to check if the.bundle file is corrupted.", EditorStyles.wordWrappedLabel);
                 EditorGUILayout.LabelField("", new GUIStyle("CN EntryWarnIcon"), GUILayout.Height(30));
                 EditorGUILayout.LabelField("Warning: You can't change the name of the bundle file or the name of the folder it's in. " +
                     "If these files are in a different place, the game won't be able to read them.", EditorStyles.wordWrappedLabel/*,*/ /*new GUIStyle("WarningOverlay"),*/ /*GUILayout.Height(100)*/);
+
 
                 if(GUILayout.Button("Export"))
                 {
@@ -65,9 +71,21 @@ namespace Assets.TValle.Tools.Moddding
                             continue;
 
                         var modDir = Directorys.RemoveInvalid(mod.name);
+                        var completeModDir = Path.Combine(Directorys.clothingModsPath, modDir);
+
+                        {
+                            Debug.Log("Deleting old files in : " + completeModDir);
+
+                            DirectoryInfo completeModDirDirectoryInfo = new DirectoryInfo(completeModDir);
+                            var bundleFiles = completeModDirDirectoryInfo.GetFiles("*.*", SearchOption.TopDirectoryOnly).Where(f => f.Extension == ".bundle").Select(f => f.FullName);
+                            foreach(var item in bundleFiles)
+                            {
+                                File.Delete(item);
+                            }
+                        }
 
 
-                        settings.profileSettings.SetValue(activeProfileId, AddressableAssetSettings.kLocalBuildPath, Path.Combine(Directorys.clothingModsPath, modDir));
+                        settings.profileSettings.SetValue(activeProfileId, AddressableAssetSettings.kLocalBuildPath, completeModDir);
                         settings.profileSettings.SetValue(activeProfileId, AddressableAssetSettings.kLocalLoadPath, Path.Combine(Directorys.clothingModsTypePath, modDir));
 
 
@@ -76,7 +94,18 @@ namespace Assets.TValle.Tools.Moddding
                         var groupSchema = mod.settings.GetSchema<BundledAssetGroupSchema>();
                         groupSchema.IncludeInBuild = true;
                         EditorUtility.SetDirty(mod.settings);
-                        AddressableAssetSettings.BuildPlayerContent();
+                        AddressableAssetSettings.BuildPlayerContent(out AddressablesPlayerBuildResult result);
+
+                        if(string.IsNullOrWhiteSpace(result.Error))
+                        {
+                            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo
+                            {
+                                Arguments = completeModDir,
+                                FileName = "explorer.exe",
+                            };
+
+                            System.Diagnostics.Process.Start(startInfo);
+                        }
                     }
 
 

@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Assets.TValle.Tools.Runtime.Moddding.Cloting.Maps
+namespace Assets.TValle.Tools.Runtime.Moddding.Clothing.Maps
 {
     [CreateAssetMenu(fileName = "ClothingItemMap", menuName = "TValle/Modding/Cloting/ClothingItemMap")]
     public class ClothingItemMap : ModdingMap
@@ -21,7 +21,7 @@ namespace Assets.TValle.Tools.Runtime.Moddding.Cloting.Maps
         public bool gameConfigsTessellation;
         [Tooltip("If your mesh is not so complex and you want it to be able to collide against semen, set this to true. (Read/Write import settings MUST be on.)")]
         public bool canCollideAgainstSemen;
-        [Tooltip("If your clothing item covers the breasts, it is advisable to select left and right breasts, the same for the buttocks, and the skin around the anus. if covers the breasts or ass, it dramatically improves the visual aspect of this clothing item.")]
+        [Tooltip("If your clothing item covers the breasts, it is advisable to select left and right breasts, the same for the buttocks, and the skin around the anus. if covers the breasts or ass, it dramatically improves the visual aspect of this clothing item. Remember that you need to have transfer the vertex-colors from the sample mesh to your clothing mesh.")]
         public NormalRecalculators normalRecalculators;
         [Tooltip("MODIFY ONLY IF this Clothing Item has high heels.")]
         public HeelConfig heelConfig = new HeelConfig();

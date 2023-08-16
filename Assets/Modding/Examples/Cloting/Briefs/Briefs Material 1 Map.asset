@@ -32,6 +32,9 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  chance: 100
+  canBeCustomColor: 0
+  canBeCustomOpacity: 0
   diffusionProfilesAddress:
     m_AssetGUID: 
     m_SubObjectName: 

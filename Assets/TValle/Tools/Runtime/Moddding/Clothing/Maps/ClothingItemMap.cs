@@ -97,10 +97,7 @@ namespace Assets.TValle.Tools.Runtime.Moddding.Clothing.Maps
         protected override void OnValidate()
         {
             base.OnValidate();
-            if(customScripts != null)
-                for(int i = 0; i < customScripts.Count; i++)
-                    if(customScripts[i].script != null)
-                        customScripts[i].type = customScripts[i].script.name;
+
 
             if(materialsPerIndex != null)
                 for(int i = 0; i < materialsPerIndex.Count; i++)
@@ -160,7 +157,7 @@ namespace Assets.TValle.Tools.Runtime.Moddding.Clothing.Maps
         }
         [Serializable]
         public class AnusConfig
-        {           
+        {
             [Tooltip("If this clothing item hides the wear on the anus, decrease this value.")]
             [Range(0f, 1f)]
             public float wearModifier = 1;
@@ -278,6 +275,7 @@ namespace Assets.TValle.Tools.Runtime.Moddding.Clothing.Maps
             glasses = 10,
             socks = 8,
             gloves = 13,
+            hat = 14,
         }
         public enum Layer
         {
@@ -345,10 +343,8 @@ namespace Assets.TValle.Tools.Runtime.Moddding.Clothing.Maps
         [Serializable]
         public class CustomScript
         {
-            [JustToReadUI]
-            public string type;
-            [Tooltip("Drop a script that you created here. EXPERIMENTAL: create a custom script and drop it here, in unity the file of this cript name MUST be the same name as this type name")]
-            public TextAsset script;
+            [AssemblyQualifiedName]
+            public string assemblyQualifiedName;
         }
         [Serializable]
         public class CustomCollider

@@ -66,8 +66,8 @@ MonoBehaviour:
     materials:
     - {fileID: 11400000, guid: 7d89c977f18cba647b7ff3cab34463c1, type: 2}
   customScripts:
-  - type: CustomClothingItemScriptExample
-    script: {fileID: 11500000, guid: b12ee40c9e232b34bad4876c3dfae63a, type: 3}
+  - assemblyQualifiedName: CustomClothingItemScriptExample, MyCustomScriptsDllExample,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   customArmatureAddress:
     m_AssetGUID: 
     m_SubObjectName: 

@@ -16,7 +16,10 @@ public interface ICustomClothingItemScript
     /// </summary>
     /// <param name="yourClothingItemInstantiatedColliders">optional, only if you declared them in the map</param>
     void OnCollidersInit(IReadOnlyList<GameObject> yourClothingItemInstantiatedColliders);
-
+    /// <summary>
+    /// called just after materials are added
+    /// </summary>
+    void OnMaterialsAdded();
 
     /// <summary>
     /// called just after this Clothing Item is added to an avatar
@@ -25,10 +28,12 @@ public interface ICustomClothingItemScript
 
     /// <summary>
     /// called just after this Clothing Item is worn
+    /// <para>Warning: maybe call twice</para>
     /// </summary>
     void OnShown();
     /// <summary>
     /// called just after this item of clothing is undressed and hidden
+    
     /// </summary>
     void OnHidden();
 

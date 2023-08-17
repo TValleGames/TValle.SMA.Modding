@@ -13,10 +13,16 @@ public class CustomClothingItemScriptExample : MonoBehaviour, ICustomClothingIte
     bool m_equiped;
     [SerializeField]
     bool m_shown;
-
-
+    [SerializeField]
+    bool m_materialsAdded;
+    [SerializeField]
     SkinnedMeshRenderer m_renderer;
-    Material m_firstMaterial;
+    [SerializeField]
+    Material m_firstMaterial;//
+
+
+    [SerializeField]
+    float m_coolDown;
 
     // Awake is just after this Behaviour instance is created
     private void Awake()
@@ -26,7 +32,7 @@ public class CustomClothingItemScriptExample : MonoBehaviour, ICustomClothingIte
     // Start is called before the first frame update
     IEnumerator Start()
     {
-        while(!m_equiped || !m_shown)//wait till this item is equiped and shown
+        while(!m_equiped || !m_shown || !m_materialsAdded)//wait till this item is equiped and shown and the new materials are added
             yield return null;//if not, try again the next frame
 
 
@@ -37,8 +43,17 @@ public class CustomClothingItemScriptExample : MonoBehaviour, ICustomClothingIte
     // Update is called once per frame
     void Update()
     {
-        if(m_equiped && m_shown && m_firstMaterial != null)//we'll change the main color to a Random color
-            m_firstMaterial.SetColor("_BaseColor", UnityEngine.Random.ColorHSV());
+        m_coolDown = m_coolDown - Time.deltaTime;
+        if(m_coolDown < 0)
+        {
+            if(m_equiped && m_shown && m_materialsAdded && m_firstMaterial != null)//we'll change the main color to a Random color
+            {
+                m_firstMaterial.SetColor("_BaseColor", UnityEngine.Random.ColorHSV());
+                Debug.Log("Im a script changin the color of this material: " + m_firstMaterial.name + " every second, its not a bug ¬¬");
+            }
+            m_coolDown = 1f;
+        }
+
     }
     // OnDestroy is called once just before this Behaviour instance is destroyed
     private void OnDestroy()
@@ -49,11 +64,15 @@ public class CustomClothingItemScriptExample : MonoBehaviour, ICustomClothingIte
 
     void ICustomClothingItemScript.OnInit(GameObject yourClothingItemInstance, GameObject yourClothingItemCustomArmatureInstance)
     {
-        
+
     }
     void ICustomClothingItemScript.OnCollidersInit(IReadOnlyList<GameObject> yourClothingItemInstantiatedColliders)
     {
-        
+
+    }
+    void ICustomClothingItemScript.OnMaterialsAdded()
+    {
+        m_materialsAdded = true;
     }
 
     void ICustomClothingItemScript.OnAdded()
@@ -76,5 +95,5 @@ public class CustomClothingItemScriptExample : MonoBehaviour, ICustomClothingIte
         m_equiped = false;
     }
 
-    
+
 }

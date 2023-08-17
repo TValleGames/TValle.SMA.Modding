@@ -1,0 +1,16 @@
+{
+    "name": "MyCustomScriptsDllExample",
+    "rootNamespace": "",
+    "references": [
+        "GUID:75921ae8eb9610347a7893b059030e18"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

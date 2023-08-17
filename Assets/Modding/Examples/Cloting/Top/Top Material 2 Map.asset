@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e6cf2fcf30227f4694e82d05c124e48, type: 3}
   m_Name: Top Material 2 Map
   m_EditorClassIdentifier: 
-  m_displayId: TValle.Cloting Materials.Top Sample Material 2 (only for educational
+  m_displayId: TValle.Clothing Materials.Top Sample Material 2 (only for educational
     uses)
-  m_id: tvalle.clotingmaterials.topsamplematerial2onlyforeducationaluses
+  m_id: tvalle.clothingmaterials.topsamplematerial2onlyforeducationaluses
   organization: TValle
-  category: Cloting Materials
+  category: Clothing Materials
   fullName: Top Sample Material 2 (only for educational uses)
   inGameNames:
   - language: 1

@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e6cf2fcf30227f4694e82d05c124e48, type: 3}
   m_Name: Briefs Material 1 Map
   m_EditorClassIdentifier: 
-  m_displayId: TValle.Cloting Materials.Briefs Sample Material 1 (only for educational
+  m_displayId: TValle.Clothing Materials.Briefs Sample Material 1 (only for educational
     uses)
-  m_id: tvalle.clotingmaterials.briefssamplematerial1onlyforeducationaluses
+  m_id: tvalle.clothingmaterials.briefssamplematerial1onlyforeducationaluses
   organization: TValle
-  category: Cloting Materials
+  category: Clothing Materials
   fullName: Briefs Sample Material 1 (only for educational uses)
   inGameNames:
   - language: 1

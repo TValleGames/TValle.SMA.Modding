@@ -58,7 +58,7 @@ public class CustomClothingItemScriptExample : MonoBehaviour, ICustomClothingIte
     // OnDestroy is called once just before this Behaviour instance is destroyed
     private void OnDestroy()
     {
-        //clear anything you have created, here
+        //clear and destroy anything you have created/instantiated, here
     }
 
 

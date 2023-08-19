@@ -23,7 +23,7 @@ namespace Assets.TValle.Tools.Runtime.Clothing
             var avatarSkins = m_avatar.GetComponentsInChildren<SkinnedMeshRenderer>();
             var avatarBones = avatarSkins.SelectMany(s => s.bones).Distinct().ToDictionary(b => b.name);
 
-            m_clothingInstances = m_clothingAssets.Select(a => Instantiate(a, m_avatar.transform.position, m_avatar.transform.rotation, m_avatar.transform)).ToArray();
+            m_clothingInstances = m_clothingAssets.Where(a => a != null).Select(a => Instantiate(a, m_avatar.transform.position, m_avatar.transform.rotation, m_avatar.transform)).ToArray();
 
             foreach(var clothing in m_clothingInstances)
             {

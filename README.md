@@ -39,13 +39,13 @@ Again, it all depends on how close the clothing mesh is to the skin mesh of the 
 After transferring the vertex groups, it is a good idea to clean them using the "LimpiarGruposVacios" addon.
 
 
-[IMAGE]: vertex groups cleaner
+![vertex group cleaner](https://github.com/TValleGames/TValle.SMA.Modding/assets/139646206/4746ef88-f686-49e0-ad32-2cf2df08a5ca)
 
 
 If the clothing mesh and the female avatar have very different topologies, you will have to take additional steps. A recommendation is to use the smooth, selecting the bones with influence on the zone of the mesh with skinning problems (most bones that have a vertex group assigned end in ".DEF") as well as in the picture.
 
 
-[IMAGE]: the example of smooth selection of multiple bones
+![Skinning Smoth](https://github.com/TValleGames/TValle.SMA.Modding/assets/139646206/1f3a3db8-9513-4960-9e5b-616125c166e9)
 
 
 Then you will have to manually paint until you get a good result using the body proportions that your female character has in the game.
@@ -60,7 +60,7 @@ Also, it is good to use the additional addon "CleanAndRemoveUnusedShapeKeys".
 First of all, make sure that the transforms of the clothing meshes and the female avatar have the same properties.
 
 
-[IMAGE]: transformation of the same clothes and skin
+![Transforms de ropa y piel iguales](https://github.com/TValleGames/TValle.SMA.Modding/assets/139646206/161e87f6-b42b-470e-8e57-1f60a34791eb)
 
 
 If, when changing the properties of the clothing transform, it rotates, moves, enlarges, or shrinks, that is, if it is out of sync with the female avatar, what you should do is:
@@ -70,7 +70,7 @@ If, when changing the properties of the clothing transform, it rotates, moves, e
 Now your clothing mesh and the female avatar should be positioned correctly.
 
 
-[IMAGE]: before mapping
+![Before mapping](https://github.com/TValleGames/TValle.SMA.Modding/assets/139646206/05f3ca1d-2e1e-47ac-9c08-a6735ca3d949)
 
 
 Set the "Source Object" as "Female Clothing Avatar" or "Female Clothes Shape Keys", Keep in mind that by selecting the latter, the result can be much better, but the time it will take will be considerably longer (several minutes or even hours, depending on the number of vertices your clothing mesh has).
@@ -79,7 +79,7 @@ The "transform" and "modifiers" should be disabled.
 Press "Create Vertex Mapping" and wait for the process (blender will just freeze; that's normal) to finish. Depending on the "Source Object" and the number of vertices that the clothing mesh has, this process can take several seconds to several minutes.
 
 
-[IMAGE]: after mapping
+![After mapping](https://github.com/TValleGames/TValle.SMA.Modding/assets/139646206/03a59e0f-135a-4268-b15f-fbceb71cb5b9)
 
 Configure the interface as in the image and press "Transfer Shapekeys", Once again, depending on the number of vertices involved, the process will take from several seconds to several minutes.
 
@@ -89,7 +89,7 @@ If the result is not perfect but not too bad, you can go from shape to shape, ma
 Once you are happy with the Blend Shapes or Shape Keys, you can use the "CleanAndRemoveUnusedShapeKeys" addon, which will reduce the size of the FBX when exported and make it easier to import into the game engine.
 
 
-[IMAGE]: shape key cleaner
+![Shape keys cleaner](https://github.com/TValleGames/TValle.SMA.Modding/assets/139646206/d7608d3a-1920-46c8-99cf-3e775189a33d)
 
 
 ## Vertex Colors
@@ -99,11 +99,14 @@ and the red channel, which is used to negate the recalculation of the breast nor
 I recommend always transferring the red channel and the green channel only if the clothing mesh is very close to or at the same height as the skin.
 If the clothing mesh is slightly higher than the skin, you can transfer only a percentage of the green channel, say 50%, and see the result in-game.
 
+![Current Vertex Colors](https://github.com/TValleGames/TValle.SMA.Modding/assets/139646206/56082720-0c70-4fcb-b3ca-c8da53b754e5)
 
 ## Interactions with clothing
 
 Make a copy of the original clothing mesh, then sculpt it in such a way that it exposes some part of the body, e.g., unbuttoned pants. Then repeat all the steps above without deleting any vertices. In the original clothing mesh, select the "Join as Shapes" option. In this way, you will have a shape that morphs your original clothing mesh into the one that exposes some part of the body.
-[IMAGE]: example of clothing interactions
+
+![ejemplo de interacciones de ropa](https://github.com/TValleGames/TValle.SMA.Modding/assets/139646206/2cfdac84-9da8-4feb-84bf-3a5f6933e6ae)
+
 In this way, you will have the original mesh, a shape that transforms your original mesh into the mesh exposing some part of the body, and the mesh that exposes the part of the body. You will need them later in Unity to configure your clothing asset with the interaction.
 
 
@@ -112,7 +115,7 @@ In this way, you will have the original mesh, a shape that transforms your origi
 Activate the "Armature" modifier of the clothing mesh, select the armature plus the clothing mesh, select the export fbx option, and set the options like this:
 
 
-[IMAGE]: export config
+![Blender Export settings](https://github.com/TValleGames/TValle.SMA.Modding/assets/139646206/b10d5ae9-68e9-4b18-9a2d-573078e06dac)
 
 
 After configuring these settings, you can save this preset, so you only need to select it every time you have to export a mesh.
@@ -128,7 +131,7 @@ To create a new mod:
 Create a new folder with your artistic name in "Assets/Modding/Clothing", as shown in the image.
 
 
-[IMAGE]: mods location
+![ubicacion para mods de ropa](https://github.com/TValleGames/TValle.SMA.Modding/assets/139646206/5ac05e6e-bdb4-444a-a10c-61e35e62733c)
 
 
 
@@ -137,18 +140,18 @@ Create a new folder with your artistic name in "Assets/Modding/Clothing", as sho
 Inside this folder (your artistic name), create one with the name of your mod, and import your clothing meshes by dragging them to this folder. Important: The import configuration is correct by default if your clothing mesh was imported into a subfolder in "Assets/Modding/Clothing" If not, you can use a preset already created in the project.
 
 
-[IMAGE]: select roap import preset
+![usar mesh import preset](https://github.com/TValleGames/TValle.SMA.Modding/assets/139646206/0dd1cd3d-729d-4b64-8785-f81dd770ba9e)
 
 
 Simply follow the image intrusions and double-click the preset to apply it.
-IMPORTANT:
+### IMPORTANT:
 You need to manually set the labels for your imported clothing mesh since the preset is not able to do this function.
 To do it, select your imported mesh, and in the lower right corner, you will see the name of your imported mesh. If you do not see the 3D figure, you must drag the bar up so you will see the mesh in its 3D form, and you will also see the label options.
 Choose these two labels for ALL your clothes mesh imports: "CorrectBlendShapeNormals" and "CorrectFemaleClothesBindPoses", If they don't exist, copy these labels, paste them in the search bar, and press enter. It is very important that your mods implement these two labels.
 
 
 
-[IMAGE]: label selection
+![mesh labels](https://github.com/TValleGames/TValle.SMA.Modding/assets/139646206/4ec198e7-9803-46be-824b-268765db7d83)
 
 
 ## Materials
@@ -156,13 +159,13 @@ Choose these two labels for ALL your clothes mesh imports: "CorrectBlendShapeNor
 Within this same folder of your mod, right-click and navigate to the option to create material, as well as in the image.
 
 
-[IMAGE]: create material
+![crear material ](https://github.com/TValleGames/TValle.SMA.Modding/assets/139646206/759bd902-cb26-4405-b69d-52bebedb24fe)
 
 
 Select this new material and apply the preset already in the project, so you don't have to deal with so many options.
 
 
-[IMAGE]: select material preset
+![default material preset](https://github.com/TValleGames/TValle.SMA.Modding/assets/139646206/f88e8435-74db-4896-a3ac-1f22ae98badb)
 
 
 This preset uses tessellation, but it is not required; it depends on the topology of the clothing mesh already explained above.
@@ -172,13 +175,13 @@ The game could work with materials created from shaders created in the "Shader G
 Now that you have your materials created for your clothing, you can see the results. To do so, select the imported clothing mesh and the "Materials" tab, assign or drag your materials to their corresponding boxes, and click Apply.
 
 
-[IMAGE]: replacement of materials
+![reeemplazar materiales](https://github.com/TValleGames/TValle.SMA.Modding/assets/139646206/d11ef057-355e-445d-be42-8d2df06c06b5)
 
 
 Now that you have your clothing mesh, you can test it. Look for the "GameObject" "AddClothingPiecesToAvatar" and drag your "SkinnedMeshRenderer" of the imported clothing to the "Clothing Assets" field. You can add more items to the list if you need them.
 
 
-[IMAGE]: test meshes
+![test ropa bialando](https://github.com/TValleGames/TValle.SMA.Modding/assets/139646206/342defe1-88e4-4987-8d4a-43a00b19fae3)
 
 
 Click Play to see your clothes animated.
@@ -190,7 +193,7 @@ Of course, now you need to tell the game how you want your clothing items to be 
 For this, you must create a "MaterialMap" for each material and a "ClothingItemMap" for each clothing mesh. It is better that you create them in the same folder where your materials and mesh are. To create them, right-click inside the folder and select the "MaterialMap" or "ClothingItemMap" option. Start with the materials first.
 
 
-[IMAGE]: creating maps
+![creando mapas](https://github.com/TValleGames/TValle.SMA.Modding/assets/139646206/429c484b-0212-4d21-bc7f-1fa5a66626f9)
 
 
 Each field of the maps is explained with tooltips; just remember that in the case of "ClothingItemMap" the "address" can be all the imported clothing mesh or it can be just the "SkinnedMeshRenderer", For most cases, it is better to use only the "SkinnedMeshRenderer".
@@ -202,14 +205,15 @@ Also important: the fields Organization," Category," "Full Name," and "In Game N
 With the mesh imported, the materials created, and the maps configured, you must create a new group with the same name as your mod in the "addressables" interface.
 
 
-[IMAGE]: Create an accessible group.
+![Crear grupo](https://github.com/TValleGames/TValle.SMA.Modding/assets/139646206/0c2c4d3f-f089-442d-994b-0e2a80c5c1af)
 
 
 Double-click on this new group and rename it to the same name as your mod.
 As you had already configured the "MaterialMap" and the "ClothingItemMap" maps, your materials and the imported mesh should already be declared in the "Default Local Group", Drag them out to the group you just created. You should also drag the "MaterialMap" and the " ClothingItemMap" you created. The textures are not needed; they will be automatically added to the bundle when exporting.
 
 
-[IMAGE]: drag items to group
+![arrastar items a grupo](https://github.com/TValleGames/TValle.SMA.Modding/assets/139646206/b21e91b3-5e7c-4244-94b4-f50fd65fd553)
+
 
 
 
@@ -218,10 +222,13 @@ As you had already configured the "MaterialMap" and the "ClothingItemMap" maps, 
 Now you just have to export your mod. To do it, go to "TValle/Modding/Windows/Clothing Mods Export Windows" in the toolbar.
 
 
-[IMAGE]: open export window
+
+![abrir ventana de export](https://github.com/TValleGames/TValle.SMA.Modding/assets/139646206/a0b9e42a-6a3c-422f-aaf4-475dbcd9af4a)
 
 
 Select only the mods you want to export and click "Export", The first time you export, it will take longer since the shaders have to be compiled. After that, it will be much faster.
-[IMAGE]:export
+
+![export](https://github.com/TValleGames/TValle.SMA.Modding/assets/139646206/13321f4f-884a-4a18-9f37-5424e805b982)
+
 Your mods are already exported to a location where the game can read them; the next thing you need to do is view them in-game.
 If you want to publish your mods, remember to do it in the form of a folder, the one that opens automatically when your mod is exported, without changing the names of the files or this folder.

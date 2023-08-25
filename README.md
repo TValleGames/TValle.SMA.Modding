@@ -2,6 +2,8 @@
 The safest way to upgrade to a new version is to download the project and place it in a different directory. If you cannot do this because you have many assets and don't want to manually copy and paste everything, or maybe you are using the pull command, or for any other reason, you need to delete the library folder each time.
 ## Important:
 Every time you upgrade to a new version of the TValle.SMA.Modding project, delete the TValle.SMA.Modding/Library folder.
+## Important:
+Every time you upgrade reimport all clothing meshes by right-clicking and selecting Reimport.
 
 # Modding clothes
 

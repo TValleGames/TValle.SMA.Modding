@@ -13,7 +13,7 @@ You need:
 
 Blender 2.93 (optional): https://www.blender.org/download/releases/2-93/
 
-"SMA Clothing Avatar" Blender Project: https://drive.google.com/file/d/1mBh5_zJMYjZnXfWjIjZRbuMQ-i_w2FAj/view?usp=sharing
+"SMA Clothing Avatar" Blender Project: https://drive.google.com/drive/folders/1Ns57uRbClJEcZo0K3eE5zS1WH9RpUcdF?usp=sharing
 
 Unity: https://download.unity3d.com/download_unity/fb119bb0b476/Windows64EditorInstaller/UnitySetup64-2022.3.0f1.exe
 

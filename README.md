@@ -1,4 +1,4 @@
-# Upgrading
+## This project is currently in the process of being developed; if you plan to download an updated copy, it is recommended that you do the following:
 The safest way to upgrade to a new version is to download the project and place it in a different directory. If you cannot do this because you have many assets and don't want to manually copy and paste everything, or maybe you are using the pull command, or for any other reason, you need to delete the library folder each time.
 ## Important:
 Every time you upgrade to a new version of the TValle.SMA.Modding project, delete the TValle.SMA.Modding/Library folder.

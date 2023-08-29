@@ -206,6 +206,11 @@ For this, you must create a "MaterialMap" for each material and a "ClothingItemM
 Each field of the maps is explained with tooltips; just remember that in the case of "ClothingItemMap" the "address" can be all the imported clothing mesh or it can be just the "SkinnedMeshRenderer", For most cases, it is better to use only the "SkinnedMeshRenderer".
 Also important: the fields Organization," Category," "Full Name," and "In Game Names" are mandatory; do not leave them empty.
 
+## MaterialMaps in ClothingItemMap
+
+Each material map previously created must be decalred in the correct slot in the clothing map. Each mesh has an array of materials, so each material has its own slot/index. In the clothing map "materials per index," you can set many materials per slot/index. If your clothing item has more than one material, be careful when decalring the materials per slot/index.
+
+![MAteria Order](https://github.com/TValleGames/TValle.SMA.Modding/assets/139646206/8b78f5a2-c2f8-45d8-b3c9-f63531605cef)
 
 ## Bundle configuration
 

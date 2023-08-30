@@ -1,3 +1,10 @@
+## This project is currently in the process of being developed; if you plan to download an updated copy, it is recommended that you do the following:
+The safest way to upgrade to a new version is to download the project and place it in a different directory. If you cannot do this because you have many assets and don't want to manually copy and paste everything, or maybe you are using the pull command, or for any other reason, you need to delete the library folder each time.
+## Important:
+Every time you upgrade to a new version of the TValle.SMA.Modding project, delete the TValle.SMA.Modding/Library folder.
+## Important:
+Every time you upgrade reimport all clothing meshes by right-clicking and selecting Reimport.
+
 # Modding clothes
 
 Download this Unity project to your Documents folder.
@@ -6,7 +13,7 @@ You need:
 
 Blender 2.93 (optional): https://www.blender.org/download/releases/2-93/
 
-"SMA Clothing Avatar" Blender Project: https://drive.google.com/file/d/1mBh5_zJMYjZnXfWjIjZRbuMQ-i_w2FAj/view?usp=sharing
+"SMA Clothing Avatar" Blender Project: https://drive.google.com/drive/folders/1Ns57uRbClJEcZo0K3eE5zS1WH9RpUcdF?usp=sharing
 
 Unity: https://download.unity3d.com/download_unity/fb119bb0b476/Windows64EditorInstaller/UnitySetup64-2022.3.0f1.exe
 
@@ -199,6 +206,11 @@ For this, you must create a "MaterialMap" for each material and a "ClothingItemM
 Each field of the maps is explained with tooltips; just remember that in the case of "ClothingItemMap" the "address" can be all the imported clothing mesh or it can be just the "SkinnedMeshRenderer", For most cases, it is better to use only the "SkinnedMeshRenderer".
 Also important: the fields Organization," Category," "Full Name," and "In Game Names" are mandatory; do not leave them empty.
 
+## MaterialMaps in ClothingItemMap
+
+Each material map previously created must be decalred in the correct slot in the clothing map. Each mesh has an array of materials, so each material has its own slot/index. In the clothing map "materials per index," you can set many materials per slot/index. If your clothing item has more than one material, be careful when decalring the materials per slot/index.
+
+![MAteria Order](https://github.com/TValleGames/TValle.SMA.Modding/assets/139646206/8b78f5a2-c2f8-45d8-b3c9-f63531605cef)
 
 ## Bundle configuration
 

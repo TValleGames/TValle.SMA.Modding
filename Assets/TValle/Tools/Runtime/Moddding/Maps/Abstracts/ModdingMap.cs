@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Assets.TValle.Tools.Runtime.Moddding
 {
@@ -34,8 +35,10 @@ namespace Assets.TValle.Tools.Runtime.Moddding
         public string version;
 
         [Tooltip("When this mod is used in the game, notifications will be displayed with the name of the author and the link.")]
-        public bool displayAutorsOnUsed;
-        public List<Autor> autors = new List<Autor>();
+        [FormerlySerializedAs("displayAutorsOnUsed")]
+        public bool displayAuthorsOnUsed;
+        [FormerlySerializedAs("autors")]
+        public List<Autor> authors = new List<Autor>();
 
 
 

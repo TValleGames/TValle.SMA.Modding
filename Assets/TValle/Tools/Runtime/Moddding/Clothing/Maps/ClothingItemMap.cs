@@ -114,6 +114,12 @@ namespace Assets.TValle.Tools.Runtime.Moddding.Clothing.Maps
             public float toeHeigth;
             [Tooltip("In centimetres.")]
             public float heelHeigth;
+            [Tooltip("Set this value to zero if you don't want the toes to rotate.(Experimental)")]
+            [Range(0,1)]
+            public float toePoseWeigth=1;
+            [Tooltip("Set this value to zero if you don't want the heels to rotate.(Experimental)")]
+            [Range(0, 1)]
+            public float heelPoseWeigth = 1;
         }
 
 

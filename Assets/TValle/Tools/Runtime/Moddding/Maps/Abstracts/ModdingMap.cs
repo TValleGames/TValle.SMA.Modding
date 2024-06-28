@@ -41,12 +41,34 @@ namespace Assets.TValle.Tools.Runtime.Moddding
         public List<Autor> authors = new List<Autor>();
 
 
+        Dictionary<int, InGameName> m_inGameNamesInitiated;
+        public string GetIngameName(InGameName.Language language, out bool isPlural)
+        {
+            if(m_inGameNamesInitiated == null)
+            {
+                m_inGameNamesInitiated = new Dictionary<int, InGameName>();
+                for(int i = 0; i < inGameNames.Count; i++)
+                {
+                    var item = inGameNames[i];
+                    if(!m_inGameNamesInitiated.TryAdd((int)item.language, item))                    
+                        Debug.LogError("There is more than one name for Language " + item.language, this);                    
+                }
+            }
+
+            if(m_inGameNamesInitiated.TryGetValue((int)language, out InGameName inGameName) || m_inGameNamesInitiated.TryGetValue((int)InGameName.Language.en, out inGameName))
+            {
+                isPlural = inGameName.isPlural;
+                return inGameName.name;
+            }
+            isPlural = false;
+            return fullName;
+        }
 
 
         protected virtual void OnValidate()
         {
             TryInitID();
-            if((inGameNames == null || inGameNames.Count == 0) && !string.IsNullOrWhiteSpace(fullName)&& fullName.Trim().Any(char.IsWhiteSpace))
+            if((inGameNames == null || inGameNames.Count == 0) && !string.IsNullOrWhiteSpace(fullName) && fullName.Trim().Any(char.IsWhiteSpace))
             {
                 if(inGameNames == null)
                     inGameNames = new List<InGameName>();

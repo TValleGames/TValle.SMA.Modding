@@ -115,8 +115,8 @@ namespace Assets.TValle.Tools.Runtime.Moddding.Clothing.Maps
             [Tooltip("In centimetres.")]
             public float heelHeigth;
             [Tooltip("Set this value to zero if you don't want the toes to rotate.(Experimental)")]
-            [Range(0,1)]
-            public float toePoseWeigth=1;
+            [Range(0, 1)]
+            public float toePoseWeigth = 1;
             [Tooltip("Set this value to zero if you don't want the heels to rotate.(Experimental)")]
             [Range(0, 1)]
             public float heelPoseWeigth = 1;
@@ -349,7 +349,7 @@ namespace Assets.TValle.Tools.Runtime.Moddding.Clothing.Maps
         [Serializable]
         public class CustomScript
         {
-            [AssemblyQualifiedName]
+            [AssemblyQualifiedName(implementingClass = typeof(Component), implementingInterface = typeof(ICustomClothingItemScript))]
             public string assemblyQualifiedName;
         }
         [Serializable]

@@ -22,8 +22,8 @@ MonoBehaviour:
     name: Briefs
     isPlural: 0
   version: 1
-  displayAutorsOnUsed: 1
-  autors:
+  displayAuthorsOnUsed: 1
+  authors:
   - name: 81st-north
     URL: https://www.cgtrader.com/81st-north
   address:
@@ -39,6 +39,8 @@ MonoBehaviour:
   heelConfig:
     toeHeigth: 0
     heelHeigth: 0
+    toePoseWeigth: 1
+    heelPoseWeigth: 1
   breastConfig:
     siffnessModifier: 1
     nippleProjectionModifier: 1
@@ -65,7 +67,8 @@ MonoBehaviour:
   - materialIndex: 1
     materials:
     - {fileID: 11400000, guid: 2fd694a7a799d604c9d067c3ac3daa61, type: 2}
-  customScripts: []
+  customScripts:
+  - assemblyQualifiedName: 
   customArmatureAddress:
     m_AssetGUID: 
     m_SubObjectName: 

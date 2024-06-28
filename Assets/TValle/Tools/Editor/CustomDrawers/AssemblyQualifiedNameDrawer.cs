@@ -15,17 +15,30 @@ public class AssemblyQualifiedNameDrawer : PropertyDrawer
     }
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
+        var defaultLabel = new GUIContent(label);
         Type currentType = null;
         var currentValue = property.stringValue;
         if(!string.IsNullOrWhiteSpace(currentValue))
             currentType = Type.GetType(currentValue);
+
+        var att = attribute as AssemblyQualifiedNameAttribute;
+        if(currentType != null)
+        {
+            if(!att.IsImplementing(currentType))
+            {
+                Debug.LogError(att.GetError(currentType), property?.serializedObject?.targetObject);
+                currentType = null;
+                property.stringValue = string.Empty;
+                //EditorUtility.DisplayDialog("Please fix the selected script.", "The selected script does not implement the type " + att.implementing.Name, "OK");
+            }
+        }
 
 
         if(currentType == null)
         {
             Rect first = position;
             first.height = EditorGUIUtility.singleLineHeight;
-            var script = EditorGUI.ObjectField(first, "Select or Drag a Script", null, typeof(MonoScript), true) as MonoScript;
+            var script = EditorGUI.ObjectField(first, defaultLabel, null, typeof(MonoScript), true) as MonoScript;
             currentType = script?.GetClass();
             if(currentType != null)
                 property.stringValue = currentType.AssemblyQualifiedName;
@@ -35,7 +48,8 @@ public class AssemblyQualifiedNameDrawer : PropertyDrawer
             Rect first = position;
             first.height = EditorGUIUtility.singleLineHeight;
             first.width = 100;
-            if(GUI.Button(first,"Remove Script"))
+            first.x += EditorGUIUtility.labelWidth;
+            if(GUI.Button(first, "Remove Script"))
             {
                 currentType = null;
                 property.stringValue = string.Empty;
@@ -45,10 +59,15 @@ public class AssemblyQualifiedNameDrawer : PropertyDrawer
         Rect sec = position;
         sec.y += EditorGUIUtility.singleLineHeight;
         sec.height -= EditorGUIUtility.singleLineHeight;
-        if(currentType==null)
-            EditorGUI.LabelField(sec, "-no script selected-");
+        if(currentType == null)
+        {
+            GUIStyle s = new GUIStyle("miniLabel");
+            EditorGUI.LabelField(sec, new GUIContent(" "), new GUIContent("Select or Drag a Script", defaultLabel.tooltip)/*"-no script selected-"*/, s);
+        }
         else
-        EditorGUI.LabelField(sec, property.stringValue);
+        {
+            EditorGUI.LabelField(sec, defaultLabel, new GUIContent(property.stringValue, defaultLabel.tooltip));
+        }
     }
 }
 

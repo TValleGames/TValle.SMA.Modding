@@ -109,6 +109,8 @@ namespace Assets.TValle.Tools.CustomDrawers.Abstracts
 
                         m_indexOfKey.Remove(key);
                         m_indexOfKey.Add(newKey, index);
+
+                        EditorUtility.SetDirty(property.serializedObject.targetObject);
                     }
                     catch(Exception e)
                     {
@@ -125,6 +127,9 @@ namespace Assets.TValle.Tools.CustomDrawers.Abstracts
                 if(EditorGUI.EndChangeCheck())
                 {
                     _Dictionary[key] = value;
+
+                    EditorUtility.SetDirty(property.serializedObject.targetObject);
+
                     break;
                 }
 

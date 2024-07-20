@@ -155,21 +155,45 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// <param name="scene"></param>
         void AddAdditinalLogicToScene(Scene scene);
 
-
         /// <summary>
-        /// load a character from memory
-        /// </summary>
-        /// <param name="id">empty to load random female character</param>
-        /// <param name="feetPosition"></param>
-        /// <param name="bodyForwardDirection"></param>
-        void LoadTheFemaleCharacter(Guid id, Vector3 feetPosition, Vector3 bodyForwardDirection);
-        /// <summary>
-        /// load a character from memory
+        /// load a character from memory, The game only supports a single character. ALWAYS LOAD THE MALE CHARACTER FIRST
         /// </summary>
         /// <param name="id">empty to load random male character</param>
         /// <param name="feetPosition"></param>
         /// <param name="bodyForwardDirection"></param>
-        void LoadTheMaleCharacter(Guid id, Vector3 feetPosition, Vector3 bodyForwardDirection);
+        IEnumerator LoadTheMaleCharacter(Guid id, Vector3 feetPosition, Vector3 bodyForwardDirection);
+
+        /// <summary>
+        /// load a character from memory, The game only supports a single character.
+        /// </summary>
+        /// <param name="id">empty to load random female character</param>
+        /// <param name="feetPosition"></param>
+        /// <param name="bodyForwardDirection"></param>
+        IEnumerator LoadTheFemaleCharacter(Guid id, Vector3 feetPosition, Vector3 bodyForwardDirection);
+
+        /// <summary>
+        /// destroy the character in the scene
+        /// </summary>
+        /// <param name="id"></param>
+        void DestroyMaleCharacter(Guid id);
+        /// <summary>
+        /// The character in the scene is destroyed and completely erased from memory.
+        /// </summary>
+        /// <param name="id"></param>
+        void DeleteAndDestroyMaleCharacter(Guid id);
+       
+        /// <summary>
+        /// destroy the character in the scene
+        /// </summary>
+        /// <param name="id"></param>
+        void DestroyFemaleCharacter(Guid id);
+
+        /// <summary>
+        /// The character in the scene is destroyed and completely erased from memory.
+        /// </summary>
+        /// <param name="id"></param>
+        void DeleteAndDestroyFemaleCharacter(Guid id);
+
     }
 
 

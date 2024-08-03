@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Assets.TValle.Tools.Runtime.Characters
+namespace Assets.TValle.Tools.Runtime.Characters.Scenes
 {
     public abstract class SceneCharacter : MonoBehaviour
     {

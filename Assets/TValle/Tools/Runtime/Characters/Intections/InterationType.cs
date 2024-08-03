@@ -6,16 +6,35 @@ using System.Threading.Tasks;
 
 namespace Assets.TValle.Tools.Runtime.Characters.Intections
 {
-    public enum InterationType
+
+    public enum InterationReceivedType
     {
         None,
-        visual,
-        tactile,
-        coital,
-        exposed,
+
+        lookAt,
+        photoshoot,
+        putInFront,
+
+        caress,
+        kiss,
+        slap,
+        hump,
+        poke,
+        lick,
+        pouringOn,
+        pouringIn,
+        punch,
+
+        penetration,
+        fingering,
+        propped,
+
+        expose,
         askToExpose,
-        forcedPose,
+        forcePose,
         askToPose,
+        manipulateBody,
+        guideBody,
     }
     public enum InterationDirectionType
     {

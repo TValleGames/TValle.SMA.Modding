@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
 {
-    public enum FemaleSensitiveBodyPart
+    public enum SensitiveBodyPart
     {
         None = 0,
 
@@ -48,8 +48,8 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
 
         buttocks,
         crotch,
-        vaginalLips,
-        clitoris,
+        vaginalLipsOrBalls,
+        clitorisOrPenis,
         perineum,
 
         

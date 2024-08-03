@@ -1,4 +1,4 @@
-﻿using Assets.TValle.Tools.Runtime.Characters;
+﻿using Assets.TValle.Tools.Runtime.Characters.Scenes;
 using Assets.TValle.Tools.Runtime.Memory;
 using Assets.TValle.Tools.Runtime.Moddding;
 using Assets.TValle.Tools.Runtime.SMA.Moddding.Jobs.Maps;
@@ -193,6 +193,9 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// </summary>
         /// <param name="id"></param>
         void DeleteAndDestroyFemaleCharacter(Guid id);
+
+
+        ISceneInteractions interactions { get; }
 
     }
 

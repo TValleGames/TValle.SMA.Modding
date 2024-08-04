@@ -9,7 +9,8 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
 
     public enum InterationReceivedType
     {
-        None,
+        All = -1,
+        None = 0,
 
         lookAt,
         photoshoot,

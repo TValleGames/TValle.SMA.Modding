@@ -6,21 +6,22 @@ using UnityEngine;
 
 namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
 {
-    public enum Emotion 
+    public enum Emotion
     {
-        None,
-        
+        All = -1,
+        None = 0,
+
         happiness,
         relief,
         favorability,
         pleasure,
         arousal,
 
-        disappointment, 
+        disappointment,
         rage,
-        pain,        
-        fear,    
-      
+        pain,
+        fear,
+
 
         disgust,
     }

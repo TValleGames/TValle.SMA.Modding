@@ -8,6 +8,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
 {
     public enum SensitiveBodyPart
     {
+        All = -1,
         None = 0,
 
         head,

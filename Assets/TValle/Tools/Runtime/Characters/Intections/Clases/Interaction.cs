@@ -11,6 +11,10 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
     [Serializable]
     public struct Interaction
     {
+        /// <summary>
+        /// How much damage would this interaction cause if it lasted a second?
+        /// </summary>
+        public float damagePercentageVelocity => duration == 0 ? 0 : damagePercentage / duration;
         public bool isValid => from != null && to != null && toPart != SensitiveBodyPart.None && fromPart != TriggeringBodyPart.None && interationReceivedType != InterationReceivedType.None && emotion != Emotion.None && times > 0;
 
         public SceneCharacter from;
@@ -27,13 +31,13 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         /// </summary>
         public DateTime date;
         /// <summary>
-        /// number of times the interaction occurs
-        /// </summary>
-        public int times;
-        /// <summary>
         /// The time in seconds since the beginning of the scene when the interaction occurs.
         /// </summary>
         public float time;
+        /// <summary>
+        /// number of times the interaction occurs
+        /// </summary>
+        public int times;
         /// <summary>
         /// The duration of the interaction
         /// </summary>
@@ -52,10 +56,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         /// This interaction results in a change in the target emotion, which is express here as a percentage.
         /// </summary>
         public float damagePercentage;
-        /// <summary>
-        /// How much damage would this interaction cause if it lasted a second?
-        /// </summary>
-        public float damagePercentageVelocity => duration == 0 ? 0 : damagePercentage / duration;
+
 
     }
 }

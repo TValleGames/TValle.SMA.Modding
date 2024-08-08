@@ -35,7 +35,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         /// </summary>
         public float time;
         /// <summary>
-        /// number of times the interaction occurs
+        /// If the interaction is currently taking place, this value indicates how many frames have passed since it began. If this is an archived past interaction, this value represents the number of times it occurred in the scene.
         /// </summary>
         public int times;
         /// <summary>
@@ -56,6 +56,27 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         /// This interaction results in a change in the target emotion, which is express here as a percentage.
         /// </summary>
         public float damagePercentage;
+
+        ///// <summary>
+        ///// It depends on the interaction context; it can mean speed, distance, angle, etc.
+        ///// </summary>
+        //public float stimulus;
+        ///// <summary>
+        ///// This is the minimum amount of stimulus the "to" character can receive in this interaction context.
+        ///// </summary>
+        //public float minRange;
+        ///// <summary>
+        ///// This is the maximum amount of stimulus the "to" character can receive in this interaction context.
+        ///// </summary>
+        //public float maxRange;
+        /// <summary>
+        /// how many times the stimulus amount is surpassed or how many times the stimulus amount is insufficient, zero if no damage was done
+        /// <para>EX: This value is one if the caress's force falls within the appropriate range.</para>
+        /// <para>EX: When performing a caress with excessive force, the value will exceed one, indicating the number of times the force exceeds the appropriate amount.</para>
+        /// <para>EX: When performing a caress that is too soft below the appropriate range, this value will be less than one, indicating the fraction of the range that was reached below the appropriate range.</para>
+        /// <para>This same logic applies to other types of interactions, such as penetration. This refers to the overshoot or undershoot of the length or width of the member inside a hole.</para>
+        /// </summary>
+        public float overshootOrUndershootMod;
 
 
     }

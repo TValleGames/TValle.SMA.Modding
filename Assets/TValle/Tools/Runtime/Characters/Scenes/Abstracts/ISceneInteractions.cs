@@ -16,7 +16,9 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         /// </summary>
         event OnCharactersInteractionHandler onInteraction;
 
-
+        /// <summary>
+        /// WILL clear the recorded interactions before storing new ones.
+        /// </summary>
         void StartRecording();
 
 
@@ -29,15 +31,17 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         ICharactersSceneInteractions GetTakingPlaceInteractions(SceneCharacter from, SceneCharacter to);
 
         /// <summary>
-        /// Get the interactions between two characters so far.
+        /// Get the interactions between two characters so far. Taking Place Interactions will be ignored
         /// </summary>
         /// <param name="from">for now, always the male character</param>
         /// <param name="to">for now, always the female character</param>
         /// <returns></returns>
-        ICharactersSceneInteractionsClearable GetStackInteractions(SceneCharacter from, SceneCharacter to);
+        ICharactersSceneInteractionsClearable GetArchivedInteractions(SceneCharacter from, SceneCharacter to);
 
 
         void EndRecordign();
+        
+        void Clear();
     }
     public delegate void OnInteractionHandler(ref Interaction newInteraction, ICharactersSceneInteractions sender);
     public delegate void OnInteractionStackHandler(ref Interaction stackedInteraction, ICharactersSceneInteractions sender);
@@ -67,7 +71,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         /// <summary>
         /// Get the interactions without emptying the interaction list.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>returns empty List  if not found</returns>
         IReadOnlyList<Interaction> Peek();
 
         /// <summary>
@@ -78,7 +82,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         /// <param name="interationReceivedType">The value cannot be equal to "All".</param>
         /// <param name="emotion">The value cannot be equal to "All".</param>
         /// <param name="reachedMaxValue">This should be true for interactions that cause the emotion to reach its maximum value.</param>
-        /// <returns></returns>
+        /// <returns>returns invalid Interaction if not found</returns>
         Interaction Peek(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue);
 
         /// <summary>
@@ -89,7 +93,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         /// <param name="interationReceivedType">The value can be equal to "All".</param>
         /// <param name="emotion">The value can be equal to "All".</param>
         /// <param name="reachedMaxValue">This should be true for interactions that cause the emotion to reach its maximum value.</param>
-        /// <returns></returns>
+        /// <returns>returns empty List if not found</returns>
         IReadOnlyList<Interaction> PeekMany(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue);
 
 

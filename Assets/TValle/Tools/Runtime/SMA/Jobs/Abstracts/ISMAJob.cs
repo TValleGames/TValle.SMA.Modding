@@ -17,7 +17,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
     /// </summary>
     public interface ISMAJob
     {
-        public bool isJobInitiated { get; }
+        public bool isInit { get; }
 
         /// <summary>
         /// get this id form the map
@@ -26,12 +26,12 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// <summary>
         /// get this name form the map
         /// </summary>
-        string jobName { get; }
+        string Name { get; }
 
         /// <summary>
         /// load this scene and others in the load funtion call 
         /// </summary>
-        Scene mainJobScene { get; }
+        Scene mainScene { get; }
         /// <summary>
         /// (Optional) load this scene and others in the load funtion call 
         /// </summary>
@@ -42,25 +42,25 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// </summary>
         /// <param name="mainPlayerCharacterID">the male character</param>
         /// <param name="mainNonPlayerCharacterID">the female character</param>
-        void Init(ISMAJobsManager manager, SMAJobMap map, Guid mainPlayerCharacterID, Guid mainNonPlayerCharacterID);
+        void Init(SMAJobMap map, Guid mainPlayerCharacterID, Guid mainNonPlayerCharacterID);
 
         /// <summary>
         /// load scenes/assets here, the manager moves this game object to the main job scene once this function returns true.
         /// </summary>
         /// <returns> yield break to move on</returns>
-        IEnumerator LoadJob();
+        IEnumerator Load();
 
         /// <summary>
         /// start the game-logic here
         /// </summary>
         /// <returns> yield break to move on</returns>
-        IEnumerator StartJob();
+        IEnumerator DoStart();
 
         /// <summary>
         /// Load character data from memory and potentially display job guides to the player.
         /// </summary>
         /// <returns> yield break to move on</returns>
-        IEnumerator IntroduceJob();
+        IEnumerator Introduce();
 
 
 
@@ -85,19 +85,19 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// Save modifications to characters to the memory and potentially display this information to the player.
         /// </summary>
         /// <returns> yield break to move on</returns>
-        IEnumerator ConcludeJob();
+        IEnumerator Conclude();
 
         /// <summary>
         /// stop all game-logic and do clean up here
         /// </summary>
         /// <returns> yield break to move on</returns>
-        IEnumerator EndJob();
+        IEnumerator End();
 
         /// <summary>
         /// unload the scenes/assets here
         /// </summary>
         /// <returns> yield break to move on</returns>
-        IEnumerator UnLoadJob();
+        IEnumerator UnLoad();
     }
 
 
@@ -138,19 +138,19 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// </summary>
         /// <param name="job"></param>
         /// <returns>the memory of the job</returns>
-        IContextMemory GetJobMemory(ISMAJob job);
+        IContextMemory GetMemory(ISMAJob job);
         /// <summary>
         /// data related to a character's job.
         /// </summary>
         /// <param name="job"></param>
         /// <param name="character"></param>
         /// <returns>the memory of the character in the job context</returns>
-        IContextMemory GetCharacterInJobMemory(ISMAJob job, SceneCharacter character);
+        IContextMemory GetCharacterInMemory(ISMAJob job, SceneCharacter character);
 
 
 
         /// <summary>
-        /// Scene objects may need some extra game logic.
+        /// Scene objects may need some Extra/Default game logic.
         /// </summary>
         /// <param name="scene"></param>
         void AddAdditinalLogicToScene(Scene scene);

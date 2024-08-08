@@ -15,7 +15,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Moddding.Jobs.Maps
         [Header("--- Job Info -----------------------------------------------------------------------")]
         [Header("Scenes")]
         [Space]
-        [Tooltip("This scene is always forced to load and is loaded first; the other references to scenes are only loaded on demand.")]
+        [Tooltip("This scene is always forced to load; the other references to scenes are only loaded on demand.")]
         public AssetReference mainScene;
         [Space]
         [Tooltip("(Optional) These scenes are set as active scenes right after being loaded, meaning that they are used for lighting. (The first field to the left is for a string ID, so you can get the asset reference (second field to the right) in the logic script.)")] 
@@ -40,5 +40,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Moddding.Jobs.Maps
         [Tooltip("(Optional) Must implement ISMAUnlockableJob")]
         [AssemblyQualifiedName(implementingClass = typeof(Component), implementingInterface = typeof(ISMAUnlockableJob))]
         public string IsUnlockedLogic;
+
+        
     }
 }

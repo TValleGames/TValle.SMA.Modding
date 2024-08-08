@@ -61,14 +61,15 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
 
 
         throat,
-        throatBottom,
-        throatWideStretch,
+        throatBottom,//depth damage
+        throatWalls,//stretch damage
 
         vag,
-        vagBottom,
-        vagWideStretch,
+        vagBottom,//depth damage
+        vagWalls,//stretch damage
+      
         anus,
-        anusBottom,
-        anusWideStretch,
+        anusBottom,//depth damage
+        anusWalls,//stretch damage
     }
 }

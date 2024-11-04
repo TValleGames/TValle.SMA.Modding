@@ -42,7 +42,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// </summary>
         /// <param name="mainPlayerCharacterID">the male character</param>
         /// <param name="mainNonPlayerCharacterID">the female character</param>
-        void Init(SMAJobMap map, Guid mainPlayerCharacterID, Guid mainNonPlayerCharacterID);
+        void Init(ISMAJobsManager jobManager, SMAJobMap map, Guid mainPlayerCharacterID, Guid mainNonPlayerCharacterID);
 
         /// <summary>
         /// load scenes/assets here, the manager moves this game object to the main job scene once this function returns true.

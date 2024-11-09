@@ -1,4 +1,5 @@
-﻿using Assets.TValle.Tools.Runtime.Characters.Scenes;
+﻿using Assets.TValle.Tools.Runtime.Characters.Atts.Emotions;
+using Assets.TValle.Tools.Runtime.Characters.Scenes;
 using Assets.TValle.Tools.Runtime.Memory;
 using Assets.TValle.Tools.Runtime.Moddding;
 using Assets.TValle.Tools.Runtime.SMA.Moddding.Jobs.Maps;
@@ -63,10 +64,35 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         IEnumerator Introduce();
 
 
+        /// <summary>
+        /// called once each time an emotion reaches max value, non-al type of character have all emotion types
+        /// </summary>
+        /// <param name="emotion"></param>
+        void OnNonPlayerMaxEmotionValue(Emotion emotion);
+        /// <summary>
+        /// When an emotion reaches max value, the game will wait for awhile. Here you can control how much the game must wait, only called on max: pleasure, deception/boredom, rage, pain, fear
+        /// </summary>
+        /// <param name="emotion"></param>
+        /// <returns>True to break, false to call this function once again next frame.</returns>
+        bool OnNonPlayerMaxEmotionValueBuffer(Emotion emotion);
+        
+        /// <summary>
+        /// called once each time an emotion reaches max value, non-al type of character have all emotion types
+        /// </summary>
+        /// <param name="emotion"></param>
+        void OnPlayerMaxEmotionValue(Emotion emotion);
+        /// <summary>
+        /// When an emotion reaches max value, the game will wait for awhile. Here you can control how much the game must wait, only called on max: pleasure
+        /// </summary>
+        /// <param name="emotion"></param>
+        /// <returns>True to break, false to call this function once again next frame.</returns>
+        bool OnPlayerMaxEmotionValueBuffer(Emotion emotion);
+
+
+
 
         void BeforeAnimationsUpdate();
         void AfterAnimationsUpdate();
-
 
         /// <summary>
         /// Can get multiple calls within a single frame.
@@ -153,7 +179,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// Scene objects may need some Extra/Default game logic.
         /// </summary>
         /// <param name="scene"></param>
-        void AddAdditinalLogicToScene(Scene scene);
+        void AddAdditinalLogicToScene(Scene scene);      
 
         /// <summary>
         /// load a character from memory, The game only supports a single character. ALWAYS LOAD THE MALE CHARACTER FIRST
@@ -194,6 +220,11 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// <param name="id"></param>
         void DeleteAndDestroyFemaleCharacter(Guid id);
 
+        /// <summary>
+        /// turn on/off player movement and commands
+        /// </summary>
+        /// <param name="value"></param>
+        void SetMainPlayerCharacterInputsActive(bool value);
 
         ISceneInteractions interactions { get; }
 

@@ -75,7 +75,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// <param name="emotion"></param>
         /// <returns>True to break, false to call this function once again next frame.</returns>
         bool OnNonPlayerMaxEmotionValueBuffer(Emotion emotion);
-        
+
         /// <summary>
         /// called once each time an emotion reaches max value, non-al type of character have all emotion types
         /// </summary>
@@ -140,10 +140,11 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
 
     public interface ISMAJobsManager
     {
+        ISMAJobsUIManager UI { get; }
         /// <summary>
         /// the language selected by the player, if the game supports multiple languages.
         /// </summary>
-        InGameName.Language gameLanguage { get; }
+        Language gameLanguage { get; }
 
         /// <summary>
         /// job being played
@@ -179,7 +180,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// Scene objects may need some Extra/Default game logic.
         /// </summary>
         /// <param name="scene"></param>
-        void AddAdditinalLogicToScene(Scene scene);      
+        void AddAdditinalLogicToScene(Scene scene);
 
         /// <summary>
         /// load a character from memory, The game only supports a single character. ALWAYS LOAD THE MALE CHARACTER FIRST
@@ -207,7 +208,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// </summary>
         /// <param name="id"></param>
         void DeleteAndDestroyMaleCharacter(Guid id);
-       
+
         /// <summary>
         /// destroy the character in the scene
         /// </summary>
@@ -230,7 +231,51 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
 
     }
 
+    public interface ISMAJobsUIManager
+    {
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="actionMemberName"></param>
+        ///// <param name="actionMemberType"></param>
+        ///// <param name="model"></param>
+        ///// <param name="volatilMemory">wont be saved to disk</param>
+        //public delegate void OnModelAction(string actionMemberName, Type actionMemberType, object model, IContextMemory volatilMemory);
 
+
+        /// <summary>
+        /// When the player releases the key assigned to the action of showing Menu, by default it is tab
+        /// </summary>
+        event Action<ISMAJobsUIManager> showMenuKeyReleased;
+
+
+
+        /// <summary>
+        /// Displays a floating menu, with the model instance dictating its contents.
+        /// </summary>
+        /// <param name="model">what is going to be drawn</param>
+        /// <param name="previousModel">If the model instance was switched to a different one, a non-null value is returned, which is useful for finalizing the previous model, such as unsubscribing from events.</param>
+        void DrawFloatingPanel(object model, out object previousModel);
+        /// <summary>
+        /// Displays a menu on the main canvas, with the model instance dictating its contents.
+        /// </summary>
+        /// <param name="model">what is going to be drawn</param>
+        /// <param name="previousModel">If the model instance was switched to a different one, a non-null value is returned, which is useful for finalizing the previous model, such as unsubscribing from events.</param>
+        void DrawMainCanvasPanel(object model, out object previousModel);
+
+        void CloseFloatingPanel();
+        void CloseMainCanvasPanel();
+
+        /// <summary>
+        /// Typically, it shows details about the character the player is currently controlling.
+        /// </summary>
+        void ShowMainPlayerCharacterInfo();
+        /// <summary>
+        /// It usually shows the information of the current model present in the scene.
+        /// </summary>
+        void ShowMainNonPlayerCharacterInfo();
+
+    }
 
 
 }

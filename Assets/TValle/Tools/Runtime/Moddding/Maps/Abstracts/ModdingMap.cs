@@ -42,7 +42,7 @@ namespace Assets.TValle.Tools.Runtime.Moddding
 
 
         Dictionary<int, InGameName> m_inGameNamesInitiated;
-        public string GetIngameName(InGameName.Language language, out bool isPlural)
+        public string GetIngameName(Language language, out bool isPlural)
         {
             if(m_inGameNamesInitiated == null)
             {
@@ -55,7 +55,7 @@ namespace Assets.TValle.Tools.Runtime.Moddding
                 }
             }
 
-            if(m_inGameNamesInitiated.TryGetValue((int)language, out InGameName inGameName) || m_inGameNamesInitiated.TryGetValue((int)InGameName.Language.en, out inGameName))
+            if(m_inGameNamesInitiated.TryGetValue((int)language, out InGameName inGameName) || m_inGameNamesInitiated.TryGetValue((int)Language.en, out inGameName))
             {
                 isPlural = inGameName.isPlural;
                 return inGameName.name;
@@ -75,7 +75,7 @@ namespace Assets.TValle.Tools.Runtime.Moddding
                 if(inGameNames.Count == 0)
                     inGameNames.Add(new InGameName()
                     {
-                        language = InGameName.Language.en,
+                        language = Language.en,
                         name = fullName.Trim().Split(' ').FirstOrDefault()
                     });
             }

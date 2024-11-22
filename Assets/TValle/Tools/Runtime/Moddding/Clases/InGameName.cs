@@ -16,10 +16,6 @@ namespace Assets.TValle.Tools.Runtime.Moddding
         [Tooltip("Whether it's a pair of gloves, shoes, glasses, or just a ring or a neckless")]
         public bool isPlural;
 
-        public enum Language
-        {
-            None = 0,
-            en,
-        }
+      
     }
 }

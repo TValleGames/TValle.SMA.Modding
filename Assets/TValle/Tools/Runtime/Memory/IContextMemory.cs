@@ -63,5 +63,10 @@ namespace Assets.TValle.Tools.Runtime.Memory
 
 
         bool RemoveData(string id);
+
+        /// <summary>
+        /// will delete EVERYTHING
+        /// </summary>
+        void Clear();
     }
 }

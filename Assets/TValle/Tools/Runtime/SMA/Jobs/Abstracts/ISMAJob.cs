@@ -255,13 +255,13 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// </summary>
         /// <param name="model">what is going to be drawn</param>
         /// <param name="previousModel">If the model instance was switched to a different one, a non-null value is returned, which is useful for finalizing the previous model, such as unsubscribing from events.</param>
-        void DrawFloatingPanel(object model, out object previousModel);
+        void DrawFloatingMainMenuPanel(object model, out object previousModel);
         /// <summary>
         /// Displays a menu on the main canvas, with the model instance dictating its contents.
         /// </summary>
         /// <param name="model">what is going to be drawn</param>
         /// <param name="previousModel">If the model instance was switched to a different one, a non-null value is returned, which is useful for finalizing the previous model, such as unsubscribing from events.</param>
-        void DrawMainCanvasPanel(object model, out object previousModel);
+        void DrawMainMenuPanelOnMainCanvas(object model, out object previousModel);
 
         void CloseFloatingPanel();
         void CloseMainCanvasPanel();

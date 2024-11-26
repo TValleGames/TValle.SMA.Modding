@@ -274,6 +274,8 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// It usually shows the information of the current model present in the scene.
         /// </summary>
         void ShowMainNonPlayerCharacterInfo();
+       
+        void ShowCurrentJobSessionObjetives();
 
     }
 

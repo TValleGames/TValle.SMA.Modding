@@ -13,7 +13,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
     {
         public static void Stack(ref Interaction toReport, ref Interaction newInteraccion)
         {
-           
+
             toReport.times = toReport.times + 1;
             toReport.endTime = newInteraccion.endTime;
             toReport.endFrame = newInteraccion.endFrame;
@@ -33,7 +33,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
                 throw new InvalidOperationException("Must be previus staked");
 
             toReport.times = toReport.times - 1;
-            toReport.endTime = Mathf.Clamp( toReport.endTime - newInteraccion.duration, toReport.startTime, toReport.endTime);
+            toReport.endTime = Mathf.Clamp(toReport.endTime - newInteraccion.duration, toReport.startTime, toReport.endTime);
             toReport.endFrame = Mathf.Clamp(toReport.endFrame - newInteraccion.frames, toReport.startFrame, toReport.endFrame);
 
 
@@ -42,7 +42,18 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
 
             toReport.damagePercentage = toReport.damagePercentage - newInteraccion.damagePercentage;
 
-            var totalTimesW = 1/*uno por q cada vez q se hace stack el w del newinteraction debe disminuir*/ / (toReport.times - 1);
+            float totalTimesW;
+            try
+            {
+                totalTimesW = 1/*uno por q cada vez q se hace stack el w del newinteraction debe disminuir*/ / (toReport.times );
+            }
+            catch(Exception e)
+            {
+
+                throw e;
+            }
+
+
             toReport.overshootOrUndershootMod = Mathf.LerpUnclamped(newInteraccion.overshootOrUndershootMod, toReport.overshootOrUndershootMod, 1 + totalTimesW);
         }
         /// <summary>

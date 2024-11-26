@@ -9,11 +9,17 @@ namespace Assets.TValle.Tools.Runtime.UI
     [Model]
     public class JobWithClientDefaultMenuModel 
     {
+        public event Action<JobWithClientDefaultMenuModel> onShowObjectives;
         public event Action<JobWithClientDefaultMenuModel> onShowModelInfo;
         public event Action<JobWithClientDefaultMenuModel> onShowClientInfo;
         public event Action<JobWithClientDefaultMenuModel> onClientDismissed;
 
-
+        [Label("Objectives", Language.en)]
+        [Description("-A list of actions required to complete the current job session successfully.", Language.en)]
+        public void ShowObjectives()
+        {
+            onShowObjectives?.Invoke(this);
+        }
         [Label("Model Curriculum", Language.en)]
         [Description("-Click here to see the model's measurements, interests, and current job skill.", Language.en)]       
         public void ShowModelInfo()
@@ -39,11 +45,17 @@ namespace Assets.TValle.Tools.Runtime.UI
     [Model]
     public class JobWithEmployerDefaultMenuModel
     {
+        public event Action<JobWithEmployerDefaultMenuModel> onShowObjectives;
         public event Action<JobWithEmployerDefaultMenuModel> onShowModelInfo;
         public event Action<JobWithEmployerDefaultMenuModel> onShowEmployerInfo;
         public event Action<JobWithEmployerDefaultMenuModel> onModelDismissed;
 
-
+        [Label("Objectives", Language.en)]
+        [Description("-A list of actions required to complete the current job session successfully.", Language.en)]
+        public void ShowObjectives()
+        {
+            onShowObjectives?.Invoke(this);
+        }
         [Label("Model Curriculum", Language.en)]
         [Description("-Click here to see the model's measurements, interests, and current job skill.", Language.en)]
         public void ShowModelInfo()

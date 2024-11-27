@@ -24,7 +24,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
 
             toReport.damagePercentage = toReport.damagePercentage + newInteraccion.damagePercentage;
 
-            var totalTimesW = 1/*uno por q cada vez q se hace stack el w del newinteraction debe disminuir*/ / (toReport.times + 1);
+            float totalTimesW = 1f/*uno por q cada vez q se hace stack el w del newinteraction debe disminuir*/ / (toReport.times + 1f);
             toReport.overshootOrUndershootMod = Mathf.Lerp(toReport.overshootOrUndershootMod, newInteraccion.overshootOrUndershootMod, totalTimesW);
         }
         public static void UnStack(ref Interaction toReport, ref Interaction newInteraccion)
@@ -45,7 +45,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
             float totalTimesW;
             try
             {
-                totalTimesW = 1/*uno por q cada vez q se hace stack el w del newinteraction debe disminuir*/ / (toReport.times );
+                totalTimesW = 1f/*uno por q cada vez q se hace stack el w del newinteraction debe disminuir*/ / (toReport.times );
             }
             catch(Exception e)
             {
@@ -54,7 +54,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
             }
 
 
-            toReport.overshootOrUndershootMod = Mathf.LerpUnclamped(newInteraccion.overshootOrUndershootMod, toReport.overshootOrUndershootMod, 1 + totalTimesW);
+            toReport.overshootOrUndershootMod = Mathf.LerpUnclamped(newInteraccion.overshootOrUndershootMod, toReport.overshootOrUndershootMod, 1f + totalTimesW);
         }
         /// <summary>
         /// How much damage would this interaction cause if it lasted a second?

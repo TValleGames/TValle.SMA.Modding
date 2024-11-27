@@ -16,8 +16,11 @@ namespace Assets.TValle.Tools.Runtime.Moddding.Clothing.Maps
         [Space]
         [Tooltip("drop your unity material here. Remember that your material must be in the same group of addressables that corresponds to your mod")]
         public AssetReferenceMaterial materialAddress;
-    
 
+        [Space]
+        [Header("--- Info -----------------------------------------------------------------------")]
+        [Space]
+        public ItemQuality itemQuality = ItemQuality.Epic;
 
         [Space]
         [Header("--- Outfit Generator Info -----------------------------------------------------------------------")]

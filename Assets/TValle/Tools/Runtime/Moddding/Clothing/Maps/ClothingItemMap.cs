@@ -35,6 +35,11 @@ namespace Assets.TValle.Tools.Runtime.Moddding.Clothing.Maps
         public AnusConfig anusConfig = new AnusConfig();
 
         [Space]
+        [Header("--- Info -----------------------------------------------------------------------")]
+        [Space]
+        public ItemQuality itemQuality = ItemQuality.Epic;
+
+        [Space]
         [Header("--- AI Info -----------------------------------------------------------------------")]
         [Space]
         [Tooltip("When asked to undress, where will the character be self-interacting? (TODO: only implemented torso and hips)")]

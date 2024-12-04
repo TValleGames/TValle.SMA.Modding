@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
-    public struct BuffForPersonalityTrait : IIdentifiableBuff<(PersonalityTraits, SimpleModifier, AddOperation, int)>, IStackableBuff<BuffForPersonalityTrait>, IEquatable<BuffForPersonalityTrait>
+    public struct BuffOnPersonalityTrait : IIdentifiableBuff<(PersonalityTraits, SimpleModifier, AddOperation, int)>, IStackableBuff<BuffOnPersonalityTrait>, IEquatable<BuffOnPersonalityTrait>
     {
         public PersonalityTraits trait;
 
@@ -25,12 +25,12 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 
 
 
-        public bool IsStackableWith(ref BuffForPersonalityTrait Other)
+        public bool IsStackableWith(ref BuffOnPersonalityTrait Other)
         {
             return Other.trait == trait && Other.modifier == modifier && Other.operation == operation && Other.durationInDays == durationInDays;
         }
 
-        public BuffForPersonalityTrait StackToNew(ref BuffForPersonalityTrait Other)
+        public BuffOnPersonalityTrait StackToNew(ref BuffOnPersonalityTrait Other)
         {
             var r = this;
             switch(operation)
@@ -47,7 +47,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
             return r;
         }
 
-        public void StackToSelf(ref BuffForPersonalityTrait Other)
+        public void StackToSelf(ref BuffOnPersonalityTrait Other)
         {
             switch(operation)
             {
@@ -66,16 +66,16 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 
 
 
-        public override bool Equals(object obj) => this.Equals((BuffForPersonalityTrait)obj);
-        public bool Equals(BuffForPersonalityTrait p)
+        public override bool Equals(object obj) => this.Equals((BuffOnPersonalityTrait)obj);
+        public bool Equals(BuffOnPersonalityTrait p)
         {
             return IsStackableWith(ref p);
         }
         public override int GetHashCode() => valueId.GetHashCode();
-        public static bool operator ==(BuffForPersonalityTrait lhs, BuffForPersonalityTrait rhs)
+        public static bool operator ==(BuffOnPersonalityTrait lhs, BuffOnPersonalityTrait rhs)
         {
             return lhs.Equals(rhs);
         }
-        public static bool operator !=(BuffForPersonalityTrait lhs, BuffForPersonalityTrait rhs) => !(lhs == rhs);
+        public static bool operator !=(BuffOnPersonalityTrait lhs, BuffOnPersonalityTrait rhs) => !(lhs == rhs);
     }
 }

@@ -8,13 +8,13 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
-{
+{   
     [Serializable]
-    public struct BuffAuraForEmotion : IIdentifiableBuff<(Emotion, SimpleModifier, Operation, int)>, IStackableBuff<BuffAuraForEmotion>
+    public struct BuffOnEmotionAura : IIdentifiableBuff<(Emotion, SimpleEmotionModifier, Operation, int)>, IStackableBuff<BuffOnEmotionAura>
     {
         public Emotion emotion;
 
-        public SimpleModifier modifier;
+        public SimpleEmotionModifier modifier;
         public Operation operation;
         public int durationInDays;
 
@@ -27,19 +27,19 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 
 
 
-        public (Emotion, SimpleModifier, Operation, int) valueId => (emotion, modifier, operation, durationInDays);
+        public (Emotion, SimpleEmotionModifier, Operation, int) valueId => (emotion, modifier, operation, durationInDays);
         public ITuple id => valueId;
         public string stringId => valueId.ToString();
 
 
 
 
-        public bool IsStackableWith(ref BuffAuraForEmotion Other)
+        public bool IsStackableWith(ref BuffOnEmotionAura Other)
         {
             return Other.emotion == emotion && Other.modifier == modifier && Other.operation == operation && Other.durationInDays == durationInDays;
         }
 
-        public BuffAuraForEmotion StackToNew(ref BuffAuraForEmotion Other)
+        public BuffOnEmotionAura StackToNew(ref BuffOnEmotionAura Other)
         {
             var r = this;
             switch(operation)
@@ -60,7 +60,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
             return r;
         }
 
-        public void StackToSelf(ref BuffAuraForEmotion Other)
+        public void StackToSelf(ref BuffOnEmotionAura Other)
         {
             switch(operation)
             {
@@ -81,16 +81,16 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 
 
 
-        public override bool Equals(object obj) => this.Equals((BuffAuraForEmotion)obj);
-        public bool Equals(BuffAuraForEmotion p)
+        public override bool Equals(object obj) => this.Equals((BuffOnEmotionAura)obj);
+        public bool Equals(BuffOnEmotionAura p)
         {
             return IsStackableWith(ref p);
         }
         public override int GetHashCode() => valueId.GetHashCode();
-        public static bool operator ==(BuffAuraForEmotion lhs, BuffAuraForEmotion rhs)
+        public static bool operator ==(BuffOnEmotionAura lhs, BuffOnEmotionAura rhs)
         {
             return lhs.Equals(rhs);
         }
-        public static bool operator !=(BuffAuraForEmotion lhs, BuffAuraForEmotion rhs) => !(lhs == rhs);
+        public static bool operator !=(BuffOnEmotionAura lhs, BuffOnEmotionAura rhs) => !(lhs == rhs);
     }
 }

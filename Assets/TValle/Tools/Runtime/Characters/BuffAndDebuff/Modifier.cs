@@ -19,6 +19,12 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         maxValue,
         gain,
     }
+    public enum SimpleEmotionModifier
+    {
+        None = 0,
+        defaultValue,
+        gain,
+    }
     public enum InteractionModifier 
     {
         None = 0,

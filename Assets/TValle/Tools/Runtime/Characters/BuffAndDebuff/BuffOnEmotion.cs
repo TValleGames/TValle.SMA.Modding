@@ -10,14 +10,14 @@ using UnityEngine;
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
     [Serializable]
-    public struct BuffForEmotionForCharacter : IIdentifiableBuff<(Guid,Emotion, EmotionModifier, Operation,  int)>, IStackableBuff<BuffForEmotionForCharacter>
+    public struct BuffOnEmotion : IIdentifiableBuff<(Emotion, EmotionModifier, Operation, int)>, IStackableBuff<BuffOnEmotion>
     {
-        public Guid characterID;
         public Emotion emotion;
 
         public EmotionModifier modifier;
         public Operation operation;
         public int durationInDays;
+
         public float value;
 
 
@@ -27,19 +27,19 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 
 
 
-        public (Guid, Emotion, EmotionModifier, Operation, int) valueId => (characterID,emotion, modifier, operation, durationInDays);
+        public (Emotion, EmotionModifier, Operation, int) valueId => (emotion, modifier, operation, durationInDays);
         public ITuple id => valueId;
         public string stringId => valueId.ToString();
 
 
 
 
-        public bool IsStackableWith(ref BuffForEmotionForCharacter Other)
+        public bool IsStackableWith(ref BuffOnEmotion Other)
         {
-            return Other.characterID == characterID && Other.emotion == emotion && Other.modifier == modifier && Other.operation == operation && Other.durationInDays == durationInDays;
+            return Other.emotion == emotion && Other.modifier == modifier && Other.operation == operation && Other.durationInDays == durationInDays;
         }
 
-        public BuffForEmotionForCharacter StackToNew(ref BuffForEmotionForCharacter Other)
+        public BuffOnEmotion StackToNew(ref BuffOnEmotion Other)
         {
             var r = this;
             switch(operation)
@@ -60,7 +60,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
             return r;
         }
 
-        public void StackToSelf(ref BuffForEmotionForCharacter Other)
+        public void StackToSelf(ref BuffOnEmotion Other)
         {
             switch(operation)
             {
@@ -81,16 +81,16 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 
 
 
-        public override bool Equals(object obj) => this.Equals((BuffForEmotionForCharacter)obj);
-        public bool Equals(BuffForEmotionForCharacter p)
+        public override bool Equals(object obj) => this.Equals((BuffOnEmotion)obj);
+        public bool Equals(BuffOnEmotion p)
         {
             return IsStackableWith(ref p);
         }
         public override int GetHashCode() => valueId.GetHashCode();
-        public static bool operator ==(BuffForEmotionForCharacter lhs, BuffForEmotionForCharacter rhs)
+        public static bool operator ==(BuffOnEmotion lhs, BuffOnEmotion rhs)
         {
             return lhs.Equals(rhs);
         }
-        public static bool operator !=(BuffForEmotionForCharacter lhs, BuffForEmotionForCharacter rhs) => !(lhs == rhs);
+        public static bool operator !=(BuffOnEmotion lhs, BuffOnEmotion rhs) => !(lhs == rhs);
     }
 }

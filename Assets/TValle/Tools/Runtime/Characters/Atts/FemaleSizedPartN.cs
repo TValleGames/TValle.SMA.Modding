@@ -10,8 +10,10 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts
     {
         None = 0,
         bodyFat,
-        arms,foreArms,
-        thighs,calves, 
+        arms,
+        foreArms,
+        thighs,
+        calves,
         glutes,
         vagDeterioration,
         anusDeterioration,

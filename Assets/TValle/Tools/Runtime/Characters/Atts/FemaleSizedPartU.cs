@@ -9,6 +9,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts
     public enum FemaleSizedPartU
     {
         None = 0,
-        breast,nipples
+        breast,
+        nipples
     }
 }

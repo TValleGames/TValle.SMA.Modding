@@ -6,10 +6,12 @@ using UnityEngine;
 
 namespace Assets.TValle.Tools.Runtime.Characters.Atts
 {
-    public enum Operation
+    public enum SexualAberration
     {
-        None = 0,
-        add,
-        subtract,
+        None,
+        Dominance,
+        Masochism,
+        Passivity,
+
     }
 }

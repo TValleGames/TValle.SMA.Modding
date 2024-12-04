@@ -22,10 +22,11 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
             toReport.triggerMaxValueTimes = newInteraccion.triggerMaxValue ? toReport.triggerMaxValueTimes + 1 : toReport.triggerMaxValueTimes;
 
 
-            toReport.damagePercentage = toReport.damagePercentage + newInteraccion.damagePercentage;
+            toReport.damagePercentage += newInteraccion.damagePercentage;
 
-            float totalTimesW = 1f/*uno por q cada vez q se hace stack el w del newinteraction debe disminuir*/ / (toReport.times + 1f);
-            toReport.overshootOrUndershootMod = Mathf.Lerp(toReport.overshootOrUndershootMod, newInteraccion.overshootOrUndershootMod, totalTimesW);
+            toReport.overshootOrUndershootTotal += newInteraccion.times == 0 ? newInteraccion.overshootOrUndershootTotal : newInteraccion.overshootOrUndershootMod;
+
+            toReport.damageScoreTotal += newInteraccion.times == 0 ? newInteraccion.damageScoreTotal : newInteraccion.damageScore;
         }
         public static void UnStack(ref Interaction toReport, ref Interaction newInteraccion)
         {
@@ -40,22 +41,30 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
             toReport.emotionAtMaxValueTimes = newInteraccion.emotionAtMaxValue ? toReport.emotionAtMaxValueTimes - 1 : toReport.emotionAtMaxValueTimes;
             toReport.triggerMaxValueTimes = newInteraccion.triggerMaxValue ? toReport.triggerMaxValueTimes - 1 : toReport.triggerMaxValueTimes;
 
-            toReport.damagePercentage = toReport.damagePercentage - newInteraccion.damagePercentage;
+            toReport.damagePercentage -= newInteraccion.damagePercentage;
 
-            float totalTimesW;
-            try
-            {
-                totalTimesW = 1f/*uno por q cada vez q se hace stack el w del newinteraction debe disminuir*/ / (toReport.times );
-            }
-            catch(Exception e)
-            {
+            toReport.overshootOrUndershootTotal -= newInteraccion.times == 0 ? newInteraccion.overshootOrUndershootTotal : newInteraccion.overshootOrUndershootMod;
 
-                throw e;
-            }
-
-
-            toReport.overshootOrUndershootMod = Mathf.LerpUnclamped(newInteraccion.overshootOrUndershootMod, toReport.overshootOrUndershootMod, 1f + totalTimesW);
+            toReport.damageScoreTotal -= newInteraccion.times == 0 ? newInteraccion.damageScoreTotal : newInteraccion.damageScore;
         }
+
+        /// <summary>
+        /// how many times the stimulus amount is surpassed or how many times the stimulus amount is insufficient, zero if no damage was done
+        /// <para>Warning: For combined or archived interactions, this value is not accurate.</para>
+        /// <para>EX: This value is one if the caress's force falls within the appropriate range.</para>
+        /// <para>EX: When performing a caress with excessive force, the value will exceed one, indicating the number of times the force exceeds the appropriate amount.</para>
+        /// <para>EX: When performing a caress that is too soft below the appropriate range, this value will be less than one, indicating the fraction of the range that was reached below the appropriate range.</para>
+        /// <para>This same logic applies to other types of interactions, such as penetration. This refers to the overshoot or undershoot of the length or width of the member inside a hole.</para>
+        /// </summary>
+        public float overshootOrUndershootMod => overshootOrUndershootTotal / (float)times;
+
+        /// <summary>
+        /// zero to one value, It is the quality of the damage done; for example, if there were many "critical hits," then the value is closer to one, and if there were many "grazes," then the value is close to zero.
+        /// </summary>
+        public float damageScore => damageScoreTotal / (float)times;
+
+
+
         /// <summary>
         /// How much damage would this interaction cause if it lasted a second?
         /// </summary>
@@ -136,29 +145,9 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
 
 
 
+        public float overshootOrUndershootTotal;
 
-        ///// <summary>
-        ///// It depends on the interaction context; it can mean speed, distance, angle, etc.
-        ///// </summary>
-        //public float stimulus;
-        ///// <summary>
-        ///// This is the minimum amount of stimulus the "to" character can receive in this interaction context.
-        ///// </summary>
-        //public float minRange;
-        ///// <summary>
-        ///// This is the maximum amount of stimulus the "to" character can receive in this interaction context.
-        ///// </summary>
-        //public float maxRange;
-        /// <summary>
-        /// how many times the stimulus amount is surpassed or how many times the stimulus amount is insufficient, zero if no damage was done
-        /// <para>Warning: For combined or archived interactions, this value is not accurate.</para>
-        /// <para>EX: This value is one if the caress's force falls within the appropriate range.</para>
-        /// <para>EX: When performing a caress with excessive force, the value will exceed one, indicating the number of times the force exceeds the appropriate amount.</para>
-        /// <para>EX: When performing a caress that is too soft below the appropriate range, this value will be less than one, indicating the fraction of the range that was reached below the appropriate range.</para>
-        /// <para>This same logic applies to other types of interactions, such as penetration. This refers to the overshoot or undershoot of the length or width of the member inside a hole.</para>
-        /// </summary>
-        public float overshootOrUndershootMod;
-
+        public float damageScoreTotal;
 
     }
 }

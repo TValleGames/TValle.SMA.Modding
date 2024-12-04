@@ -40,7 +40,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
 
 
         void EndRecordign();
-        
+
         void Clear();
     }
     public delegate void OnInteractionHandler(ref Interaction newInteraction, ICharactersSceneInteractions sender);
@@ -83,7 +83,9 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         /// <param name="emotion">The value cannot be equal to "All".</param>
         /// <param name="reachedMaxValue">This should be true for interactions that cause the emotion to reach its maximum value.</param>
         /// <returns>returns invalid Interaction if not found</returns>
-        Interaction Peek(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue);
+        void Peek(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue, out Interaction interaction);
+
+       
 
         /// <summary>
         /// Get the interactions without removing the interactions form the list
@@ -99,6 +101,20 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
 
 
 
+
+
+        /// <summary>
+        /// same to Peek, it returns Interaction.times
+        /// </summary>
+        int PeekTimes(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue);
+        /// <summary>
+        /// same to Peek, it returns Interaction.IsValid
+        /// </summary>
+        bool PeekIsValid(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue);
+        /// <summary>
+        /// same to Peek, it returns Interaction.endFrame
+        /// </summary>
+        int PeekEndFrame(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue);
     }
     /// <summary>
     /// no interaction on the same parts of the same type of the same emotion will be duplicated
@@ -113,26 +129,10 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         /// <returns></returns>
         IList<Interaction> Get();
 
-        /// <summary>
-        /// Get the interaction and remove the interaction form the list
-        /// </summary> 
-        /// <param name="fromPart">The value cannot be equal to "All".</param>
-        /// <param name="toPart">The value cannot be equal to "All".</param>
-        /// <param name="interationReceivedType">The value cannot be equal to "All".</param>
-        /// <param name="emotion">The value cannot be equal to "All".</param>
-        /// <param name="reachedMaxValue">This should be true for interactions that cause the emotion to reach its maximum value.</param>
-        /// <returns></returns>
+        [Obsolete("", true)]
         Interaction Get(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue);
 
-        /// <summary>
-        /// Get the interactions and remove the interactions form the list
-        /// </summary> 
-        /// <param name="fromPart">The value can be equal to "All".</param>
-        /// <param name="toPart">The value can be equal to "All".</param>
-        /// <param name="interationReceivedType">The value can be equal to "All".</param>
-        /// <param name="emotion">The value can be equal to "All".</param>
-        /// <param name="reachedMaxValue">This should be true for interactions that cause the emotion to reach its maximum value.</param>
-        /// <returns></returns>
+        [Obsolete("", true)]
         IReadOnlyList<Interaction> GetMany(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue);
 
         /// <summary>

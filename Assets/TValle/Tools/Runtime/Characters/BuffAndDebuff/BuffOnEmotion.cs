@@ -10,7 +10,7 @@ using UnityEngine;
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
     [Serializable]
-    public struct BuffOnEmotion : IIdentifiableBuff<(Emotion, EmotionModifier, Operation, int)>, IStackableBuff<BuffOnEmotion>
+    public struct BuffOnEmotion : IIdentifiableBuff<(Emotion, EmotionModifier, Operation, int)>, IStackableBuff<BuffOnEmotion>, IFloatValuableBuff
     {
         public Emotion emotion;
 
@@ -30,9 +30,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public (Emotion, EmotionModifier, Operation, int) valueId => (emotion, modifier, operation, durationInDays);
         public ITuple id => valueId;
         public string stringId => valueId.ToString();
-
-
-
+        public float buffValue => value;
 
         public bool IsStackableWith(ref BuffOnEmotion Other)
         {

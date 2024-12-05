@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
-    public struct BuffOnPersonalityTrait : IIdentifiableBuff<(PersonalityTraits, SimpleModifier, AddOperation, int)>, IStackableBuff<BuffOnPersonalityTrait>, IEquatable<BuffOnPersonalityTrait>
+    public struct BuffOnPersonalityTrait : IIdentifiableBuff<(PersonalityTraits, SimpleModifier, AddOperation, int)>, IStackableBuff<BuffOnPersonalityTrait>, IEquatable<BuffOnPersonalityTrait>, IFloatValuableBuff
     {
         public PersonalityTraits trait;
 
@@ -22,7 +22,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public (PersonalityTraits, SimpleModifier, AddOperation, int) valueId => (trait, modifier, operation, durationInDays);
         public ITuple id => valueId;
         public string stringId => valueId.ToString();
-
+        public float buffValue => value;
 
 
         public bool IsStackableWith(ref BuffOnPersonalityTrait Other)

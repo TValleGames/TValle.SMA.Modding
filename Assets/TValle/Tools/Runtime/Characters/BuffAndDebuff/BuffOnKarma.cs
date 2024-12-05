@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
-    public struct BuffOnKarma : IIdentifiableBuff<(SimpleModifier, Operation, int)>, IStackableBuff<BuffOnKarma>
+    public struct BuffOnKarma : IIdentifiableBuff<(SimpleModifier, Operation, int)>, IStackableBuff<BuffOnKarma>, IFloatValuableBuff
     {
         public SimpleModifier modifier;
         public Operation operation;
@@ -17,7 +17,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public (SimpleModifier, Operation, int) valueId => (modifier, operation, durationInDays);
         public ITuple id => valueId;
         public string stringId => valueId.ToString();
-
+        public float buffValue => value;
 
 
 

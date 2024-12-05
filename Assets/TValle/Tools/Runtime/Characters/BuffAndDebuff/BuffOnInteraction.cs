@@ -11,7 +11,7 @@ using UnityEngine;
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
     [Serializable]
-    public struct BuffOnInteraction : IIdentifiableBuff<(InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, Emotion, InteractionModifier, ProductOperation, int)>, IStackableBuff<BuffOnInteraction>
+    public struct BuffOnInteraction : IIdentifiableBuff<(InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, Emotion, InteractionModifier, ProductOperation, int)>, IStackableBuff<BuffOnInteraction>, IFloatValuableBuff
     {
         public InterationReceivedType interationReceivedType;
         public TriggeringBodyPart fromPart;
@@ -29,7 +29,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public (InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, Emotion, InteractionModifier, ProductOperation, int) valueId => (interationReceivedType, fromPart, toPart, emotion, modifier, operation, durationInDays);
         public ITuple id => valueId;
         public string stringId => valueId.ToString();
-
+        public float buffValue => value;
 
 
         public bool IsStackableWith(ref BuffOnInteraction Other)

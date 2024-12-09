@@ -9,10 +9,10 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts
     public enum SexualAberration
     {
         None,
-        Dominance,
-        Masochism,
-        Submission,
-        Catatonia,
+        Dominant,
+        Masochist,
+        Submissive,
+        Passive,
 
     }
 }

@@ -23,6 +23,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
         public float damageScore => damageScoreTotal / (float)times;
 
         public int times;
+        //public int maxValueTimes;
         public float damagePercentageTotal;
         public float damageScoreTotal;
 
@@ -30,6 +31,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
         public void StackToSelf(ref EmotionDamagePair Other)
         {
             times += Other.times;
+            //maxValueTimes += Other.maxValueTimes;
             damagePercentageTotal += Other.damagePercentageTotal;
             damageScoreTotal += Other.damageScoreTotal;
         }

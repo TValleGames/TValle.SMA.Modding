@@ -9,7 +9,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
     public enum EmotionPercentageRange
     {
         All = -1,
-        None,
+        zero,
         zeroToTen,
         tenToTwenty,
         twentyToThirty,
@@ -20,5 +20,6 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
         seventyToEighty,
         eightyToNinety,
         ninetyToOneHundred,
+        oneHundred,
     }
 }

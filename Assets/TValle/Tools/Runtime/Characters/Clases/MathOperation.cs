@@ -10,20 +10,20 @@ namespace Assets.TValle.Tools.Runtime.Characters
     {
         None = 0,
         add,
-        subtract,
+        //subtract,
         mult,
-        divide,
+        //divide,
     }
     public enum AddOperation
     {
         None = 0,
         add,
-        subtract,
+        //subtract,
     }
     public enum ProductOperation
     {
         None = 0,
         mult,
-        divide,
+        //divide,
     }
 }

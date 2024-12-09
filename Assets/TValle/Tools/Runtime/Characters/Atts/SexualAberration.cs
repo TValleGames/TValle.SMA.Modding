@@ -11,7 +11,8 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts
         None,
         Dominance,
         Masochism,
-        Passivity,
+        Submission,
+        Catatonia,
 
     }
 }

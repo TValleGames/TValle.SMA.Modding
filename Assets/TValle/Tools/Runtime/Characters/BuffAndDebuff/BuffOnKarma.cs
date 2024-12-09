@@ -33,12 +33,10 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
             {
                 case Operation.None:
                     break;
-                case Operation.subtract:
                 case Operation.add:
                     r.value += Other.value;
                     break;
                 case Operation.mult:
-                case Operation.divide:
                     r.value *= Other.value;
                     break;
                 default:
@@ -53,12 +51,10 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
             {
                 case Operation.None:
                     break;
-                case Operation.subtract:
                 case Operation.add:
                     value += Other.value;
                     break;
                 case Operation.mult:
-                case Operation.divide:
                     value *= Other.value;
                     break;
                 default:

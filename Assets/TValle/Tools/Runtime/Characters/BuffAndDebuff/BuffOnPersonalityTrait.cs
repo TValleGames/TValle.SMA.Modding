@@ -37,7 +37,6 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
             {
                 case AddOperation.None:
                     break;
-                case AddOperation.subtract:
                 case AddOperation.add:
                     r.value += Other.value;
                     break;
@@ -53,7 +52,6 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
             {
                 case AddOperation.None:
                     break;
-                case AddOperation.subtract:
                 case AddOperation.add:
                     value += Other.value;
                     break;

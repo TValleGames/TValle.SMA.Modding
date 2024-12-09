@@ -11,22 +11,21 @@ using UnityEngine;
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
     [Serializable]
-    public struct BuffOnFavorabilityReqOfInteraction : IIdentifiableBuff<(InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, Emotion, SimpleModifier, ProductOperation, int)>, IStackableBuff<BuffOnFavorabilityReqOfInteraction>, IFloatValuableBuff
+    public struct BuffOnFavorabilityReqOfInteraction : IIdentifiableBuff<(InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, SimpleModifier, Operation, int)>, IStackableBuff<BuffOnFavorabilityReqOfInteraction>, IFloatValuableBuff
     {
         public InterationReceivedType interationReceivedType;
         public TriggeringBodyPart fromPart;
         public SensitiveBodyPart toPart;
-        public Emotion emotion;
 
         public SimpleModifier modifier;
-        public ProductOperation operation;
+        public Operation operation;
         public int durationInDays;
         public float value;
 
 
 
 
-        public (InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, Emotion, SimpleModifier, ProductOperation, int) valueId => (interationReceivedType, fromPart, toPart, emotion, modifier, operation, durationInDays);
+        public (InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, SimpleModifier, Operation, int) valueId => (interationReceivedType, fromPart, toPart, modifier, operation, durationInDays);
         public ITuple id => valueId;
         public string stringId => valueId.ToString();
         public float buffValue => value;
@@ -36,8 +35,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         {
             return
 
-                Other.interationReceivedType == interationReceivedType && Other.fromPart == fromPart && Other.toPart == toPart &&
-                Other.emotion == emotion && Other.modifier == modifier && Other.operation == operation && Other.durationInDays == durationInDays;
+                Other.interationReceivedType == interationReceivedType && Other.fromPart == fromPart && Other.toPart == toPart && Other.modifier == modifier && Other.operation == operation && Other.durationInDays == durationInDays;
         }
 
         public BuffOnFavorabilityReqOfInteraction StackToNew(ref BuffOnFavorabilityReqOfInteraction Other)
@@ -45,11 +43,13 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
             var r = this;
             switch(operation)
             {
-                case ProductOperation.None:
+                case Operation.None:
                     break;
-                case ProductOperation.mult:
-                case ProductOperation.divide:
+                case Operation.mult:
                     r.value *= Other.value;
+                    break;
+                case Operation.add:
+                    r.value += Other.value;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(operation.ToString());
@@ -61,11 +61,13 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         {
             switch(operation)
             {
-                case ProductOperation.None:
+                case Operation.None:
                     break;
-                case ProductOperation.mult:
-                case ProductOperation.divide:
+                case Operation.mult:
                     value *= Other.value;
+                    break;
+                case Operation.add:
+                    value += Other.value;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(operation.ToString());

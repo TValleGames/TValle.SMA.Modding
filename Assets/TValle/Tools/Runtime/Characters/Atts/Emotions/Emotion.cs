@@ -28,6 +28,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
     public static class EmotionExt
     {
         public static readonly Emotion[] femaleEmotionsWithDefaultValueBuff = new Emotion[] { Emotion.pleasure, Emotion.happiness, Emotion.disappointment, Emotion.rage, Emotion.pain, Emotion.fear };
+        public static readonly Emotion[] femaleEmotions = new Emotion[] { Emotion.arousal, Emotion.pleasure, Emotion.favorability, Emotion.relief, Emotion.happiness, Emotion.disappointment, Emotion.rage, Emotion.pain, Emotion.fear, };
 
         public static bool IsGood(this Emotion emo)
         {

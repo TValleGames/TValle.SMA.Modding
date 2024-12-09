@@ -48,7 +48,6 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
                 case ProductOperation.None:
                     break;
                 case ProductOperation.mult:
-                case ProductOperation.divide:
                     r.value *= Other.value;
                     break;
                 default:
@@ -64,7 +63,6 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
                 case ProductOperation.None:
                     break;
                 case ProductOperation.mult:
-                case ProductOperation.divide:
                     value *= Other.value;
                     break;
                 default:

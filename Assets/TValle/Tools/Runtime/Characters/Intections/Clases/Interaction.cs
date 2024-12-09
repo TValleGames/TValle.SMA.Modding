@@ -22,7 +22,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
             toReport.triggerMaxValueTimes = newInteraccion.triggerMaxValue ? toReport.triggerMaxValueTimes + 1 : toReport.triggerMaxValueTimes;
 
 
-            toReport.damagePercentage += newInteraccion.damagePercentage;
+            toReport.damagePercentageTotal += newInteraccion.damagePercentageTotal;
 
             toReport.overshootOrUndershootTotal += newInteraccion.times == 0 ? newInteraccion.overshootOrUndershootTotal : newInteraccion.overshootOrUndershootMod;
 
@@ -41,7 +41,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
             toReport.emotionAtMaxValueTimes = newInteraccion.emotionAtMaxValue ? toReport.emotionAtMaxValueTimes - 1 : toReport.emotionAtMaxValueTimes;
             toReport.triggerMaxValueTimes = newInteraccion.triggerMaxValue ? toReport.triggerMaxValueTimes - 1 : toReport.triggerMaxValueTimes;
 
-            toReport.damagePercentage -= newInteraccion.damagePercentage;
+            toReport.damagePercentageTotal -= newInteraccion.damagePercentageTotal;
 
             toReport.overshootOrUndershootTotal -= newInteraccion.times == 0 ? newInteraccion.overshootOrUndershootTotal : newInteraccion.overshootOrUndershootMod;
 
@@ -68,7 +68,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         /// <summary>
         /// How much damage would this interaction cause if it lasted a second?
         /// </summary>
-        public float damagePercentageVelocity => duration == 0 ? 0 : damagePercentage / duration;
+        public float damagePercentagePerSecond => duration == 0 ? 0 : damagePercentageTotal / duration;
 
         /// <summary>
         /// This is true as long as the emotion is at its maximum value; if this interaction is archived, then it is true if at any time the emotion reached its maximum.
@@ -128,7 +128,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         /// <summary>
         /// This interaction results in a change in the target emotion, which is express here as a percentage.
         /// </summary>
-        public float damagePercentage;
+        public float damagePercentageTotal;
 
 
         /// <summary>

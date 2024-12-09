@@ -36,7 +36,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         /// <param name="from">for now, always the male character</param>
         /// <param name="to">for now, always the female character</param>
         /// <returns></returns>
-        ICharactersSceneInteractionsClearable GetArchivedInteractions(SceneCharacter from, SceneCharacter to);
+        ICharactersSceneInteractionsArchived GetArchivedInteractions(SceneCharacter from, SceneCharacter to);
 
 
         void EndRecordign();
@@ -85,7 +85,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         /// <returns>returns invalid Interaction if not found</returns>
         void Peek(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue, out Interaction interaction);
 
-       
+
 
         /// <summary>
         /// Get the interactions without removing the interactions form the list
@@ -115,6 +115,14 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         /// same to Peek, it returns Interaction.endFrame
         /// </summary>
         int PeekEndFrame(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue);
+
+
+
+
+
+
+
+
     }
     /// <summary>
     /// no interaction on the same parts of the same type of the same emotion will be duplicated
@@ -123,21 +131,15 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
     public interface ICharactersSceneInteractionsClearable : ICharactersSceneInteractions
     {
 
-        /// <summary>
-        /// Get the interactions and empty the interaction list.
-        /// </summary>
-        /// <returns></returns>
-        IList<Interaction> Get();
 
-        [Obsolete("", true)]
-        Interaction Get(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue);
-
-        [Obsolete("", true)]
-        IReadOnlyList<Interaction> GetMany(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue);
 
         /// <summary>
         /// empty the interaction list
         /// </summary>
         void Clear();
+    }
+    public interface ICharactersSceneInteractionsArchived : ICharactersSceneInteractionsClearable
+    {
+        void PeekEmotionDamagePair(Emotion main, EmotionPercentageRange mainRange, Emotion secondary, EmotionPercentageRange secondaryRange, out EmotionDamagePair emotionDamagePair);
     }
 }

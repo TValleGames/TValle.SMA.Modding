@@ -33,4 +33,10 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         gainIntervalPosition,
 
     }
+    //public enum FavorabilityModifier
+    //{
+    //    None = 0,
+    //    req,
+
+    //}
 }

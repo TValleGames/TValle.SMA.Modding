@@ -11,7 +11,7 @@ using UnityEngine;
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
     [Serializable]
-    public struct BuffOnInteraction : IIdentifiableBuff<(InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, Emotion, InteractionModifier, ProductOperation, int)>, IStackableBuff<BuffOnInteraction>, IFloatValuableBuff
+    public struct BuffOnInteraction : IIdentifiableBuff<(InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, Emotion, InteractionModifier, ProductOperation, int)>, IStackableBuff<BuffOnInteraction>, IFloatValuableBuff, IEndableOnDateBuff
     {
         public InterationReceivedType interationReceivedType;
         public TriggeringBodyPart fromPart;
@@ -20,13 +20,13 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 
         public InteractionModifier modifier;
         public ProductOperation operation;
-        public int durationInDays;
+        public int endHour;
         public float value;
 
 
 
-
-        public (InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, Emotion, InteractionModifier, ProductOperation, int) valueId => (interationReceivedType, fromPart, toPart, emotion, modifier, operation, durationInDays);
+        public DateTime endTime => DateTime.MinValue.AddHours(endHour);
+        public (InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, Emotion, InteractionModifier, ProductOperation, int) valueId => (interationReceivedType, fromPart, toPart, emotion, modifier, operation, endHour);
         public ITuple id => valueId;
         public string stringId => valueId.ToString();
         public float buffValue => value;
@@ -37,7 +37,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
             return
 
                 Other.interationReceivedType == interationReceivedType && Other.fromPart == fromPart && Other.toPart == toPart &&
-                Other.emotion == emotion && Other.modifier == modifier && Other.operation == operation && Other.durationInDays == durationInDays;
+                Other.emotion == emotion && Other.modifier == modifier && Other.operation == operation && Other.endHour == endHour;
         }
 
         public BuffOnInteraction StackToNew(ref BuffOnInteraction Other)

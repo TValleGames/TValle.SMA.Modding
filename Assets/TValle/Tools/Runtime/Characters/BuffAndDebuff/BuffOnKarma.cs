@@ -7,14 +7,16 @@ using UnityEngine;
 
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
-    public struct BuffOnKarma : IIdentifiableBuff<(SimpleModifier, Operation, int)>, IStackableBuff<BuffOnKarma>, IFloatValuableBuff
+    public struct BuffOnKarma : IIdentifiableBuff<(SimpleModifier, Operation, int)>, IStackableBuff<BuffOnKarma>, IFloatValuableBuff, IEndableOnDateBuff
     {
         public SimpleModifier modifier;
         public Operation operation;
-        public int durationInDays;
+        public int endHour;
         public float value;
 
-        public (SimpleModifier, Operation, int) valueId => (modifier, operation, durationInDays);
+
+        public DateTime endTime => DateTime.MinValue.AddHours(endHour);
+        public (SimpleModifier, Operation, int) valueId => (modifier, operation, endHour);
         public ITuple id => valueId;
         public string stringId => valueId.ToString();
         public float buffValue => value;
@@ -23,7 +25,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 
         public bool IsStackableWith(ref BuffOnKarma Other)
         {
-            return Other.modifier == modifier && Other.operation == operation && Other.durationInDays == durationInDays;
+            return Other.modifier == modifier && Other.operation == operation && Other.endHour == endHour;
         }
 
         public BuffOnKarma StackToNew(ref BuffOnKarma Other)

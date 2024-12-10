@@ -10,13 +10,13 @@ using UnityEngine;
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
     [Serializable]
-    public struct BuffOnEmotion : IIdentifiableBuff<(Emotion, EmotionModifier, Operation, int)>, IStackableBuff<BuffOnEmotion>, IFloatValuableBuff
+    public struct BuffOnEmotion : IIdentifiableBuff<(Emotion, EmotionModifier, Operation, int)>, IStackableBuff<BuffOnEmotion>, IFloatValuableBuff, IEndableOnDateBuff
     {
         public Emotion emotion;
 
         public EmotionModifier modifier;
         public Operation operation;
-        public int durationInDays;
+        public int endHour;
 
         public float value;
 
@@ -26,15 +26,15 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 
 
 
-
-        public (Emotion, EmotionModifier, Operation, int) valueId => (emotion, modifier, operation, durationInDays);
+        public DateTime endTime => DateTime.MinValue.AddHours(endHour);
+        public (Emotion, EmotionModifier, Operation, int) valueId => (emotion, modifier, operation, endHour);
         public ITuple id => valueId;
         public string stringId => valueId.ToString();
         public float buffValue => value;
 
         public bool IsStackableWith(ref BuffOnEmotion Other)
         {
-            return Other.emotion == emotion && Other.modifier == modifier && Other.operation == operation && Other.durationInDays == durationInDays;
+            return Other.emotion == emotion && Other.modifier == modifier && Other.operation == operation && Other.endHour == endHour;
         }
 
         public BuffOnEmotion StackToNew(ref BuffOnEmotion Other)

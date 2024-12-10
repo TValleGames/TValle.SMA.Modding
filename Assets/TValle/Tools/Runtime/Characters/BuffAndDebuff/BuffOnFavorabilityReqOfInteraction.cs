@@ -11,7 +11,7 @@ using UnityEngine;
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
     [Serializable]
-    public struct BuffOnFavorabilityReqOfInteraction : IIdentifiableBuff<(InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, SimpleModifier, Operation, int)>, IStackableBuff<BuffOnFavorabilityReqOfInteraction>, IFloatValuableBuff
+    public struct BuffOnFavorabilityReqOfInteraction : IIdentifiableBuff<(InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, SimpleModifier, Operation, int)>, IStackableBuff<BuffOnFavorabilityReqOfInteraction>, IFloatValuableBuff, IEndableOnDateBuff
     {
         public InterationReceivedType interationReceivedType;
         public TriggeringBodyPart fromPart;
@@ -19,13 +19,13 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 
         public SimpleModifier modifier;
         public Operation operation;
-        public int durationInDays;
+        public int endHour;
         public float value;
 
 
 
-
-        public (InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, SimpleModifier, Operation, int) valueId => (interationReceivedType, fromPart, toPart, modifier, operation, durationInDays);
+        public DateTime endTime => DateTime.MinValue.AddHours(endHour);
+        public (InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, SimpleModifier, Operation, int) valueId => (interationReceivedType, fromPart, toPart, modifier, operation, endHour);
         public ITuple id => valueId;
         public string stringId => valueId.ToString();
         public float buffValue => value;
@@ -35,7 +35,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         {
             return
 
-                Other.interationReceivedType == interationReceivedType && Other.fromPart == fromPart && Other.toPart == toPart && Other.modifier == modifier && Other.operation == operation && Other.durationInDays == durationInDays;
+                Other.interationReceivedType == interationReceivedType && Other.fromPart == fromPart && Other.toPart == toPart && Other.modifier == modifier && Other.operation == operation && Other.endHour == endHour;
         }
 
         public BuffOnFavorabilityReqOfInteraction StackToNew(ref BuffOnFavorabilityReqOfInteraction Other)

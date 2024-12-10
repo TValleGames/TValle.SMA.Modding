@@ -8,18 +8,18 @@ using UnityEngine;
 
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
-    public struct BuffOnPersonalityTrait : IIdentifiableBuff<(PersonalityTraits, SimpleModifier, AddOperation, int)>, IStackableBuff<BuffOnPersonalityTrait>, IEquatable<BuffOnPersonalityTrait>, IFloatValuableBuff
+    public struct BuffOnPersonalityTrait : IIdentifiableBuff<(PersonalityTraits, SimpleModifier, AddOperation, int)>, IStackableBuff<BuffOnPersonalityTrait>, IEquatable<BuffOnPersonalityTrait>, IFloatValuableBuff, IEndableOnDateBuff
     {
         public PersonalityTraits trait;
 
         public SimpleModifier modifier;
         public AddOperation operation;
-        public int durationInDays;
+        public int endHour;
         public float value;
 
 
-
-        public (PersonalityTraits, SimpleModifier, AddOperation, int) valueId => (trait, modifier, operation, durationInDays);
+        public DateTime endTime => DateTime.MinValue.AddHours(endHour);
+        public (PersonalityTraits, SimpleModifier, AddOperation, int) valueId => (trait, modifier, operation, endHour);
         public ITuple id => valueId;
         public string stringId => valueId.ToString();
         public float buffValue => value;
@@ -27,7 +27,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 
         public bool IsStackableWith(ref BuffOnPersonalityTrait Other)
         {
-            return Other.trait == trait && Other.modifier == modifier && Other.operation == operation && Other.durationInDays == durationInDays;
+            return Other.trait == trait && Other.modifier == modifier && Other.operation == operation && Other.endHour == endHour;
         }
 
         public BuffOnPersonalityTrait StackToNew(ref BuffOnPersonalityTrait Other)

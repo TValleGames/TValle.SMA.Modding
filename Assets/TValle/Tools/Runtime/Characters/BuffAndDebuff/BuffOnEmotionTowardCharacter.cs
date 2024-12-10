@@ -10,14 +10,14 @@ using UnityEngine;
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
     [Serializable]
-    public struct BuffOnEmotionTowardCharacter : IIdentifiableBuff<(Guid,Emotion, EmotionModifier, Operation,  int)>, IStackableBuff<BuffOnEmotionTowardCharacter>, IFloatValuableBuff
+    public struct BuffOnEmotionTowardCharacter : IIdentifiableBuff<(Guid,Emotion, EmotionModifier, Operation,  int)>, IStackableBuff<BuffOnEmotionTowardCharacter>, IFloatValuableBuff, IEndableOnDateBuff
     {
         public Guid towardID;
         public Emotion emotion;
 
         public EmotionModifier modifier;
         public Operation operation;
-        public int durationInDays;
+        public int endHour;
         public float value;
 
 
@@ -26,8 +26,8 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 
 
 
-
-        public (Guid, Emotion, EmotionModifier, Operation, int) valueId => (towardID,emotion, modifier, operation, durationInDays);
+        public DateTime endTime => DateTime.MinValue.AddHours(endHour);
+        public (Guid, Emotion, EmotionModifier, Operation, int) valueId => (towardID,emotion, modifier, operation, endHour);
         public ITuple id => valueId;
         public string stringId => valueId.ToString();
         public float buffValue => value;
@@ -36,7 +36,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 
         public bool IsStackableWith(ref BuffOnEmotionTowardCharacter Other)
         {
-            return Other.towardID == towardID && Other.emotion == emotion && Other.modifier == modifier && Other.operation == operation && Other.durationInDays == durationInDays;
+            return Other.towardID == towardID && Other.emotion == emotion && Other.modifier == modifier && Other.operation == operation && Other.endHour == endHour;
         }
 
         public BuffOnEmotionTowardCharacter StackToNew(ref BuffOnEmotionTowardCharacter Other)

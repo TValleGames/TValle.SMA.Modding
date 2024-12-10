@@ -10,13 +10,13 @@ using UnityEngine;
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {   
     [Serializable]
-    public struct BuffOnEmotionAura : IIdentifiableBuff<(Emotion, SimpleEmotionModifier, Operation, int)>, IStackableBuff<BuffOnEmotionAura>, IFloatValuableBuff
+    public struct BuffOnEmotionAura : IIdentifiableBuff<(Emotion, SimpleEmotionModifier, Operation, int)>, IStackableBuff<BuffOnEmotionAura>, IFloatValuableBuff, IEndableOnDateBuff
     {
         public Emotion emotion;
 
         public SimpleEmotionModifier modifier;
         public Operation operation;
-        public int durationInDays;
+        public int endHour;
 
         public float value;
 
@@ -26,8 +26,8 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 
 
 
-
-        public (Emotion, SimpleEmotionModifier, Operation, int) valueId => (emotion, modifier, operation, durationInDays);
+        public DateTime endTime => DateTime.MinValue.AddHours(endHour);
+        public (Emotion, SimpleEmotionModifier, Operation, int) valueId => (emotion, modifier, operation, endHour);
         public ITuple id => valueId;
         public string stringId => valueId.ToString();
 
@@ -36,7 +36,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 
         public bool IsStackableWith(ref BuffOnEmotionAura Other)
         {
-            return Other.emotion == emotion && Other.modifier == modifier && Other.operation == operation && Other.durationInDays == durationInDays;
+            return Other.emotion == emotion && Other.modifier == modifier && Other.operation == operation && Other.endHour == endHour;
         }
 
         public BuffOnEmotionAura StackToNew(ref BuffOnEmotionAura Other)

@@ -6,7 +6,72 @@ using UnityEngine;
 
 namespace Assets.TValle.Tools.Runtime.Characters.Atts
 {
-    public enum PersonalityTraits 
+    public enum PersonalityTraits
+    {
+        All = -1,
+        None = 0,
+
+        pragmatism,//abstraction
+        Imagination,//abstraction
+
+        secure,//concern
+        Concerned,//concern
+
+        submissive,//dominance
+        Dominant,//dominance
+
+        unstable,//emotionalstability
+        Calm,//emotionalstability
+
+        content,//liveliness
+        Spontaneous,//liveliness
+
+        attachedToTheFamiliar,//opennessToChange
+        Flexible,//opennessToChange
+
+
+        undisciplined,//perfectionism
+        Controlled,//perfectionism
+
+        open,//privacy
+        Discreet,//privacy
+
+        concrete,//reasoning
+        Abstract,//reasoning
+
+
+        nonConforming,//normativeConsciousness
+        ConformingToStandards,//normativeConsciousness
+
+        dependency,//selfConfidence
+        SelfSufficiency,//selfConfidence
+
+
+        toughness,//sensitivity
+        Sweetness,//sensitivity
+
+
+        shy,//socialdaring
+        Uninhibited,//socialdaring
+
+
+        relaxed,//tension
+        Impatient,//tension
+
+        confident,//alertness
+        Distrustful,//alertness
+
+
+        reserved,//warmth
+        Outgoing,//warmth
+
+
+        sensitive,//resilience
+        Resilient//resilience
+        
+
+    }
+    public enum HalfPersonalityTraits
     {
         /// <summary>
         /// pragmatism / Imagination
@@ -15,7 +80,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts
         /// <summary>
         ///: secure / Concerned
         /// </summary>
-        preoccupied = 2,
+        concern = 2,
         /// <summary>
         ///: submissive / Dominant
         /// </summary>

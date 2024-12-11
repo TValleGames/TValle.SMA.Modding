@@ -8,8 +8,11 @@ using UnityEngine;
 namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
 {
     [Serializable]
-    public struct EmotionDamagePair 
+    public struct EmotionDamagePair
     {
+
+        public bool isValid => main != Emotion.None && secondary != Emotion.None;
+
         public Emotion main;
         public EmotionPercentageRange mainRange;
 

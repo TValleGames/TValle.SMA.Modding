@@ -8,18 +8,18 @@ using UnityEngine;
 
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
-    public struct BuffOnPersonalityTrait : IIdentifiableBuff<(PersonalityTraits, SimpleModifier, AddOperation, int)>, IStackableBuff<BuffOnPersonalityTrait>, IEquatable<BuffOnPersonalityTrait>, IFloatValuableBuff, IEndableOnDateBuff
+    public struct BuffOnPersonalityTrait : IIdentifiableBuff<(PersonalityTraits, SimpleModifier, Operation, int)>, IStackableBuff<BuffOnPersonalityTrait>, IEquatable<BuffOnPersonalityTrait>, IFloatValuableBuff, IEndableOnDateBuff
     {
         public PersonalityTraits trait;
 
         public SimpleModifier modifier;
-        public AddOperation operation;
+        public Operation operation;
         public int endHour;
         public float value;
 
 
         public DateTime endTime => DateTime.MinValue.AddHours(endHour);
-        public (PersonalityTraits, SimpleModifier, AddOperation, int) valueId => (trait, modifier, operation, endHour);
+        public (PersonalityTraits, SimpleModifier, Operation, int) valueId => (trait, modifier, operation, endHour);
         public ITuple id => valueId;
         public string stringId => valueId.ToString();
         public float buffValue => value;
@@ -35,10 +35,13 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
             var r = this;
             switch(operation)
             {
-                case AddOperation.None:
+                case Operation.None:
                     break;
-                case AddOperation.add:
+                case Operation.add:
                     r.value += Other.value;
+                    break;
+                case Operation.mult:
+                    r.value *= Other.value;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(operation.ToString());
@@ -50,10 +53,13 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         {
             switch(operation)
             {
-                case AddOperation.None:
+                case Operation.None:
                     break;
-                case AddOperation.add:
+                case Operation.add:
                     value += Other.value;
+                    break;
+                case Operation.mult:
+                    value *= Other.value;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(operation.ToString());

@@ -11,6 +11,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         None = 0,
         value,
     }
+    
     public enum EmotionModifier
     {
         None = 0,

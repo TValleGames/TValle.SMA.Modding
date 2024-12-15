@@ -10,7 +10,7 @@ using UnityEngine;
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {   
     [Serializable]
-    public struct BuffOnEmotionAura : IIdentifiableBuff<(Emotion, SimpleEmotionModifier, Operation, int)>, IStackableBuff<BuffOnEmotionAura>, IFloatValuableBuff, IEndableOnDateBuff
+    public struct BuffOnEmotionAura : IIdentifiableBuff<(Emotion, SimpleEmotionModifier, Operation, int)>, IStackableBuff<BuffOnEmotionAura>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff
     {
         public Emotion emotion;
 
@@ -21,7 +21,15 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public float value;
 
 
+        public string DebugPrint()
+        {
+            return emotion.ToString() + "->" + modifier.ToString() + "->" + operation.ToString() + " End:" + (endHour < 0 ? "∞" : DateTime.MinValue.AddHours(endHour)) + " By:" + value.ToString();
+        }
 
+        public string RichPrint()
+        {
+            throw new NotImplementedException();
+        }
 
 
 

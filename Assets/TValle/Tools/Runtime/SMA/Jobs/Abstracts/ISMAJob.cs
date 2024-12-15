@@ -19,6 +19,12 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
     public interface ISMAJob
     {
         public bool isInit { get; }
+        public bool isAborted { get; set; }
+
+        /// <summary>
+        /// The in-game date on which the scene occurs.
+        /// </summary>
+        public DateTime date { get; }
 
         /// <summary>
         /// get this id form the map
@@ -43,7 +49,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// </summary>
         /// <param name="mainPlayerCharacterID">the male character</param>
         /// <param name="mainNonPlayerCharacterID">the female character</param>
-        void Init(ISMAJobsManager jobManager, SMAJobMap map, Guid mainPlayerCharacterID, Guid mainNonPlayerCharacterID);
+        void Init(ISMAJobsManager jobManager, SMAJobMap map, Guid mainPlayerCharacterID, Guid mainNonPlayerCharacterID, DateTime inGameDate);
 
         /// <summary>
         /// load scenes/assets here, the manager moves this game object to the main job scene once this function returns true.
@@ -140,11 +146,15 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
 
     public interface ISMAJobsManager
     {
+        ISceneInteractions interactions { get; }
         ISMAJobsUIManager UI { get; }
         /// <summary>
         /// the language selected by the player, if the game supports multiple languages.
         /// </summary>
         Language gameLanguage { get; }
+
+
+
 
         /// <summary>
         /// job being played
@@ -227,7 +237,10 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// <param name="value"></param>
         void SetMainPlayerCharacterInputsActive(bool value);
 
-        ISceneInteractions interactions { get; }
+
+        void StartJob(string id, Guid male, Guid female, Action<Exception> OnStaredJobRutine = null);
+        void EndCurrentJob(Action<Exception> OnEndedJobRutine = null);
+        void AbortCurrentJob(Action<Exception> OnAbortedJobRutine = null);
 
     }
 
@@ -274,8 +287,20 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// It usually shows the information of the current model present in the scene.
         /// </summary>
         void ShowMainNonPlayerCharacterInfo();
-       
+
         void ShowCurrentJobSessionObjetives();
+
+
+
+
+
+        /// <summary>
+        /// Shows the default UI for new buffs and debuffs generated in this scene, it yields when the player accepts
+        /// </summary>
+        /// <returns> yield break to move on</returns>
+        IEnumerator ShowDefaultDrawBuffsAndDebuffs(SceneCharacterFromToBuffAndDebuff characterBuffAndDebuff);
+
+
 
     }
 

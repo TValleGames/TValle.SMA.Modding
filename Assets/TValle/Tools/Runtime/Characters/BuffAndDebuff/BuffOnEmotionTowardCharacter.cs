@@ -10,7 +10,7 @@ using UnityEngine;
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
     [Serializable]
-    public struct BuffOnEmotionTowardCharacter : IIdentifiableBuff<(Guid,Emotion, EmotionModifier, Operation,  int)>, IStackableBuff<BuffOnEmotionTowardCharacter>, IFloatValuableBuff, IEndableOnDateBuff
+    public struct BuffOnEmotionTowardCharacter : IIdentifiableBuff<(Guid, Emotion, EmotionModifier, Operation, int)>, IStackableBuff<BuffOnEmotionTowardCharacter>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff
     {
         public Guid towardID;
         public Emotion emotion;
@@ -21,13 +21,21 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public float value;
 
 
+        public string DebugPrint()
+        {
+            return towardID.ToString() + "->" + emotion.ToString() + "->" + modifier.ToString() + "->" + operation.ToString() + " End:" + (endHour < 0 ? "∞" : DateTime.MinValue.AddHours(endHour)) + " By:" + value.ToString();
+        }
 
+        public string RichPrint()
+        {
+            throw new NotImplementedException();
+        }
 
 
 
 
         public DateTime endTime => DateTime.MinValue.AddHours(endHour);
-        public (Guid, Emotion, EmotionModifier, Operation, int) valueId => (towardID,emotion, modifier, operation, endHour);
+        public (Guid, Emotion, EmotionModifier, Operation, int) valueId => (towardID, emotion, modifier, operation, endHour);
         public ITuple id => valueId;
         public string stringId => valueId.ToString();
         public float buffValue => value;

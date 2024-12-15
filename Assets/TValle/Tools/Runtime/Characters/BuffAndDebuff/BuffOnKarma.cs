@@ -7,13 +7,22 @@ using UnityEngine;
 
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
-    public struct BuffOnKarma : IIdentifiableBuff<(SimpleModifier, Operation, int)>, IStackableBuff<BuffOnKarma>, IFloatValuableBuff, IEndableOnDateBuff
+    public struct BuffOnKarma : IIdentifiableBuff<(SimpleModifier, Operation, int)>, IStackableBuff<BuffOnKarma>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff
     {
         public SimpleModifier modifier;
         public Operation operation;
         public int endHour;
         public float value;
 
+        public string DebugPrint()
+        {
+            return modifier.ToString() + "->" + modifier.ToString() + "->" + operation.ToString() + " End:" + (endHour < 0 ? "∞" : DateTime.MinValue.AddHours(endHour)) + " By:" + value.ToString();
+        }
+
+        public string RichPrint()
+        {
+            throw new NotImplementedException();
+        }
 
         public DateTime endTime => DateTime.MinValue.AddHours(endHour);
         public (SimpleModifier, Operation, int) valueId => (modifier, operation, endHour);

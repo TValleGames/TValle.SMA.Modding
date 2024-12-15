@@ -11,7 +11,8 @@ using UnityEngine;
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
     [Serializable]
-    public struct BuffOnInteraction : IIdentifiableBuff<(InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, Emotion, InteractionModifier, ProductOperation, int)>, IStackableBuff<BuffOnInteraction>, IFloatValuableBuff, IEndableOnDateBuff
+    public struct BuffOnInteraction : IIdentifiableBuff<(InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, Emotion, InteractionModifier, ProductOperation, int)>, 
+        IStackableBuff<BuffOnInteraction>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff
     {
         public InterationReceivedType interationReceivedType;
         public TriggeringBodyPart fromPart;
@@ -24,6 +25,15 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public float value;
 
 
+        public string DebugPrint()
+        {
+            return interationReceivedType.ToString() + "->" + fromPart.ToString() + "->" + toPart.ToString() + "->" + modifier.ToString() + "->" + operation.ToString() + " End:" + (endHour < 0 ? "∞" : DateTime.MinValue.AddHours(endHour)) + " By:" + value.ToString();
+        }
+
+        public string RichPrint()
+        {
+            throw new NotImplementedException();
+        }
 
         public DateTime endTime => DateTime.MinValue.AddHours(endHour);
         public (InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, Emotion, InteractionModifier, ProductOperation, int) valueId => (interationReceivedType, fromPart, toPart, emotion, modifier, operation, endHour);

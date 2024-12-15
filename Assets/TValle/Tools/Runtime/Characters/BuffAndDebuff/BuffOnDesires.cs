@@ -1,4 +1,4 @@
-﻿using Assets.TValle.Tools.Runtime.Characters.Atts;
+﻿using Assets.TValle.Tools.Runtime.Characters.Atts.Emotions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,19 +8,20 @@ using UnityEngine;
 
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
-    public struct BuffOnPersonalityTrait : IIdentifiableBuff<(PersonalityTraits, SimpleModifier, Operation, int)>, IStackableBuff<BuffOnPersonalityTrait>, 
-        IEquatable<BuffOnPersonalityTrait>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff
+    [Serializable]
+    public struct BuffOnDesires : IIdentifiableBuff<(Desires, EmotionModifier, Operation, int)>, IStackableBuff<BuffOnDesires>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff
     {
-        public PersonalityTraits trait;
-
-        public SimpleModifier modifier;
+        public Desires desires;
+        public EmotionModifier modifier;
         public Operation operation;
         public int endHour;
+
         public float value;
+
 
         public string DebugPrint()
         {
-            return trait.ToString() + "->" + modifier.ToString() + "->" + operation.ToString() + " End:" + (endHour < 0 ? "∞" : DateTime.MinValue.AddHours(endHour)) + " By:" + value.ToString();
+            return desires.ToString() + "->" + modifier.ToString() + "->" + operation.ToString() + " End:" + (endHour < 0 ? "∞" : DateTime.MinValue.AddHours(endHour)) + " By:" + value.ToString();
         }
 
         public string RichPrint()
@@ -29,18 +30,17 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         }
 
         public DateTime endTime => DateTime.MinValue.AddHours(endHour);
-        public (PersonalityTraits, SimpleModifier, Operation, int) valueId => (trait, modifier, operation, endHour);
+        public (Desires, EmotionModifier, Operation, int) valueId => (desires, modifier, operation, endHour);
         public ITuple id => valueId;
         public string stringId => valueId.ToString();
         public float buffValue => value;
 
-
-        public bool IsStackableWith(ref BuffOnPersonalityTrait Other)
+        public bool IsStackableWith(ref BuffOnDesires Other)
         {
-            return Other.trait == trait && Other.modifier == modifier && Other.operation == operation && Other.endHour == endHour;
+            return Other.desires == desires && Other.modifier == modifier && Other.operation == operation && Other.endHour == endHour;
         }
 
-        public BuffOnPersonalityTrait StackToNew(ref BuffOnPersonalityTrait Other)
+        public BuffOnDesires StackToNew(ref BuffOnDesires Other)
         {
             var r = this;
             switch(operation)
@@ -59,7 +59,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
             return r;
         }
 
-        public void StackToSelf(ref BuffOnPersonalityTrait Other)
+        public void StackToSelf(ref BuffOnDesires Other)
         {
             switch(operation)
             {
@@ -78,18 +78,23 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 
 
 
-
-
-        public override bool Equals(object obj) => this.Equals((BuffOnPersonalityTrait)obj);
-        public bool Equals(BuffOnPersonalityTrait p)
+        public override bool Equals(object obj) => this.Equals((BuffOnDesires)obj);
+        public bool Equals(BuffOnDesires p)
         {
             return IsStackableWith(ref p);
         }
         public override int GetHashCode() => valueId.GetHashCode();
-        public static bool operator ==(BuffOnPersonalityTrait lhs, BuffOnPersonalityTrait rhs)
+
+
+
+        public static bool operator ==(BuffOnDesires lhs, BuffOnDesires rhs)
         {
             return lhs.Equals(rhs);
         }
-        public static bool operator !=(BuffOnPersonalityTrait lhs, BuffOnPersonalityTrait rhs) => !(lhs == rhs);
+        public static bool operator !=(BuffOnDesires lhs, BuffOnDesires rhs) => !(lhs == rhs);
+
+
+
+
     }
 }

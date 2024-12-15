@@ -61,6 +61,12 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         void EndRecordign();
 
         void Clear();
+
+        /// <summary>
+        /// Generates buffs and debuffs of characters "from" and "to" using the current scene interactions.
+        /// </summary>
+        void DefaultBuffAndDebuffGenerate(SceneCharacter from, SceneCharacter to, bool sceneAborted, DateTime now, out SceneCharacterFromToBuffAndDebuff BuffAndDebuffOnFrom, out SceneCharacterFromToBuffAndDebuff BuffAndDebuffOnTo);
+
     }
     public delegate void OnInteractionHandler(ref Interaction newInteraction, ICharactersSceneInteractions sender);
     public delegate void OnInteractionStackHandler(ref Interaction stackedInteraction, ICharactersSceneInteractions sender);

@@ -11,7 +11,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
         All = -1,
         None = 0,
 
-        happiness,
+        enjoyment,
         relief,
         favorability,
         pleasure,
@@ -27,8 +27,8 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
     }
     public static class EmotionExt
     {
-        public static readonly Emotion[] femaleEmotionsWithDefaultValueBuff = new Emotion[] { Emotion.pleasure, Emotion.happiness, Emotion.disappointment, Emotion.rage, Emotion.pain, Emotion.fear };
-        public static readonly Emotion[] femaleEmotions = new Emotion[] { Emotion.arousal, Emotion.pleasure, Emotion.favorability, Emotion.relief, Emotion.happiness, Emotion.disappointment, Emotion.rage, Emotion.pain, Emotion.fear, };
+        public static readonly Emotion[] femaleEmotionsWithDefaultValueBuff = new Emotion[] { Emotion.pleasure, Emotion.enjoyment, Emotion.disappointment, Emotion.rage, Emotion.pain, Emotion.fear };
+        public static readonly Emotion[] femaleEmotions = new Emotion[] { Emotion.arousal, Emotion.pleasure, Emotion.favorability, Emotion.relief, Emotion.enjoyment, Emotion.disappointment, Emotion.rage, Emotion.pain, Emotion.fear, };
 
         public static bool IsGood(this Emotion emo)
         {
@@ -38,7 +38,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
                 case Emotion.pleasure:
                 case Emotion.favorability:
                 case Emotion.relief:
-                case Emotion.happiness:
+                case Emotion.enjoyment:
                     return true;
 
                 case Emotion.disappointment:

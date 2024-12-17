@@ -56,12 +56,12 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         /// <para>EX: When performing a caress that is too soft below the appropriate range, this value will be less than one, indicating the fraction of the range that was reached below the appropriate range.</para>
         /// <para>This same logic applies to other types of interactions, such as penetration. This refers to the overshoot or undershoot of the length or width of the member inside a hole.</para>
         /// </summary>
-        public float overshootOrUndershootMod => overshootOrUndershootTotal / (float)times;
+        public float overshootOrUndershootMod => times <= 0 ? 0f : overshootOrUndershootTotal / (float)times;
 
         /// <summary>
         /// zero to one value, It is the quality of the damage done; for example, if there were many "critical hits," then the value is closer to one, and if there were many "grazes," then the value is close to zero.
         /// </summary>
-        public float damageScore => damageScoreTotal / (float)times;
+        public float damageScore => times <= 0 ? 0f : damageScoreTotal / (float)times;
 
 
 

@@ -13,8 +13,15 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
     [Serializable]
     public class SceneCharacterFromToBuffAndDebuff
     {
-        public SceneCharacter character;
+        public SceneCharacterFromToBuffAndDebuff(SceneCharacter Character)
+        {
+            m_character = Character;
+        }
+        [SerializeField]
+        [JustToReadUI]
+        SceneCharacter m_character;
 
+        public SceneCharacter character => m_character;
 
         public Dictionary<(SimpleModifier, Operation, int), BuffOnKarma> BuffOnKarma;
         public Dictionary<(PersonalityTraits, SimpleModifier, Operation, int), BuffOnPersonalityTrait> BuffOnPersonalityTrait;
@@ -28,23 +35,23 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
 
         public void DebugPrint()
         {
-            DebugPrint(BuffOnKarma);
-            DebugPrint(BuffOnPersonalityTrait);
-            DebugPrint(BuffOnDesires);
-            DebugPrint(BuffOnFavorabilityReqOfInteraction);
-            DebugPrint(BuffOnInteraction);
-            DebugPrint(BuffOnEmotionAura);
-            DebugPrint(BuffOnEmotionTowardCharacter);
-            DebugPrint(BuffOnEmotion);
+            DebugPrint(m_character, BuffOnKarma);
+            DebugPrint(m_character, BuffOnPersonalityTrait);
+            DebugPrint(m_character, BuffOnDesires);
+            DebugPrint(m_character, BuffOnFavorabilityReqOfInteraction);
+            DebugPrint(m_character, BuffOnInteraction);
+            DebugPrint(m_character, BuffOnEmotionAura);
+            DebugPrint(m_character, BuffOnEmotionTowardCharacter);
+            DebugPrint(m_character, BuffOnEmotion);
         }
-        static void DebugPrint<TKey, TValue>(Dictionary<TKey, TValue> dicc)
+        static void DebugPrint<TKey, TValue>(SceneCharacter character, Dictionary<TKey, TValue> dicc)
             where TValue : IPrintableBuff
         {
             if(dicc != null)
             {
                 foreach(var item in dicc)
                 {
-                    Debug.LogWarning(item.Value.DebugPrint());
+                    Debug.LogWarning(character.fullName + " " + typeof(TValue).Name + " " + item.Value.DebugPrint());
                 }
             }
 

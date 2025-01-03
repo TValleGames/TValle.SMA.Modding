@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions   
 {
+    [Obsolete("",true)]
     public enum FemaleEmotion
     {
         None,

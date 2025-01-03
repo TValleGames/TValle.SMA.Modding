@@ -14,7 +14,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 
     public static class IEndableOnDateBuffExt
     {
-        public static int EndHourToBuff(this DateTime now, int daysToAdd)
+        public static int DaysToBuffEndHour(this DateTime now, int daysToAdd)
         {
             var endTime = now.AddDays(daysToAdd);
             var lapse = endTime - DateTime.MinValue;

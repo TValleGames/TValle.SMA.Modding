@@ -24,4 +24,22 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
         toy,
         semen,
     }
+
+    public static class TriggeringBodyPartHelper
+    {
+        static TriggeringBodyPartHelper()
+        {
+            {
+                var p = new List<TriggeringBodyPart>();
+                p.Add(TriggeringBodyPart.penis);
+                p.Add(TriggeringBodyPart.finger);
+                p.Add(TriggeringBodyPart.toy);
+                p.Add(TriggeringBodyPart.tongue);
+                canPenetrateParts = p;
+            }
+        }
+
+
+        public static readonly IReadOnlyList<TriggeringBodyPart> canPenetrateParts;
+    }
 }

@@ -13,6 +13,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
     {
         public static void Stack(ref Interaction toReport, ref Interaction newInteraccion)
         {
+            
 
             toReport.times = toReport.times + 1;
             toReport.endTime = newInteraccion.endTime;
@@ -24,14 +25,18 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
 
             toReport.damagePercentageTotal += newInteraccion.damagePercentageTotal;
 
-            toReport.overshootOrUndershootTotal += newInteraccion.times == 0 ? newInteraccion.overshootOrUndershootTotal : newInteraccion.overshootOrUndershootMod;
+            toReport.overshootOrUndershootTotal +=  newInteraccion.overshootOrUndershootMod;
 
-            toReport.damageScoreTotal += newInteraccion.times == 0 ? newInteraccion.damageScoreTotal : newInteraccion.damageScore;
+            toReport.damageScoreTotal +=  newInteraccion.damageScore;
+
+            
         }
         public static void UnStack(ref Interaction toReport, ref Interaction newInteraccion)
         {
             if(toReport.times < 2)
                 throw new InvalidOperationException("Must be previus staked");
+          
+          
 
             toReport.times = toReport.times - 1;
             toReport.endTime = Mathf.Clamp(toReport.endTime - newInteraccion.duration, toReport.startTime, toReport.endTime);
@@ -43,9 +48,11 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
 
             toReport.damagePercentageTotal -= newInteraccion.damagePercentageTotal;
 
-            toReport.overshootOrUndershootTotal -= newInteraccion.times == 0 ? newInteraccion.overshootOrUndershootTotal : newInteraccion.overshootOrUndershootMod;
+            toReport.overshootOrUndershootTotal -= newInteraccion.overshootOrUndershootMod;
 
-            toReport.damageScoreTotal -= newInteraccion.times == 0 ? newInteraccion.damageScoreTotal : newInteraccion.damageScore;
+            toReport.damageScoreTotal -= newInteraccion.damageScore;
+
+            
         }
 
         /// <summary>

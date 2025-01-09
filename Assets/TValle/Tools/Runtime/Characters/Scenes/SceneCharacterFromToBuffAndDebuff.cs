@@ -32,6 +32,12 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         public Dictionary<(Guid, Emotion, EmotionModifier, Operation, int), BuffOnEmotionTowardCharacter> BuffOnEmotionTowardCharacter;
         public Dictionary<(Emotion, EmotionModifier, Operation, int), BuffOnEmotion> BuffOnEmotion;
 
+        public Dictionary<(SensitiveFemaleHoleWalls, SimpleModifier, AddOperation, int), BuffOnHoleWearingWalls> BuffOnHoleWearingWalls;
+        public Dictionary<(SensitiveFemaleHoleBottom, SimpleModifier, AddOperation, int), BuffOnHoleWearingBottom> BuffOnHoleWearingBottom;
+        public Dictionary<(SensitiveFemaleHole, SimpleModifier, AddOperation, int), BuffOnHoleWearingMotion> BuffOnHoleWearingMotion;
+
+               
+
 
         public void DebugPrint()
         {
@@ -43,6 +49,10 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
             DebugPrint(m_character, BuffOnEmotionAura);
             DebugPrint(m_character, BuffOnEmotionTowardCharacter);
             DebugPrint(m_character, BuffOnEmotion);
+
+            DebugPrint(m_character, BuffOnHoleWearingWalls);
+            DebugPrint(m_character, BuffOnHoleWearingBottom);
+            DebugPrint(m_character, BuffOnHoleWearingMotion);
         }
         static void DebugPrint<TKey, TValue>(SceneCharacter character, Dictionary<TKey, TValue> dicc)
             where TValue : IPrintableBuff

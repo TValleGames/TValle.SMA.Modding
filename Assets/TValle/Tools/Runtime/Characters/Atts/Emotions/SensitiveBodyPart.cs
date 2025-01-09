@@ -74,7 +74,6 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
     }
     public enum SensitiveFemaleHoleType
     {
-        All = -1,
         None = 0,
 
         hole,
@@ -83,7 +82,6 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
     }
     public enum SensitiveFemaleHole
     {
-        All = -1,
         None = 0,
 
         throat = SensitiveBodyPart.throat,
@@ -92,7 +90,6 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
     }
     public enum SensitiveFemaleHoleWalls
     {
-        All = -1,
         None = 0,
 
         throatWalls = SensitiveBodyPart.throatWalls,
@@ -101,7 +98,6 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
     }
     public enum SensitiveFemaleHoleBottom
     {
-        All = -1,
         None = 0,
 
         throatBottom = SensitiveBodyPart.throatBottom,

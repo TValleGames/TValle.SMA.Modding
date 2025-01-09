@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
 {
-    [Flags]
     public enum TriggeringBodyPart
     {
         All = -1,
@@ -24,7 +23,15 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
         toy,
         semen,
     }
+    public enum TriggeringPenetratingBodyPart
+    {
+        None = 0,
+        finger = TriggeringBodyPart.finger,
+        tongue = TriggeringBodyPart.tongue,
+        penis = TriggeringBodyPart.penis,
+        toy = TriggeringBodyPart.toy,
 
+    }
     public static class TriggeringBodyPartHelper
     {
         static TriggeringBodyPartHelper()

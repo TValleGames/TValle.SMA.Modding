@@ -39,8 +39,17 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
     }
     public enum InterationDirectionType
     {
-        None,
+        None = 0,
         received,
         given,
     }
+    public enum IntercouseInterationReceivedType
+    {
+        None = 0,
+
+        penetration= InterationReceivedType.penetration,
+        fingering= InterationReceivedType.fingering,
+        propped = InterationReceivedType.propped,
+    }
+
 }

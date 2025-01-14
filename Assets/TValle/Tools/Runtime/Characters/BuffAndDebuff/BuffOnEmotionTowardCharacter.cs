@@ -10,16 +10,16 @@ using UnityEngine;
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
     [Serializable]
-    public struct BuffOnEmotionTowardCharacter : IIdentifiableBuff<(Guid, Emotion, EmotionModifier, Operation, int)>, IStackableBuff<BuffOnEmotionTowardCharacter>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff
+    public struct BuffOnEmotionTowardCharacter : IIdentifiableBuff<(Guid, Emotion, EmotionModifier, Operation, int)>, IStackableBuff<BuffOnEmotionTowardCharacter>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff, IValidableBuff
     {
         public Guid towardID;
         public Emotion emotion;
-
         public EmotionModifier modifier;
         public Operation operation;
         public int endHour;
         public float value;
 
+        public bool isValid => towardID != Guid.Empty && emotion != Emotion.None && modifier != EmotionModifier.None && operation != Operation.None && endHour != 0;
 
         public string DebugPrint()
         {

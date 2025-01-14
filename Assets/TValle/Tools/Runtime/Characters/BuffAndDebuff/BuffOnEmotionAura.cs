@@ -8,9 +8,9 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
-{   
+{
     [Serializable]
-    public struct BuffOnEmotionAura : IIdentifiableBuff<(Emotion, SimpleEmotionModifier, Operation, int)>, IStackableBuff<BuffOnEmotionAura>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff
+    public struct BuffOnEmotionAura : IIdentifiableBuff<(Emotion, SimpleEmotionModifier, Operation, int)>, IStackableBuff<BuffOnEmotionAura>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff, IValidableBuff
     {
         public Emotion emotion;
 
@@ -20,6 +20,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 
         public float value;
 
+        public bool isValid => emotion != Emotion.None && modifier != SimpleEmotionModifier.None && operation != Operation.None && endHour != 0;
 
         public string DebugPrint()
         {

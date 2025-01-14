@@ -12,7 +12,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
     [Serializable]
     public struct BuffOnInteraction : IIdentifiableBuff<(InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, Emotion, InteractionModifier, ProductOperation, int)>, 
-        IStackableBuff<BuffOnInteraction>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff
+        IStackableBuff<BuffOnInteraction>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff, IValidableBuff
     {
         public InterationReceivedType interationReceivedType;
         public TriggeringBodyPart fromPart;
@@ -24,6 +24,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public int endHour;
         public float value;
 
+        public bool isValid => emotion != Emotion.None && interationReceivedType != InterationReceivedType.None && fromPart != TriggeringBodyPart.None && toPart != SensitiveBodyPart.None && modifier != InteractionModifier.None && operation != ProductOperation.None && endHour != 0;
 
         public string DebugPrint()
         {

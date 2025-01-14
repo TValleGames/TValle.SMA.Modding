@@ -8,14 +8,16 @@ using UnityEngine;
 
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
+    [Serializable]
     public struct BuffOnHoleWearingBottom : IIdentifiableBuff<(SensitiveFemaleHoleBottom, SimpleModifier, AddOperation, int)>, IStackableBuff<BuffOnHoleWearingBottom>,
-        IEquatable<BuffOnHoleWearingBottom>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff
+        IEquatable<BuffOnHoleWearingBottom>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff, IValidableBuff
     {
         public SensitiveFemaleHoleBottom toPart;
         public SimpleModifier modifier;
         public AddOperation operation;
         public int endHour;
         public float value;
+        public bool isValid => toPart != SensitiveFemaleHoleBottom.None && modifier != SimpleModifier.None && operation != AddOperation.None && endHour != 0;
 
         public string DebugPrint()
         {

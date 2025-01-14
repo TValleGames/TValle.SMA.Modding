@@ -11,8 +11,8 @@ using UnityEngine;
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
     [Serializable]
-    public struct BuffOnFavorabilityReqOfInteraction : IIdentifiableBuff<(InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, SimpleModifier, Operation, int)>, 
-        IStackableBuff<BuffOnFavorabilityReqOfInteraction>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff
+    public struct BuffOnFavorabilityReqOfInteraction : IIdentifiableBuff<(InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, SimpleModifier, Operation, int)>,
+        IStackableBuff<BuffOnFavorabilityReqOfInteraction>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff, IValidableBuff
     {
         public InterationReceivedType interationReceivedType;
         public TriggeringBodyPart fromPart;
@@ -22,6 +22,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public Operation operation;
         public int endHour;
         public float value;
+        public bool isValid => interationReceivedType != InterationReceivedType.None && fromPart != TriggeringBodyPart.None && toPart != SensitiveBodyPart.None && modifier != SimpleModifier.None && operation != Operation.None && endHour != 0;
 
         public string DebugPrint()
         {

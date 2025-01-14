@@ -9,15 +9,15 @@ using UnityEngine;
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
     [Serializable]
-    public struct BuffOnDesires : IIdentifiableBuff<(Desires, EmotionModifier, Operation, int)>, IStackableBuff<BuffOnDesires>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff
+    public struct BuffOnDesires : IIdentifiableBuff<(Desires, EmotionModifier, Operation, int)>, IStackableBuff<BuffOnDesires>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff, IValidableBuff
     {
         public Desires desires;
         public EmotionModifier modifier;
         public Operation operation;
         public int endHour;
-
         public float value;
 
+        public bool isValid => desires != Desires.None && modifier != EmotionModifier.None && operation != Operation.None && endHour != 0;
 
         public string DebugPrint()
         {

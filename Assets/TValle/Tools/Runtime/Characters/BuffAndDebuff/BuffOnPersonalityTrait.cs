@@ -8,8 +8,9 @@ using UnityEngine;
 
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
-    public struct BuffOnPersonalityTrait : IIdentifiableBuff<(PersonalityTraits, SimpleModifier, Operation, int)>, IStackableBuff<BuffOnPersonalityTrait>, 
-        IEquatable<BuffOnPersonalityTrait>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff
+    [Serializable]
+    public struct BuffOnPersonalityTrait : IIdentifiableBuff<(PersonalityTraits, SimpleModifier, Operation, int)>, IStackableBuff<BuffOnPersonalityTrait>,
+        IEquatable<BuffOnPersonalityTrait>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff, IValidableBuff
     {
         public PersonalityTraits trait;
 
@@ -17,6 +18,8 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public Operation operation;
         public int endHour;
         public float value;
+
+        public bool isValid => trait != PersonalityTraits.None && modifier != SimpleModifier.None && operation != Operation.None && endHour != 0;
 
         public string DebugPrint()
         {
@@ -33,6 +36,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public ITuple id => valueId;
         public string stringId => valueId.ToString();
         public float buffValue => value;
+
 
 
         public bool IsStackableWith(ref BuffOnPersonalityTrait Other)

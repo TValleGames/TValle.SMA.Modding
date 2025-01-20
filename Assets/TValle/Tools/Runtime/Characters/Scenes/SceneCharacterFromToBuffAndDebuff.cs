@@ -36,7 +36,13 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         public Dictionary<(SensitiveFemaleHoleBottom, SimpleModifier, AddOperation, int), BuffOnHoleWearingBottom> BuffOnHoleWearingBottom;
         public Dictionary<(SensitiveFemaleHole, SimpleModifier, AddOperation, int), BuffOnHoleWearingMotion> BuffOnHoleWearingMotion;
 
-               
+        public void Apply()
+        {
+            m_character?.GetComponentInChildren<IBuffableBySceneInteractionsCharacter>()?.Apply(this);
+        }
+
+
+
 
 
         public void DebugPrint()

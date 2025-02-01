@@ -8,6 +8,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
     public interface IEndableOnDateBuff
     {
+        bool infinite { get; }
         DateTime endTime { get; }
 
     }

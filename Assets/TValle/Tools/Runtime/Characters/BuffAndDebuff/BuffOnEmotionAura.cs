@@ -35,7 +35,8 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 
 
 
-        public DateTime endTime => DateTime.MinValue.AddHours(endHour);
+        public bool infinite => endHour < 0;
+        public DateTime endTime => infinite ? DateTime.MaxValue : DateTime.MinValue.AddHours(endHour);
         public (Emotion, SimpleEmotionModifier, Operation, int) valueId => (emotion, modifier, operation, endHour);
         public ITuple id => valueId;
         public string stringId => valueId.ToString();

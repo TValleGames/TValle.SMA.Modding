@@ -3,6 +3,7 @@ using Assets.TValle.Tools.Runtime.Characters.Scenes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
     [Serializable]
     public struct Interaction
     {
-        
+
         public static void Stack(ref Interaction toReport, ref Interaction newInteraccion)
         {
 
@@ -56,6 +57,11 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
 
         }
 
+        public (TriggeringBodyPart, SensitiveBodyPart, InterationReceivedType, Emotion, bool) GetKey()
+        {
+            return (fromPart, toPart, interationReceivedType, emotion, triggerMaxValue);
+        }
+
         /// <summary>
         /// how many times the stimulus amount is surpassed or how many times the stimulus amount is insufficient, zero if no damage was done
         /// <para>Warning: For combined or archived interactions, this value is not accurate.</para>
@@ -97,10 +103,14 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         public float duration => endTime - startTime;
         public int frames => endFrame - startFrame;
 
-        public bool isValid => from != null && to != null && toPart != SensitiveBodyPart.None && fromPart != TriggeringBodyPart.None && interationReceivedType != InterationReceivedType.None && emotion != Emotion.None && times > 0;
+        public bool isValid => toID != null && toPart != SensitiveBodyPart.None && fromPart != TriggeringBodyPart.None && interationReceivedType != InterationReceivedType.None && emotion != Emotion.None && times > 0;
 
-        public SceneCharacter from;
-        public SceneCharacter to;
+        public DateTime date { get { if(string.IsNullOrWhiteSpace(dateString)) return DateTime.MinValue; return DateTime.Parse(dateString, CultureInfo.InvariantCulture); } set { dateString = value.ToString(CultureInfo.InvariantCulture); } }
+
+
+
+        public string fromID;
+        public string toID;
 
         public TriggeringBodyPart fromPart;
         public SensitiveBodyPart toPart;
@@ -111,7 +121,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         /// <summary>
         /// The in-game date on which the scene occurs.
         /// </summary>
-        public DateTime date;
+        public string dateString;
         /// <summary>
         /// The time in seconds since the beginning of the scene when the interaction occurs
         /// </summary>

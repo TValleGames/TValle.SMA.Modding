@@ -17,7 +17,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public int endHour;
         public float value;
 
-        public bool isValid => desires != Desires.None && modifier != EmotionModifier.None && operation != Operation.None && endHour != 0;
+        public bool isValid => desires != Desires.None && desires != Desires.All && modifier != EmotionModifier.None && operation != Operation.None && endHour != 0;
 
         public string DebugPrint()
         {
@@ -29,7 +29,8 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
             throw new NotImplementedException();
         }
 
-        public DateTime endTime => DateTime.MinValue.AddHours(endHour);
+        public bool infinite => endHour < 0;
+        public DateTime endTime => infinite ? DateTime.MaxValue : DateTime.MinValue.AddHours(endHour);
         public (Desires, EmotionModifier, Operation, int) valueId => (desires, modifier, operation, endHour);
         public ITuple id => valueId;
         public string stringId => valueId.ToString();

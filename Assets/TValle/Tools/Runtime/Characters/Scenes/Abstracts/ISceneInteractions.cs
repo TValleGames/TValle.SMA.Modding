@@ -17,6 +17,11 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         event OnCharactersInteractionHandler onInteraction;
 
         /// <summary>
+        /// Interaction information is combined; this event is triggered when a new record is added or when it is altered by being combined.
+        /// </summary>
+        event OnRegisterChangedHandler onRegister;
+
+        /// <summary>
         /// WILL clear the recorded interactions before storing new ones.
         /// </summary>
         void StartRecording();
@@ -71,6 +76,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
     public delegate void OnInteractionHandler(ref Interaction newInteraction, ICharactersSceneInteractions sender);
     public delegate void OnInteractionStackHandler(ref Interaction stackedInteraction, ICharactersSceneInteractions sender);
     public delegate void OnCharactersInteractionHandler(ref Interaction newInteraction, ICharactersSceneInteractions Interactions, SceneCharacter from, SceneCharacter to, ISceneInteractions sender);
+    public delegate void OnRegisterChangedHandler(ref Interaction register, ICharactersSceneInteractions Interactions, SceneCharacter from, SceneCharacter to, ISceneInteractions sender);
 
     /// <summary>
     /// no interaction on the same parts of the same type of the same emotion will be duplicated

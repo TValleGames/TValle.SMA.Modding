@@ -34,7 +34,8 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
             throw new NotImplementedException();
         }
 
-        public DateTime endTime => DateTime.MinValue.AddHours(endHour);
+        public bool infinite => endHour < 0;
+        public DateTime endTime => infinite ? DateTime.MaxValue : DateTime.MinValue.AddHours(endHour);
         public (InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, SimpleModifier, Operation, int) valueId => (interationReceivedType, fromPart, toPart, modifier, operation, endHour);
         public ITuple id => valueId;
         public string stringId => valueId.ToString();

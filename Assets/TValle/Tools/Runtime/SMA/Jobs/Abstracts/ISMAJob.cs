@@ -18,13 +18,13 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
     /// </summary>
     public interface ISMAJob
     {
-        public bool isInit { get; }
-        public bool isAborted { get; set; }
+        bool isInit { get; }
+        bool isAborted { get; set; }
 
         /// <summary>
         /// The in-game date on which the scene occurs.
         /// </summary>
-        public DateTime date { get; }
+        DateTime date { get; }
 
         /// <summary>
         /// get this id form the map
@@ -34,7 +34,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// get this name form the map
         /// </summary>
         string Name { get; }
-
+        int lvl { get; }
         /// <summary>
         /// load this scene and others in the load funtion call 
         /// </summary>
@@ -49,7 +49,8 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// </summary>
         /// <param name="mainPlayerCharacterID">the male character</param>
         /// <param name="mainNonPlayerCharacterID">the female character</param>
-        void Init(ISMAJobsManager jobManager, SMAJobMap map, Guid mainPlayerCharacterID, Guid mainNonPlayerCharacterID, DateTime inGameDate);
+        /// <param name="lvl">starts from zero</param>
+        void Init(ISMAJobsManager jobManager, SMAJobMap map, int Lvl, Guid mainPlayerCharacterID, Guid mainNonPlayerCharacterID, DateTime inGameDate);
 
         /// <summary>
         /// load scenes/assets here, the manager moves this game object to the main job scene once this function returns true.
@@ -58,13 +59,13 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         IEnumerator Load();
 
         /// <summary>
-        /// start the game-logic here
+        /// start the game-logic here, load Objectives
         /// </summary>
         /// <returns> yield break to move on</returns>
         IEnumerator DoStart();
 
         /// <summary>
-        /// Load character data from memory and potentially display job guides to the player.
+        /// Load character data from memory and potentially display job guides to the player. 
         /// </summary>
         /// <returns> yield break to move on</returns>
         IEnumerator Introduce();
@@ -114,7 +115,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
 
 
         /// <summary>
-        /// Save modifications to characters to the memory and potentially display this information to the player.
+        /// Save modifications to characters to the memory and potentially display this information to the player, check Objectives, add experience
         /// </summary>
         /// <returns> yield break to move on</returns>
         IEnumerator Conclude();
@@ -148,6 +149,9 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
     {
         ISceneInteractions interactions { get; }
         ISMAJobsUIManager UI { get; }
+        ISMAJobsObjectives objectives { get; }
+        ISMAJobsOutfits outfits { get; }
+
         /// <summary>
         /// the language selected by the player, if the game supports multiple languages.
         /// </summary>
@@ -238,10 +242,145 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         void SetMainPlayerCharacterInputsActive(bool value);
 
 
-        void StartJob(string id, Guid male, Guid female, Action<Exception> OnStaredJobRutine = null);
+        void StartJob(string id, int Lvl, Guid male, Guid female, Action<Exception> OnStaredJobRutine = null);
         void EndCurrentJob(Action<Exception> OnEndedJobRutine = null);
         void AbortCurrentJob(Action<Exception> OnAbortedJobRutine = null);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="levels">how many lvl this character will increase, Generally this value is less than one, since several sessions are needed to go up a level</param>
+        void AddExpToMainPlayer(float levels);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="levels">how many lvl this character will increase, Generally this value is less than one, since several sessions are needed to go up a level</param>
+        void AddExpToMainNonPlayer(float levels);
+
+
+
+
+    }
+    public interface ISMAJobsOutfits
+    {
+
+        int CountOfClothingPiecesCoveringBodyPartOfMainPlayer(SensitiveBodyPart bodyPart);
+
+        int CountOfClothingPiecesCoveringBodyPartOfMainNonPlayer(SensitiveBodyPart bodyPart);
+    }
+    public interface ISMAJobsObjectives
+    {
+
+
+
+        /// <summary>
+        ///   create a new ISMAJobObjective instance, this instance need to be added later to the in game job objectives
+        /// </summary>
+        /// <param name="ID">Global UNIQUE</param>
+        /// <param name="description"></param>
+        /// <param name="checkAfterCompleted">can go back from Completed To Incompleted</param>
+        /// <param name="checkDelegate">returns true for objective completed, returns false for inclompleted</param>
+        /// <param name="checkFrequency"> checkDelegate will be called each frame, or can be called every 2 seconds</param>
+        /// <param name="subObjectives">(optional)for this objective to be complete, this subObjectives must be completed too</param>
+        /// <param name="tips">(optional) give more information to the player</param>
+        /// <returns></returns>
+        ISMAJobObjective CreateObjective(string ID, string description, bool checkAfterCompleted, ObjectiveCheckerHandler checkDelegate, ObjectiveCheckFrequency checkFrequency, IReadOnlyList<ISMAJobObjective> subObjectives = null, string tips = null);
+
+
+        /// <summary>
+        /// create a new ISMAJobObjective instance, this instance need to be added later to the in game job objectives
+        /// <para>EX: The player needs to fill a container, the goal is to fill the container completely to 100%</para>
+        /// </summary>
+        /// <param name="ID">Global UNIQUE</param>
+        /// <param name="description"></param>
+        /// <param name="checkAfterCompleted">can go back from Completed To Incompleted</param>
+        /// <param name="checkDelegate">returns 1 for objective complete, returns zero for no progress done</param>
+        /// <param name="checkFrequency"> checkDelegate will be called each frame, or can be called every 2 seconds</param>
+        /// <param name="subObjectives">(optional)for this objective to be complete, this subObjectives must be completed too</param>
+        /// <param name="tips">(optional) give more information to the player</param>
+        /// <param name="callback">(optional) if the objective Progress changes, this delegate will be called</param>
+        /// <returns></returns>
+        ISMAJobObjective CreatePercentageObjective(string ID, string description, bool checkAfterCompleted, ObjectiveCheckerHandler_RecalculateWeight checkDelegate, ObjectiveCheckFrequency checkFrequency, IReadOnlyList<ISMAJobObjective> subObjectives = null, string tips = null, PercentageObjectiveProgressWeightChandedHandler callback = null);
+
+        /// <summary>
+        /// create a new ISMAJobObjective instance, this instance need to be added later to the in game job objectives
+        /// <para>EX: The player needs to collect unique items with specific IDs in his inventory, each ID of each item would be a flag.</para>
+        /// </summary>
+        /// <param name="ID">Global UNIQUE</param>
+        /// <param name="description"></param>
+        /// <param name="checkAfterCompleted">can go back from Completed To Incompleted</param>
+        /// <param name="Flags">unique ids</param>
+        /// <param name="checkDelegate">check if this unique ids flags is set Ex: item with id(flag) is in the inventory. receives the flag(id) returns if is set or not </param>
+        /// <param name="checkFrequency"> checkDelegate will be called each frame, or can be called every 2 seconds</param>
+        /// <param name="subObjectives">(optional)for this objective to be complete, this subObjectives must be completed too</param>
+        /// <param name="tips">(optional) give more information to the player</param>
+        /// <param name="callback">(optional) each time a flag is changed, this delegate will be called</param>
+        /// <returns></returns>
+        ISMAJobObjective CreateFlagsObjective(string ID, string description, bool checkAfterCompleted, IReadOnlyList<string> Flags, ObjectiveCheckerHandler_IsFlagSet checkDelegate, ObjectiveCheckFrequency checkFrequency, IReadOnlyList<ISMAJobObjective> subObjectives = null, string tips = null, ObjectiveFlagsChandedHandler callback = null);
+
+
+        /// <summary>
+        /// create a new ISMAJobObjective instance, this instance need to be added later to the in game job objectives
+        /// <para>EX: 'MOVE AROUND' the players need to move arround in all arrow directions, each directions is an unique action.</para>
+        /// </summary>
+        /// <param name="ID">Global UNIQUE</param>
+        /// <param name="description"></param>
+        /// <param name="checkAfterCompleted">can go back from Completed To Incompleted</param>
+        /// <param name="Capacity">how many of this actions is requred by this objective to be compelted EX: 4 since there are 4 directions the player can move with the arrow</param>
+        /// <param name="checkDelegate">Ex: is the player moved forward then 'FORWARD' is returned, or 'BACKWARDS' or 'LEFT' etc, when 4 of this unique actions are returned, the objective will be completed</param>
+        /// <param name="checkFrequency"> checkDelegate will be called each frame, or can be called every 2 seconds</param>
+        /// <param name="subObjectives">(optional)for this objective to be complete, this subObjectives must be completed too</param>
+        /// <param name="tips">(optional) give more information to the player</param>
+        /// <param name="callback">(optional) each time the count changes, this delegate will be called</param>
+        /// <returns></returns>
+        ISMAJobObjective CreateUniqueActionsCountObjective(string ID, string description, bool checkAfterCompleted, int Capacity, ObjectiveCheckerHandler_GetLastUniqueAction checkDelegate, ObjectiveCheckFrequency checkFrequency, IReadOnlyList<ISMAJobObjective> subObjectives = null, string tips = null, ObjectiveCountChandedHandler callback = null);
+
+        /// <summary>
+        /// create a new ISMAJobObjective instance, this instance need to be added later to the in game job objectives
+        /// <para>EX: player need to jump 5 times.</para>
+        /// </summary>
+        /// <param name="ID">Global UNIQUE</param>
+        /// <param name="description"></param>
+        /// <param name="checkAfterCompleted">can go back from Completed To Incompleted</param>
+        /// <param name="Capacity">how many of this actions is requred by this objective to be compelted EX: 5</param>
+        /// <param name="checkDelegate">Ex: if the player jumped then returns count++</param>
+        /// <param name="checkFrequency"> checkDelegate will be called each frame, or can be called every 2 seconds</param>
+        /// <param name="subObjectives">(optional)for this objective to be complete, this subObjectives must be completed too</param>
+        /// <param name="tips">(optional) give more information to the player</param>
+        /// <param name="callback">(optional) each time the count changes, this delegate will be called</param>
+        /// <returns></returns>
+        ISMAJobObjective CreateCountOfSingleActionObjective(string ID, string description, bool checkAfterCompleted, int Capacity, ObjectiveCheckerHandler_CurrentCount checkDelegate, ObjectiveCheckFrequency checkFrequency, IReadOnlyList<ISMAJobObjective> subObjectives = null, string tips = null, ObjectiveCountChandedHandler callback = null);
+
+
+
+
+
+
+        /// <summary>
+        /// add this objective to the in game job objectives
+        /// </summary>
+        /// <param name="objective"></param> 
+        /// <param name="required">false for optional objectives</param>
+        void AddObjective(ISMAJobObjective objective, bool required);
+
+        /// <summary>
+        /// remove this objective from the in game job objectives
+        /// </summary>
+        /// <param name="objective"></param>
+        void RemoveObjective(ISMAJobObjective objective);
+
+        /// <summary>
+        /// add this objectives to the in game job objectives
+        /// </summary>
+        /// <param name="objective"></param>
+        /// <param name="required">false for optional objectives</param>
+        void AddObjectives(IReadOnlyList<ISMAJobObjective> objective, bool required);
+
+        /// <summary>
+        /// remove this objectives from the in game job objectives
+        /// </summary>
+        /// <param name="objective"></param>
+        void RemoveObjectives(IReadOnlyList<ISMAJobObjective> objective);
     }
 
     public interface ISMAJobsUIManager

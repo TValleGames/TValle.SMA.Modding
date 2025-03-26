@@ -35,7 +35,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Moddding.Jobs.Maps
 
         [Header("Assets")]
         [Space]
-        [Tooltip("An image (16:9) of the scenery for this job. (A 100KB image is enough)")]
+        [Tooltip("An image (16:9) of the scenery for this job. (A 100KB image is enough) MUST BE Read/Write enabled")]
         public AssetReferenceTexture portrait;
 
         [Space]
@@ -63,6 +63,8 @@ namespace Assets.TValle.Tools.Runtime.SMA.Moddding.Jobs.Maps
         [Serializable]
         public class Level
         {
+            [Tooltip("Weekly income")]           
+            public float income;
             [Tooltip("(Optional)You can get this data in-game with the id.")]
             public SMAJobObjectivesTextForLevelMap objectivesTextMap;
             [Tooltip("How this level will be described in the game in the UI.")]

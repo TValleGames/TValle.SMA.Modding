@@ -139,7 +139,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// <summary>
         /// true to show inGame, false to hide for now
         /// </summary>
-        bool IsUnlocked(ISMAJobsManager manager);
+        bool IsUnlocked(ISMAJobsManager manager, SMAJobMap map);
     }
 
 
@@ -181,12 +181,27 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// <returns>the memory of the job</returns>
         IContextMemory GetMemory(ISMAJob job);
         /// <summary>
+        /// data related to a specific job.
+        /// </summary>
+        /// <param name="job"></param>
+        /// <returns>the memory of the job</returns>
+        IContextMemory GetMemory(string jobID);
+
+
+        /// <summary>
         /// data related to a character's job.
         /// </summary>
         /// <param name="job"></param>
         /// <param name="character"></param>
         /// <returns>the memory of the character in the job context</returns>
         IContextMemory GetCharacterInMemory(ISMAJob job, SceneCharacter character);
+        /// <summary>
+        /// data related to a character's job.
+        /// </summary>
+        /// <param name="job"></param>
+        /// <param name="character"></param>
+        /// <returns>the memory of the character in the job context</returns>
+        IContextMemory GetCharacterInMemory(string jobID, string characterID);
 
 
 
@@ -250,12 +265,12 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// 
         /// </summary>
         /// <param name="levels">how many lvl this character will increase, Generally this value is less than one, since several sessions are needed to go up a level</param>
-        void AddExpToMainPlayer(float levels);
+        void AddExpToMainPlayerInCurrentJob(float levels);
         /// <summary>
         /// 
         /// </summary>
         /// <param name="levels">how many lvl this character will increase, Generally this value is less than one, since several sessions are needed to go up a level</param>
-        void AddExpToMainNonPlayer(float levels);
+        void AddExpToMainNonPlayerInCurrentJob(float levels);
 
 
 

@@ -29,7 +29,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         public Dictionary<(InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, SimpleModifier, Operation, int), BuffOnFavorabilityReqOfInteraction> BuffOnFavorabilityReqOfInteraction;
         public Dictionary<(InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, Emotion, InteractionModifier, ProductOperation, int), BuffOnInteraction> BuffOnInteraction;
         public Dictionary<(Emotion, SimpleEmotionModifier, Operation, int), BuffOnEmotionAura> BuffOnEmotionAura;
-        public Dictionary<(Guid, Emotion, EmotionModifier, Operation, int), BuffOnEmotionTowardCharacter> BuffOnEmotionTowardCharacter;
+        public Dictionary<(string, Emotion, EmotionModifier, Operation, int), BuffOnEmotionTowardCharacter> BuffOnEmotionTowardCharacter;
         public Dictionary<(Emotion, EmotionModifier, Operation, int), BuffOnEmotion> BuffOnEmotion;
 
         public Dictionary<(SensitiveFemaleHoleWalls, SimpleModifier, AddOperation, int), BuffOnHoleWearingWalls> BuffOnHoleWearingWalls;

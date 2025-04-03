@@ -231,24 +231,14 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// destroy the character in the scene
         /// </summary>
         /// <param name="id"></param>
-        void DestroyMaleCharacter(Guid id);
+        void DestroyCharacter(Guid id);
         /// <summary>
         /// The character in the scene is destroyed and completely erased from memory.
         /// </summary>
         /// <param name="id"></param>
-        void DeleteAndDestroyMaleCharacter(Guid id);
+        void DeleteAndDestroyCharacter(Guid id);
 
-        /// <summary>
-        /// destroy the character in the scene
-        /// </summary>
-        /// <param name="id"></param>
-        void DestroyFemaleCharacter(Guid id);
-
-        /// <summary>
-        /// The character in the scene is destroyed and completely erased from memory.
-        /// </summary>
-        /// <param name="id"></param>
-        void DeleteAndDestroyFemaleCharacter(Guid id);
+      
 
         /// <summary>
         /// turn on/off player movement and commands

@@ -9,10 +9,112 @@ using UnityEngine;
 
 namespace Assets.TValle.Tools.Runtime.Characters.Intections
 {
-    [Serializable]
-    public struct Interaction
-    {
+    
 
+    [Serializable]
+    public struct InteractionToDisk 
+    {
+        /// <summary>
+        /// fromID
+        /// </summary>
+        public string fID;
+        /// <summary>
+        /// toID
+        /// </summary>
+        public string tID;
+        /// <summary>
+        /// fromPart
+        /// </summary>
+        public TriggeringBodyPart fP;
+        /// <summary>
+        /// toPart
+        /// </summary>
+        public SensitiveBodyPart tP;
+        /// <summary>
+        /// interationReceivedType
+        /// </summary>
+        public InterationReceivedType typ;
+        /// <summary>
+        /// emotion
+        /// </summary>
+        public Emotion emo;
+        /// <summary>
+        /// dateString
+        /// </summary>
+        public string dS;
+        /// <summary>
+        /// startTime
+        /// </summary>
+        public float sT;
+        /// <summary>
+        /// endTime
+        /// </summary>
+        public float eT;
+        /// <summary>
+        /// startFrame
+        /// </summary>
+        public int sF;
+        /// <summary>
+        /// endFrame
+        /// </summary>
+        public int eF;
+        /// <summary>
+        /// times
+        /// </summary>
+        public int ts;
+        /// <summary>
+        /// damagePercentageDone
+        /// </summary>
+        public float dmg;
+        /// <summary>
+        /// emotionAtMaxValueTimes
+        /// </summary>
+        public int emoMxTs;
+        /// <summary>
+        /// triggerMaxValueTimes
+        /// </summary>
+        public int tggMxTs;
+        /// <summary>
+        /// overshootOrUndershootTotal
+        /// </summary>
+        public float off;
+        /// <summary>
+        /// damageScoreTotal
+        /// </summary>
+        public float dmgS;
+
+
+
+
+
+
+
+        public Interaction ToInter()
+        {
+            Interaction r = new Interaction();
+            r.fromID = fID;
+            r.toID = tID;
+            r.fromPart = fP;
+            r.toPart = tP;
+            r.interationReceivedType = typ;
+            r.emotion = emo;
+            r.dateString = dS;
+            r.startTime = sT;
+            r.endTime = eT;
+            r.startFrame = sF;
+            r.endFrame = eF;
+            r.times = ts;
+            r.damagePercentageDone = dmg;
+            r.emotionAtMaxValueTimes = emoMxTs;
+            r.triggerMaxValueTimes = tggMxTs;
+            r.overshootOrUndershootTotal = off;
+            r.damageScoreTotal = dmgS;
+            return r;
+        }
+    }
+    [Serializable]
+    public struct Interaction 
+    {
         public static void Stack(ref Interaction toReport, ref Interaction newInteraccion)
         {
 
@@ -169,5 +271,38 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
 
         public float damageScoreTotal;
 
+
+
+
+
+
+
+
+
+        public InteractionToDisk ToDiskInter()
+        {
+            InteractionToDisk r = new InteractionToDisk();
+            r.fID = fromID;
+            r.tID = toID;
+            r.fP = fromPart;
+            r.tP = toPart;
+            r.typ = interationReceivedType;
+            r.emo = emotion;
+            r.dS = dateString;
+            r.sT = startTime;
+            r.eT = endTime;
+            r.sF = startFrame;
+            r.eF = endFrame;
+            r.ts = times;
+            r.dmg = damagePercentageDone;
+            r.emoMxTs = emotionAtMaxValueTimes;
+            r.tggMxTs = triggerMaxValueTimes;
+            r.off = overshootOrUndershootTotal;
+            r.dmgS = damageScoreTotal;
+            return r;
+        }
+
+
+       
     }
 }

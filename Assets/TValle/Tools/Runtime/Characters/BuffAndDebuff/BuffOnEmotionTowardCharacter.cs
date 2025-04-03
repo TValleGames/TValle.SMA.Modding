@@ -10,16 +10,16 @@ using UnityEngine;
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
     [Serializable]
-    public struct BuffOnEmotionTowardCharacter : IIdentifiableBuff<(Guid, Emotion, EmotionModifier, Operation, int)>, IStackableBuff<BuffOnEmotionTowardCharacter>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff, IValidableBuff
+    public struct BuffOnEmotionTowardCharacter : IIdentifiableBuff<(string, Emotion, EmotionModifier, Operation, int)>, IStackableBuff<BuffOnEmotionTowardCharacter>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff, IValidableBuff
     {
-        public Guid towardID;
+        public string towardID;
         public Emotion emotion;
         public EmotionModifier modifier;
         public Operation operation;
         public int endHour;
         public float value;
 
-        public bool isValid => towardID != Guid.Empty && emotion != Emotion.None && modifier != EmotionModifier.None && operation != Operation.None && endHour != 0;
+        public bool isValid => !string.IsNullOrWhiteSpace(towardID) && emotion != Emotion.None && modifier != EmotionModifier.None && operation != Operation.None && endHour != 0;
 
         public string DebugPrint()
         {
@@ -35,7 +35,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 
         public bool infinite => endHour < 0;
         public DateTime endTime => infinite ? DateTime.MaxValue : DateTime.MinValue.AddHours(endHour);
-        public (Guid, Emotion, EmotionModifier, Operation, int) valueId => (towardID, emotion, modifier, operation, endHour);
+        public (string, Emotion, EmotionModifier, Operation, int) valueId => (towardID, emotion, modifier, operation, endHour);
         public ITuple id => valueId;
         public string stringId => valueId.ToString();
         public float buffValue => value;

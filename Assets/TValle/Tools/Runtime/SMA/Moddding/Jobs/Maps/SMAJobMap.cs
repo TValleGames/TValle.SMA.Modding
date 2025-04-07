@@ -67,6 +67,17 @@ namespace Assets.TValle.Tools.Runtime.SMA.Moddding.Jobs.Maps
             public float incomePerSession;
             [Tooltip("(Optional)You can get this data in-game with the id.")]
             public SMAJobObjectivesTextForLevelMap objectivesTextMap;
+           
+            [Header("Model Requirements")]
+            [Tooltip("Only models that accept modeling can be deployed to this level.")]
+            public bool requiresModelingCareer;
+            [Tooltip("Only models that accept lingerie modeling can be deployed to this level.")]
+            public bool requiresLingerieModeling;
+            [Tooltip("Only models that accept erotic modeling can be deployed to this level.")]
+            public bool requiresEroticModeling;
+
+
+            [Header("Text")]
             [Tooltip("How this level will be described in the game in the UI.")]
             public List<InGameNameDesc> inGameDescription;
 

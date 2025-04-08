@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.TValle.Tools.Runtime.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,14 +16,18 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
     public enum EmotionModifier
     {
         None = 0,
-        defaultValue, 
+        [Label("default Value", Language.en)]
+        defaultValue,
+        [Label("min Value", Language.en)]
         minValue,
+        [Label("max Value", Language.en)]
         maxValue,
         gain,
     }
     public enum SimpleEmotionModifier
     {
-        None = 0,
+        None = 0, 
+        [Label("default Value", Language.en)]
         defaultValue,
         gain,
     }
@@ -30,7 +35,9 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
     {
         None = 0,
         damage,
+        [Label("gain Interval Expand", Language.en)]
         gainIntervalExpand,
+        [Label("gain Interval Position", Language.en)]
         gainIntervalPosition,
 
     }

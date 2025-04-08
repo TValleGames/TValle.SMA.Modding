@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.TValle.Tools.Runtime.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,8 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts
 
         content,//liveliness
         Spontaneous,//liveliness
-
+       
+        [Label("attached To The Familiar", Language.en)]
         attachedToTheFamiliar,//opennessToChange
         Flexible,//opennessToChange
 
@@ -39,11 +41,13 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts
         concrete,//reasoning
         Abstract,//reasoning
 
-
+        [Label("non Conforming", Language.en)]
         nonConforming,//normativeConsciousness
+        [Label("conforming To Standards", Language.en)]
         ConformingToStandards,//normativeConsciousness
 
         dependency,//selfConfidence
+        [Label("self Sufficiency", Language.en)]
         SelfSufficiency,//selfConfidence
 
 

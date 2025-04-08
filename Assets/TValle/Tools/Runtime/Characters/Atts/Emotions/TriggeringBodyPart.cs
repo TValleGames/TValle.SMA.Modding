@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.TValle.Tools.Runtime.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
         All = -1,
         None = 0,
 
+        [Label("not Specified", Language.en)]
         notSpecified,
         eyes,
         mouth,
@@ -20,6 +22,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
         leg,
         tongue,
         penis,
+        [Label("tool", Language.en)]
         toy,
         semen,
     }

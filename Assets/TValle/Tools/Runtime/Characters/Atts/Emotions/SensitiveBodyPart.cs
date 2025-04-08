@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.TValle.Tools.Runtime.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -49,7 +50,9 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
 
         buttocks,
         crotch,
-        vaginalLipsOrBalls,
+        [Label("vaginal Lips Or Balls", Language.en)]
+        vaginalLipsOrBalls, 
+        [Label("clitoris Or Penis", Language.en)]
         clitorisOrPenis,
         perineum,
 
@@ -61,15 +64,22 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
 
 
         throat,
+        [Label("back of the Throat", Language.en)]
         throatBottom,//depth damage
+        [Label("tonsils", Language.en)]
         throatWalls,//stretch damage
 
+        [Label("vagina", Language.en)]
         vag,
+        [Label("fornix", Language.en)]
         vagBottom,//depth damage
+        [Label("vagina", Language.en)]
         vagWalls,//stretch damage
-
+        
         anus,
+        [Label("guts", Language.en)]
         anusBottom,//depth damage
+        [Label("rectum", Language.en)]
         anusWalls,//stretch damage
     }
     public enum SensitiveFemaleHoleType
@@ -85,23 +95,28 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
         None = 0,
 
         throat = SensitiveBodyPart.throat,
+        [Label("vagina", Language.en)]
         vag = SensitiveBodyPart.vag,
         anus = SensitiveBodyPart.anus,
     }
     public enum SensitiveFemaleHoleWalls
     {
         None = 0,
-
+        [Label("tonsils", Language.en)]
         throatWalls = SensitiveBodyPart.throatWalls,
+        [Label("vagina", Language.en)]
         vagWalls = SensitiveBodyPart.vagWalls,
+        [Label("rectum", Language.en)]
         anusWalls = SensitiveBodyPart.anusWalls,
     }
     public enum SensitiveFemaleHoleBottom
     {
         None = 0,
-
+        [Label("back of the Throat", Language.en)]
         throatBottom = SensitiveBodyPart.throatBottom,
+        [Label("fornix", Language.en)]
         vagBottom = SensitiveBodyPart.vagBottom,
+        [Label("guts", Language.en)]
         anusBottom = SensitiveBodyPart.anusBottom,
     }
 

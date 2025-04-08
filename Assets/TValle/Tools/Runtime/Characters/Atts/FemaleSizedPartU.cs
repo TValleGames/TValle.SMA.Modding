@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assets.TValle.Tools.Runtime.Characters.Atts
 {
+    [Obsolete("", true)]
     public enum FemaleSizedPartU
     {
         None = 0,

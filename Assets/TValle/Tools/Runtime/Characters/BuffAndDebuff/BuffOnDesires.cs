@@ -1,4 +1,5 @@
 ﻿using Assets.TValle.Tools.Runtime.Characters.Atts.Emotions;
+using Assets.TValle.Tools.Runtime.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,9 +25,10 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
             return desires.ToString() + "->" + modifier.ToString() + "->" + operation.ToString() + " End:" + (endHour < 0 ? "∞" : DateTime.MinValue.AddHours(endHour)) + " By:" + value.ToString();
         }
 
-        public string RichPrint()
+        public string RichPrint(Func<string, string> characterNameGetter, Language language)
         {
-            throw new NotImplementedException();
+            var r = TValleUILocalTextAttribute.Localizado(desires, language) + " " + TValleUILocalTextAttribute.Localizado(modifier, language) + " " + operation.GetOperationSymbol(value) + value.ToString();
+            return r;
         }
 
         public bool infinite => endHour < 0;

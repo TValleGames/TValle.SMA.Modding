@@ -12,7 +12,7 @@ using UnityEngine;
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
     [Serializable]
-    public struct BuffOnInteraction : IIdentifiableBuff<(InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, Emotion, InteractionModifier, ProductOperation, int)>, 
+    public struct BuffOnInteraction : IIdentifiableBuff<(InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, Emotion, InteractionModifier, ProductOperation, int)>,
         IStackableBuff<BuffOnInteraction>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff, IValidableBuff
     {
         public InterationReceivedType interationReceivedType;
@@ -34,7 +34,12 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 
         public string RichPrint(Func<string, string> characterNameGetter, Language language)
         {
-            var r = TValleUILocalTextAttribute.Localizado(interationReceivedType, language) + " by " + TValleUILocalTextAttribute.Localizado(fromPart, language) + " to " + TValleUILocalTextAttribute.Localizado(toPart, language) + " " + TValleUILocalTextAttribute.Localizado(modifier, language) + " " + operation.GetOperationSymbol(value) + value.ToString();
+            var r = TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(fromPart, language) + " " + 
+                TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(interationReceivedType, language) + " " +
+                TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(toPart, language) + " " +
+                TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(emotion, language) + " " +
+                TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(modifier, language) + " " + 
+                operation.GetOperationSymbol(value) + value.ToString("0.0");
             return r;
         }
 

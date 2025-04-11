@@ -13,40 +13,40 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
     }
     public static class IPrintableBuffEXT
     {
-        public static char GetOperationSymbol(this Operation op, float value)
+        public static string GetOperationSymbol(this Operation op, float value)
         {
             switch(op)
             {
                 case Operation.None:
-                    return 'e';
+                    return "error";
                 case Operation.add:
-                    return value < 0 ? '-' : '+';
+                    return value < 0 ? string.Empty : "+";
                 case Operation.mult:
-                    return '×';
+                    return "×";
                 default:
                     throw new ArgumentOutOfRangeException(op.ToString());
             }
         }
-        public static char GetOperationSymbol(this AddOperation op, float value)
+        public static string GetOperationSymbol(this AddOperation op, float value)
         {
             switch(op)
             {
                 case AddOperation.None:
-                    return 'e';
+                    return "error";
                 case AddOperation.add:
-                    return value < 0 ? '-' : '+';
+                    return value < 0 ? string.Empty : "+";
                 default:
                     throw new ArgumentOutOfRangeException(op.ToString());
             }
         }
-        public static char GetOperationSymbol(this ProductOperation op, float value)
+        public static string GetOperationSymbol(this ProductOperation op, float value)
         {
             switch(op)
             {
                 case ProductOperation.None:
-                    return 'e';
+                    return "error";
                 case ProductOperation.mult:
-                    return '×';
+                    return "×";
                 default:
                     throw new ArgumentOutOfRangeException(op.ToString());
             }

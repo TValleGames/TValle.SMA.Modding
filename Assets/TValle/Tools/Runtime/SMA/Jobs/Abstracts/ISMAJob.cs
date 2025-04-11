@@ -18,8 +18,32 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
     /// </summary>
     public interface ISMAJob
     {
+        public delegate void CharacterChangedHandler(SceneCharacter newOne, SceneCharacter oldOne, ISMAJob sender);
+
+
+     
+
         bool isInit { get; }
         bool isAborted { get; set; }
+
+        /// <summary>
+        /// the job must produce the main player, use the ISMAJobsManager to produce it
+        /// </summary>
+        SceneCharacter mainPlayerCharacter { get; }
+        /// <summary>
+        /// the job must produce the main non player, use the ISMAJobsManager to produce it
+        /// </summary>
+        SceneCharacter mainNonPlayerCharacter { get; }
+
+        /// <summary>
+        /// The job must call this event if there is a switch of main player.
+        /// </summary>
+        public event CharacterChangedHandler mainPlayerChanged;
+        /// <summary>
+        /// The job must call this event if there is a switch of main non player.
+        /// </summary>
+        public event CharacterChangedHandler mainNonPlayerChanged;
+
 
         /// <summary>
         /// The in-game date on which the scene occurs.
@@ -131,6 +155,9 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// </summary>
         /// <returns> yield break to move on</returns>
         IEnumerator UnLoad();
+
+
+
     }
 
 
@@ -165,14 +192,14 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// </summary>
         ISMAJob current { get; }
 
-        /// <summary>
-        /// the male character
-        /// </summary>
-        SceneCharacter mainPlayerCharacter { get; }
-        /// <summary>
-        /// the female character
-        /// </summary>
-        SceneCharacter mainNonPlayerCharacter { get; }
+        ///// <summary>
+        ///// the male character
+        ///// </summary>
+        //SceneCharacter mainPlayerCharacter { get; }
+        ///// <summary>
+        ///// the female character
+        ///// </summary>
+        //SceneCharacter mainNonPlayerCharacter { get; }
 
         /// <summary>
         /// data related to a specific job.
@@ -217,7 +244,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// <param name="id">empty to load random male character</param>
         /// <param name="feetPosition"></param>
         /// <param name="bodyForwardDirection"></param>
-        IEnumerator LoadTheMaleCharacter(Guid id, Vector3 feetPosition, Vector3 bodyForwardDirection);
+        IEnumerator LoadMaleCharacter(Guid id, Vector3 feetPosition, Vector3 bodyForwardDirection, Action<SceneCharacter> result);
 
         /// <summary>
         /// load a character from memory, The game only supports a single character.
@@ -225,7 +252,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// <param name="id">empty to load random female character</param>
         /// <param name="feetPosition"></param>
         /// <param name="bodyForwardDirection"></param>
-        IEnumerator LoadTheFemaleCharacter(Guid id, Vector3 feetPosition, Vector3 bodyForwardDirection);
+        IEnumerator LoadFemaleCharacter(Guid id, Vector3 feetPosition, Vector3 bodyForwardDirection, Action<SceneCharacter> result);
 
         /// <summary>
         /// destroy the character in the scene

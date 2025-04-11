@@ -15,6 +15,9 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
     {
         public SceneCharacterFromToBuffAndDebuff(SceneCharacter Character)
         {
+
+            if(Character == null)
+                throw new ArgumentNullException("Character", "Character null reference.");
             m_character = Character;
         }
         [SerializeField]

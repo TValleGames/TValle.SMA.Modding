@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.TValle.Tools.Runtime.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
 
         lookAt,
         photoshoot,
+        [Label("put In Front", Language.en)]
         putInFront,
 
         caress,
@@ -22,7 +24,9 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         hump,
         poke,
         lick,
+        [Label("pouring On", Language.en)]
         pouringOn,
+        [Label("pouring In", Language.en)]
         pouringIn,
         punch,
 
@@ -30,11 +34,16 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         fingering,
         propped,
 
-        expose,
+        expose, 
+        [Label("ask To Expose", Language.en)]
         askToExpose,
+        [Label("force Pose", Language.en)]
         forcePose,
+        [Label("ask To Pose", Language.en)]
         askToPose,
-        manipulateBody,
+        [Label("manipulate Body", Language.en)]
+        manipulateBody, 
+        [Label("guide Body", Language.en)]
         guideBody,
     }
     public enum InterationDirectionType

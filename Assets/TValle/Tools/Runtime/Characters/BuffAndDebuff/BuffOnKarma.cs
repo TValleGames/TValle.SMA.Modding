@@ -25,7 +25,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public string RichPrint(Func<string, string> characterNameGetter, Language language)
         {
             var r =  TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(modifier, language) + " " +
-                operation.GetOperationSymbol(value) + value.ToString("0.0");
+                operation.GetOperationSymbol(value) + value.ToString("0.00");
             return r;
         }
 

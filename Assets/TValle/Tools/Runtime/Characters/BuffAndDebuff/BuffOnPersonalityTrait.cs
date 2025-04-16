@@ -31,7 +31,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         {
             var r = TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(trait, language) + " " + 
                 TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(modifier, language) + " " + 
-                operation.GetOperationSymbol(value) + value.ToString("0.0");
+                operation.GetOperationSymbol(value) + value.ToString("0.00");
             return r;
         }
 

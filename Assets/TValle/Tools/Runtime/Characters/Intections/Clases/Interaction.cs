@@ -9,10 +9,10 @@ using UnityEngine;
 
 namespace Assets.TValle.Tools.Runtime.Characters.Intections
 {
-    
+
 
     [Serializable]
-    public struct InteractionToDisk 
+    public struct InteractionToDisk
     {
         /// <summary>
         /// fromID
@@ -113,10 +113,14 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         }
     }
     [Serializable]
-    public struct Interaction 
+    public struct Interaction
     {
         public static void Stack(ref Interaction toReport, ref Interaction newInteraccion)
         {
+#if UNITY_EDITOR
+            if(newInteraccion.damagePercentageDone < 0)
+                Debug.LogError("se esta haciendo stack a interaccion con valores negativos");
+#endif
 
 
             toReport.times = toReport.times + 1;
@@ -135,6 +139,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
 
 
         }
+        //[Obsolete("siempre genera problemas, baja mas de lo q deberia, y da;a la data generada", true)]
         public static void UnStack(ref Interaction toReport, ref Interaction newInteraccion)
         {
             if(toReport.times < 2)
@@ -303,6 +308,6 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         }
 
 
-       
+
     }
 }

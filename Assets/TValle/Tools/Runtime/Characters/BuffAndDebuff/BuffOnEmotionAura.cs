@@ -30,8 +30,8 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 
         public string RichPrint(Func<string, string> characterNameGetter, Language language)
         {
-            var r = TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(emotion, language) + " " + 
-                TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(modifier, language) + " " + 
+            var r = TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(emotion, language) + " " +
+                TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(modifier, language) + " " +
                 operation.GetOperationSymbol(value) + value.ToString("0.00");
             return r;
         }
@@ -88,7 +88,33 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
                     throw new ArgumentOutOfRangeException(operation.ToString());
             }
         }
-
+        public void StackToSelf(object Other)
+        {
+            if(!(Other is BuffOnEmotionAura))
+            {
+                return;
+            }
+            var OtherBuff = (BuffOnEmotionAura)Other;
+            StackToSelf(ref OtherBuff);
+        }
+        public void InverseValue()
+        {
+            if(value == 0)
+                return;
+            switch(operation)
+            {
+                case Operation.None:
+                    break;
+                case Operation.add:
+                    value = -value;
+                    break;
+                case Operation.mult:
+                    value = 1f / value;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(operation.ToString());
+            }
+        }
 
 
         public override bool Equals(object obj) => this.Equals((BuffOnEmotionAura)obj);

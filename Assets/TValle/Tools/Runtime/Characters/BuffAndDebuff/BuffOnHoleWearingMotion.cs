@@ -76,6 +76,30 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
                     throw new ArgumentOutOfRangeException(operation.ToString());
             }
         }
+        public void StackToSelf(object Other)
+        {
+            if(!(Other is BuffOnHoleWearingMotion))
+            {
+                return;
+            }
+            var OtherBuff = (BuffOnHoleWearingMotion)Other;
+            StackToSelf(ref OtherBuff);
+        }
+        public void InverseValue()
+        {
+            if(value == 0)
+                return;
+            switch(operation)
+            {
+                case AddOperation.None:
+                    break;
+                case AddOperation.add:
+                    value = -value;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(operation.ToString());
+            }
+        }
 
 
 

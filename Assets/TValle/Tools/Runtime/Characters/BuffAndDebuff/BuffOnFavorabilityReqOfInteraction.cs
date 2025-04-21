@@ -90,7 +90,33 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
                     throw new ArgumentOutOfRangeException(operation.ToString());
             }
         }
-
+        public void StackToSelf(object Other)
+        {
+            if(!(Other is BuffOnFavorabilityReqOfInteraction))
+            {
+                return;
+            }
+            var OtherBuff = (BuffOnFavorabilityReqOfInteraction)Other;
+            StackToSelf(ref OtherBuff);
+        }
+        public void InverseValue()
+        {
+            if(value == 0)
+                return;
+            switch(operation)
+            {
+                case Operation.None:
+                    break;
+                case Operation.add:
+                    value = -value;
+                    break;
+                case Operation.mult:
+                    value = 1f / value;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(operation.ToString());
+            }
+        }
 
 
         public override bool Equals(object obj) => this.Equals((BuffOnFavorabilityReqOfInteraction)obj);

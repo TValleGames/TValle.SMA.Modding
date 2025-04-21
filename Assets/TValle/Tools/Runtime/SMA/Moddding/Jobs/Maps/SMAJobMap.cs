@@ -14,7 +14,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Moddding.Jobs.Maps
     {
         public bool IsSMAJobMapValid()
         {
-            return !string.IsNullOrWhiteSpace(mainScene?.AssetGUID) && !string.IsNullOrWhiteSpace(portrait?.AssetGUID) && !string.IsNullOrWhiteSpace(mainLogic);
+            return !string.IsNullOrWhiteSpace(mainScene?.AssetGUID) && !string.IsNullOrWhiteSpace(portrait?.AssetGUID) && !string.IsNullOrWhiteSpace(mainLogic) && otherPlayersAmount >= 1;
         }
 
 
@@ -44,10 +44,13 @@ namespace Assets.TValle.Tools.Runtime.SMA.Moddding.Jobs.Maps
 
         [Header("Logic")]
 
+        public OtherPlayerType otherPlayerType;
+        public int otherPlayersAmount = 1;
+
         [Space]
         [Tooltip("(Optional)You can get this data in-game with the id.")]
         public SMAJobObjectivesTextForLevelMap generalObjectivesTextMap;
-        
+
         [Space]
         [Tooltip("(Index Zero is the initial or default level.) Job-related degrees of difficulty: for instance, a photo shoot may involve models wearing casual clothing, underwear, or nothing at all, for a 3-level total.")]
         public List<Level> levels = new List<Level>();
@@ -63,11 +66,11 @@ namespace Assets.TValle.Tools.Runtime.SMA.Moddding.Jobs.Maps
         [Serializable]
         public class Level
         {
-            [Tooltip("Income Per Session")]           
+            [Tooltip("Income Per Session")]
             public float incomePerSession;
             [Tooltip("(Optional)You can get this data in-game with the id.")]
             public SMAJobObjectivesTextForLevelMap objectivesTextMap;
-           
+
             [Header("Model Requirements")]
             [Tooltip("Only models that accept modeling can be deployed to this level.")]
             public bool requiresModelingCareer;
@@ -161,6 +164,14 @@ namespace Assets.TValle.Tools.Runtime.SMA.Moddding.Jobs.Maps
 
 
             return null;
+        }
+
+
+        public enum OtherPlayerType
+        {
+            employer,
+            client,
+            stranger,
         }
     }
 }

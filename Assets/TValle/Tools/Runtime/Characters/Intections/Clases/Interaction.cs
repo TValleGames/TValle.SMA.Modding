@@ -59,9 +59,13 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         /// </summary>
         public int eF;
         /// <summary>
-        /// times
+        /// stacks 
         /// </summary>
         public int ts;
+        /// <summary>
+        /// times
+        /// </summary>
+        public int tss;
         /// <summary>
         /// damagePercentageDone
         /// </summary>
@@ -103,27 +107,41 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
             r.endTime = eT;
             r.startFrame = sF;
             r.endFrame = eF;
-            r.times = ts;
+            r.stacks = ts;
+            r.times = tss;
             r.damagePercentageDone = dmg;
             r.emotionAtMaxValueTimes = emoMxTs;
             r.triggerMaxValueTimes = tggMxTs;
             r.overshootOrUndershootTotal = off;
             r.damageScoreTotal = dmgS;
+
+            if(r.times <= 0)
+                r.times = 1;
+            if(r.stacks <= 0)
+                r.stacks = 1;
             return r;
         }
     }
     [Serializable]
     public struct Interaction
     {
-        public static void Stack(ref Interaction toReport, ref Interaction newInteraccion)
+        public static void Add(ref Interaction toReport, ref Interaction newInteraccion)
+        {
+            Stack(ref toReport, ref newInteraccion, false);
+            toReport.times = toReport.times + newInteraccion.times;
+        }
+        public static void Stack(ref Interaction toReport, ref Interaction newInteraccion, bool addTimes)
         {
 #if UNITY_EDITOR
             if(newInteraccion.damagePercentageDone < 0)
                 Debug.LogError("se esta haciendo stack a interaccion con valores negativos");
 #endif
 
+            if(addTimes)
+                toReport.times = toReport.times + 1;
 
-            toReport.times = toReport.times + 1;
+            toReport.stacks = toReport.stacks + 1;
+
             toReport.endTime = Mathf.Max(newInteraccion.endTime, toReport.endTime);
             toReport.endFrame = Mathf.Max(newInteraccion.endFrame, toReport.endFrame);
 
@@ -140,14 +158,16 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
 
         }
         //[Obsolete("siempre genera problemas, baja mas de lo q deberia, y da;a la data generada", true)]
-        public static void UnStack(ref Interaction toReport, ref Interaction newInteraccion)
+        public static void UnStack(ref Interaction toReport, ref Interaction newInteraccion, bool removeTimes)
         {
-            if(toReport.times < 2)
-                throw new InvalidOperationException("Must be previus staked");
 
 
+            if(removeTimes)
+                toReport.times = toReport.times - 1;
 
-            toReport.times = toReport.times - 1;
+
+            toReport.stacks = toReport.stacks - 1;
+
             toReport.endTime = Mathf.Clamp(toReport.endTime - newInteraccion.duration, toReport.startTime, toReport.endTime);
             toReport.endFrame = Mathf.Clamp(toReport.endFrame - newInteraccion.frames, toReport.startFrame, toReport.endFrame);
 
@@ -177,12 +197,12 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         /// <para>EX: When performing a caress that is too soft below the appropriate range, this value will be less than one, indicating the fraction of the range that was reached below the appropriate range.</para>
         /// <para>This same logic applies to other types of interactions, such as penetration. This refers to the overshoot or undershoot of the length or width of the member inside a hole.</para>
         /// </summary>
-        public float overshootOrUndershoot => times <= 0 ? 0f : overshootOrUndershootTotal / (float)times;
+        public float overshootOrUndershoot => stacks <= 0 ? 0f : overshootOrUndershootTotal / (float)stacks;
 
         /// <summary>
         /// zero to one value, It is the quality of the damage done; for example, if there were many "critical hits," then the value is closer to one, and if there were many "grazes," then the value is close to zero.
         /// </summary>
-        public float damageScore => times <= 0 ? 0f : damageScoreTotal / (float)times;
+        public float damageScore => stacks <= 0 ? 0f : damageScoreTotal / (float)stacks;
         public float scoredDamagePercentageDone => damagePercentageDone * damageScore * 2f;
         public float GetScoredDamagePercentageDone(float mod) => damagePercentageDone * damageScore * mod;
 
@@ -210,7 +230,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         public float duration => endTime - startTime;
         public int frames => endFrame - startFrame;
 
-        public bool isValid => toID != null && toPart != SensitiveBodyPart.None && fromPart != TriggeringBodyPart.None && interationReceivedType != InterationReceivedType.None && emotion != Emotion.None && times > 0;
+        public bool isValid => toID != null && toPart != SensitiveBodyPart.None && fromPart != TriggeringBodyPart.None && interationReceivedType != InterationReceivedType.None && emotion != Emotion.None && times > 0 && stacks > 0;
 
         public DateTime date { get { if(string.IsNullOrWhiteSpace(dateString)) return DateTime.MinValue; return DateTime.Parse(dateString, CultureInfo.InvariantCulture); } set { dateString = value.ToString(CultureInfo.InvariantCulture); } }
 
@@ -248,9 +268,11 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         public int endFrame;
 
         /// <summary>
-        /// If the interaction is currently taking place, this value indicates how many frames have passed since it began. If this is an archived past interaction, this value represents the number of times it occurred in the scene.
+        /// If the interaction is currently taking place, this value shows how many frames passed since it began. If this is an archived past interaction, this value represents the number of times it occurred in the scene.
         /// </summary>
         public int times;
+
+        public int stacks;
 
         /// <summary>
         /// This interaction results in a change in the target emotion, which is express here as a percentage.
@@ -298,7 +320,8 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
             r.eT = endTime;
             r.sF = startFrame;
             r.eF = endFrame;
-            r.ts = times;
+            r.ts = stacks;
+            r.tss = times;
             r.dmg = damagePercentageDone;
             r.emoMxTs = emotionAtMaxValueTimes;
             r.tggMxTs = triggerMaxValueTimes;

@@ -146,6 +146,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         /// same to Peek, it returns Interaction.endFrame
         /// </summary>
         int PeekEndFrame(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue);
+        int PeekStartFrame(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue);
 
 
 

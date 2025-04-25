@@ -9,17 +9,11 @@ namespace Assets.TValle.Tools.Runtime.UI
     [Model]
     public class JobWithClientDefaultMenuModel 
     {
-        public event Action<JobWithClientDefaultMenuModel> onShowObjectives;
         public event Action<JobWithClientDefaultMenuModel> onShowModelInfo;
         public event Action<JobWithClientDefaultMenuModel> onShowClientInfo;
         public event Action<JobWithClientDefaultMenuModel> onClientDismissed;
 
-        [Label("Objectives", Language.en)]
-        [Description("-A list of actions required to complete the current job session successfully.", Language.en)]
-        public void ShowObjectives()
-        {
-            onShowObjectives?.Invoke(this);
-        }
+       
         [Label("Model Curriculum", Language.en)]
         [Description("-Click here to see the model's measurements, interests, and current job skill.", Language.en)]       
         public void ShowModelInfo()
@@ -45,36 +39,53 @@ namespace Assets.TValle.Tools.Runtime.UI
     [Model]
     public class JobWithEmployerDefaultMenuModel
     {
-        public event Action<JobWithEmployerDefaultMenuModel> onShowObjectives;
-        public event Action<JobWithEmployerDefaultMenuModel> onShowModelInfo;
-        public event Action<JobWithEmployerDefaultMenuModel> onShowEmployerInfo;
-        public event Action<JobWithEmployerDefaultMenuModel> onModelDismissed;
+        public event Action onShowModelInfo;
+        public event Action onShowEmployerInfo;
+        public event Action onModelDismissed;
 
-        [Label("Objectives", Language.en)]
-        [Description("-A list of actions required to complete the current job session successfully.", Language.en)]
-        public void ShowObjectives()
-        {
-            onShowObjectives?.Invoke(this);
-        }
+     
         [Label("Model Curriculum", Language.en)]
         [Description("-Click here to see the model's measurements, interests, and current job skill.", Language.en)]
         public void ShowModelInfo()
         {
-            onShowModelInfo?.Invoke(this);
+            onShowModelInfo?.Invoke();
         }
 
         [Label("Employer Info", Language.en)]
         [Description("-Click here to see some information about the current employer.", Language.en)]
         public void ShowClientInfo()
         {
-            onShowEmployerInfo?.Invoke(this);
+            onShowEmployerInfo?.Invoke();
         }
 
-        [Label("Send the model off", Language.en)]
-        [Description("-Start a conversation with the model to guide her to leave.", Language.en)]
+        [Label("Conclude Assignment", Language.en)]
+        [Description("-Concludes the assignment and returns to the main office.", Language.en)]
         public void DismissClient()
         {
-            onModelDismissed?.Invoke(this);
+            onModelDismissed?.Invoke();
+        }
+    }
+    [Model]
+    public class JobWithEmployerModelGoneDefaultMenuModel
+    {
+        public event Action onShowEmployerInfo;
+        public event Action onEndSession;
+       
+
+
+        [Label("Employer Info", Language.en)]
+        [Description("-Click here to see some information about the current employer.", Language.en)]
+        public void ShowClientInfo()
+        {
+            onShowEmployerInfo?.Invoke();
+
+        }
+        [Label("Conclude Assignment", Language.en)]
+        [Description("-Concludes the assignment and returns to the main office.", Language.en)]
+        public void EndSession()
+        {
+            onEndSession?.Invoke();
+
         }
     }
 }

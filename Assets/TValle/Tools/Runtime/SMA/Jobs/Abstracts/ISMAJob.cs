@@ -21,7 +21,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         public delegate void CharacterChangedHandler(SceneCharacter newOne, SceneCharacter oldOne, ISMAJob sender);
 
 
-     
+
 
         bool isInit { get; }
         bool isAborted { get; set; }
@@ -49,6 +49,8 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// The in-game date on which the scene occurs.
         /// </summary>
         DateTime date { get; }
+
+        
 
         /// <summary>
         /// get this id form the map
@@ -236,7 +238,9 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// Scene objects may need some Extra/Default game logic.
         /// </summary>
         /// <param name="scene"></param>
-        void AddAdditinalLogicToScene(Scene scene);
+        void AddAdditinalLogicToScene(Scene scene,float phoneAndCameraScreenEmissionModifier);
+
+
 
         /// <summary>
         /// load a character from memory, The game only supports a single character. ALWAYS LOAD THE MALE CHARACTER FIRST
@@ -265,7 +269,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// <param name="id"></param>
         void DeleteAndDestroyCharacter(Guid id);
 
-      
+
 
         /// <summary>
         /// turn on/off player movement and commands
@@ -439,7 +443,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// </summary>
         /// <param name="model">what is going to be drawn</param>
         /// <param name="previousModel">If the model instance was switched to a different one, a non-null value is returned, which is useful for finalizing the previous model, such as unsubscribing from events.</param>
-        void DrawFloatingMainMenuPanel(object model, out object previousModel);
+        void DrawFloatingMainMenuPanel(object model, out object previousModel, Action onHidden = null);
         /// <summary>
         /// Displays a menu on the main canvas, with the model instance dictating its contents.
         /// </summary>

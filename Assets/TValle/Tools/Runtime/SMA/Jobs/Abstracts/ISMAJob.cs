@@ -50,7 +50,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// </summary>
         DateTime date { get; }
 
-        
+
 
         /// <summary>
         /// get this id form the map
@@ -238,7 +238,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// Scene objects may need some Extra/Default game logic.
         /// </summary>
         /// <param name="scene"></param>
-        void AddAdditinalLogicToScene(Scene scene,float phoneAndCameraScreenEmissionModifier);
+        void AddAdditinalLogicToScene(Scene scene, float phoneAndCameraScreenEmissionModifier);
 
 
 
@@ -294,7 +294,8 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         void AddExpToMainNonPlayerInCurrentJob(float levels);
 
 
-
+        float GetExpToMainPlayerInCurrentJob();
+        float GetExpToMainNonPlayerInCurrentJob();
 
     }
     public interface ISMAJobsOutfits
@@ -388,8 +389,8 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         ISMAJobObjective CreateCountOfSingleActionObjective(string ID, string description, bool checkAfterCompleted, int Capacity, ObjectiveCheckerHandler_CurrentCount checkDelegate, ObjectiveCheckFrequency checkFrequency, IReadOnlyList<ISMAJobObjective> subObjectives = null, string tips = null, ObjectiveCountChandedHandler callback = null);
 
 
-
-
+        public bool CheckCompleted();
+        public void Status(out int totalRequiredObjectives, out int completedRequiredObjectives, out int totalOptionalObjectives, out int completedOptionalObjectives);
 
 
         /// <summary>
@@ -463,7 +464,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// </summary>
         void ShowMainNonPlayerCharacterInfo();
 
-        void ShowCurrentJobSessionObjetives();
+        void ShowCurrentJobSessionObjetives(bool show, bool force);
 
 
 

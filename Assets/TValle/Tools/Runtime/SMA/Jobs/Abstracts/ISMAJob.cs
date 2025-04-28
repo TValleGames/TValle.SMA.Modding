@@ -286,12 +286,17 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// 
         /// </summary>
         /// <param name="levels">how many lvl this character will increase, Generally this value is less than one, since several sessions are needed to go up a level</param>
-        void AddExpToMainPlayerInCurrentJob(float levels);
+        float AddExpToMainPlayerInCurrentJob(float levels);
         /// <summary>
         /// 
         /// </summary>
         /// <param name="levels">how many lvl this character will increase, Generally this value is less than one, since several sessions are needed to go up a level</param>
-        void AddExpToMainNonPlayerInCurrentJob(float levels);
+        float AddExpToMainNonPlayerInCurrentJob(float levels);
+        float AddModelingExpToMainNonPlayer( float levels);
+
+        float AddFatigueToCurrentJob(float percentage);
+        float AddFatigueToMainNonPlayerInCurrentJob(float percentage);
+
 
 
         float GetExpToMainPlayerInCurrentJob();
@@ -473,8 +478,9 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// <summary>
         /// Shows the default UI for new buffs and debuffs generated in this scene, it yields when the player accepts
         /// </summary>
-        /// <returns> yield break to move on</returns>
-        IEnumerator ShowDefaultDrawBuffsAndDebuffs(SceneCharacterFromToBuffAndDebuff characterBuffAndDebuff);
+        /// <returns> yield break to move on</returns>        
+        IEnumerator ShowDefaultEndSessionPanel(bool aborted, float modelingExp, float activityExpGain, float activityExpTotal, float modelFatigueGain, float modelFatigueTotal,
+            SceneCharacterFromToBuffAndDebuff BuffAndDebuffOnFrom, SceneCharacterFromToBuffAndDebuff BuffAndDebuffOnTo);
 
 
 

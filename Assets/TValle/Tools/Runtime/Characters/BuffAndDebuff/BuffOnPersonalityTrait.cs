@@ -26,13 +26,17 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         {
             return trait.ToString() + "->" + modifier.ToString() + "->" + operation.ToString() + " End:" + (endHour < 0 ? "∞" : DateTime.MinValue.AddHours(endHour)) + " By:" + value.ToString();
         }
-
+        public DisplayableBuffCategory category => DisplayableBuffCategory.other;
         public string RichPrint(Func<string, string> characterNameGetter, Language language)
         {
             var r = TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(trait, language) + " " + 
                 TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(modifier, language) + " " + 
                 operation.GetOperationSymbol(value) + value.ToString("0.00");
             return r;
+        }
+        public string RichPrintStandAlone(Func<string, string> characterNameGetter, Language language)
+        {
+            return "Personality Trait " + RichPrint(characterNameGetter, language);
         }
 
         public bool infinite => endHour < 0;

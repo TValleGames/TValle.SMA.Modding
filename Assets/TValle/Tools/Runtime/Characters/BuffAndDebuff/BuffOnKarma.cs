@@ -1,16 +1,21 @@
-﻿using Assets.TValle.Tools.Runtime.UI;
+﻿using Assets.TValle.Tools.Runtime.Characters.Atts.Emotions;
+using Assets.TValle.Tools.Runtime.Characters.Intections;
+using Assets.TValle.Tools.Runtime.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.WSA;
 
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
     [Serializable]
     public struct BuffOnKarma : IIdentifiableBuff<(SimpleModifier, Operation, int)>, IStackableBuff<BuffOnKarma>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff, IValidableBuff
     {
+
+
         public SimpleModifier modifier;
         public Operation operation;
         public int endHour;
@@ -21,14 +26,17 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         {
             return modifier.ToString() + "->" + modifier.ToString() + "->" + operation.ToString() + " End:" + (endHour < 0 ? "∞" : DateTime.MinValue.AddHours(endHour)) + " By:" + value.ToString();
         }
-
+        public DisplayableBuffCategory category => DisplayableBuffCategory.other;
         public string RichPrint(Func<string, string> characterNameGetter, Language language)
         {
-            var r =  TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(modifier, language) + " " +
+            var r = TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(modifier, language) + " " +
                 operation.GetOperationSymbol(value) + value.ToString("0.00");
             return r;
         }
-
+        public string RichPrintStandAlone(Func<string, string> characterNameGetter, Language language)
+        {
+            return "Karma " + RichPrint(characterNameGetter, language);
+        }
         public bool infinite => endHour < 0;
         public DateTime endTime => infinite ? DateTime.MaxValue : DateTime.MinValue.AddHours(endHour);
         public (SimpleModifier, Operation, int) valueId => (modifier, operation, endHour);
@@ -114,6 +122,9 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
             return IsStackableWith(ref p);
         }
         public override int GetHashCode() => valueId.GetHashCode();
+
+
+
         public static bool operator ==(BuffOnKarma lhs, BuffOnKarma rhs)
         {
             return lhs.Equals(rhs);

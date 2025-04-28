@@ -45,7 +45,22 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         }
 
 
-
+        public List<IPrintableBuff> GetAllPrintables()
+        {
+            var r = (BuffOnKarma?.Values ?? (IEnumerable<BuffOnKarma>)Array.Empty<BuffOnKarma>()).Where(buff => buff.isValid && buff.value != 0).Cast<IPrintableBuff>()
+                .Concat((BuffOnPersonalityTrait?.Values ?? (IEnumerable<BuffOnPersonalityTrait>)Array.Empty<BuffOnPersonalityTrait>()).Where(buff => buff.isValid && buff.value != 0).Cast<IPrintableBuff>())
+                 .Concat((BuffOnDesires?.Values ?? (IEnumerable<BuffOnDesires>)Array.Empty<BuffOnDesires>()).Where(buff => buff.isValid && buff.value != 0).Cast<IPrintableBuff>())
+                  .Concat((BuffOnFavorabilityReqOfInteraction?.Values ?? (IEnumerable<BuffOnFavorabilityReqOfInteraction>)Array.Empty<BuffOnFavorabilityReqOfInteraction>()).Where(buff => buff.isValid && buff.value != 0).Cast<IPrintableBuff>())
+                   .Concat((BuffOnInteraction?.Values ?? (IEnumerable<BuffOnInteraction>)Array.Empty<BuffOnInteraction>()).Where(buff => buff.isValid && buff.value != 0).Cast<IPrintableBuff>())
+                    .Concat((BuffOnEmotionAura?.Values ?? (IEnumerable<BuffOnEmotionAura>)Array.Empty<BuffOnEmotionAura>()).Where(buff => buff.isValid && buff.value != 0).Cast<IPrintableBuff>())
+                     .Concat((BuffOnEmotionTowardCharacter?.Values ?? (IEnumerable<BuffOnEmotionTowardCharacter>)Array.Empty<BuffOnEmotionTowardCharacter>()).Where(buff => buff.isValid && buff.value != 0).Cast<IPrintableBuff>())
+                      .Concat((BuffOnEmotion?.Values ?? (IEnumerable<BuffOnEmotion>)Array.Empty<BuffOnEmotion>()).Where(buff => buff.isValid && buff.value != 0).Cast<IPrintableBuff>())
+                       .Concat((BuffOnHoleWearingWalls?.Values ?? (IEnumerable<BuffOnHoleWearingWalls>)Array.Empty<BuffOnHoleWearingWalls>()).Where(buff => buff.isValid && buff.value != 0).Cast<IPrintableBuff>())
+                        .Concat((BuffOnHoleWearingBottom?.Values ?? (IEnumerable<BuffOnHoleWearingBottom>)Array.Empty<BuffOnHoleWearingBottom>()).Where(buff => buff.isValid && buff.value != 0).Cast<IPrintableBuff>())
+                         .Concat((BuffOnHoleWearingMotion?.Values ?? (IEnumerable<BuffOnHoleWearingMotion>)Array.Empty<BuffOnHoleWearingMotion>()).Where(buff => buff.isValid && buff.value != 0).Cast<IPrintableBuff>())
+                         .ToList();
+            return r;
+        }
 
 
         public void DebugPrint()

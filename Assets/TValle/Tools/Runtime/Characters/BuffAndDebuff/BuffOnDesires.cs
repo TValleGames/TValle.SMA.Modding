@@ -24,13 +24,17 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         {
             return desires.ToString() + "->" + modifier.ToString() + "->" + operation.ToString() + " End:" + (endHour < 0 ? "∞" : DateTime.MinValue.AddHours(endHour)) + " By:" + value.ToString();
         }
-
+        public DisplayableBuffCategory category => DisplayableBuffCategory.other;
         public string RichPrint(Func<string, string> characterNameGetter, Language language)
         {
             var r = TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(desires, language) + " " +
                 TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(modifier, language) + " " +
                 operation.GetOperationSymbol(value) + value.ToString("0.00");
             return r;
+        }
+        public string RichPrintStandAlone(Func<string, string> characterNameGetter, Language language)
+        {
+            return "Desires " + RichPrint(characterNameGetter, language);
         }
 
         public bool infinite => endHour < 0;
@@ -40,6 +44,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public string stringId => valueId.ToString();
         public float buffValue => value;
 
+      
         public bool IsStackableWith(ref BuffOnDesires Other)
         {
             return Other.desires == desires && Other.modifier == modifier && Other.operation == operation && Other.endHour == endHour;

@@ -31,7 +31,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         {
             return interationReceivedType.ToString() + "->" + fromPart.ToString() + "->" + toPart.ToString() + "->" + modifier.ToString() + "->" + operation.ToString() + " End:" + (endHour < 0 ? "∞" : DateTime.MinValue.AddHours(endHour)) + " By:" + value.ToString();
         }
-
+        public DisplayableBuffCategory category => emotion.ParseToCategory();
         public string RichPrint(Func<string, string> characterNameGetter, Language language)
         {
             var r = TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(fromPart, language) + " " + 
@@ -41,6 +41,10 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
                 TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(modifier, language) + " " + 
                 operation.GetOperationSymbol(value) + value.ToString("0.00");
             return r;
+        }
+        public string RichPrintStandAlone(Func<string, string> characterNameGetter, Language language)
+        {
+            return "Interaction " + RichPrint(characterNameGetter, language);
         }
 
         public bool infinite => endHour < 0;

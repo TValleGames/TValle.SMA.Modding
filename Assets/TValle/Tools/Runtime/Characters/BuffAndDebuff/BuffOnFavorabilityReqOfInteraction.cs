@@ -2,6 +2,7 @@
 using Assets.TValle.Tools.Runtime.Characters.Atts.Emotions;
 using Assets.TValle.Tools.Runtime.Characters.Intections;
 using Assets.TValle.Tools.Runtime.UI;
+using Codice.CM.Common;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         {
             return interationReceivedType.ToString() + "->" + fromPart.ToString() + "->" + toPart.ToString() + "->" + modifier.ToString() + "->" + operation.ToString() + " End:" + (endHour < 0 ? "∞" : DateTime.MinValue.AddHours(endHour)) + " By:" + value.ToString();
         }
-
+        public DisplayableBuffCategory category => DisplayableBuffCategory.favorability;
         public string RichPrint(Func<string, string> characterNameGetter, Language language)//
         {
             var r = TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(fromPart, language) + " " + 
@@ -38,6 +39,10 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
                 TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(modifier, language) + " " + 
                 operation.GetOperationSymbol(value) + value.ToString("0.00");
             return r;
+        }
+        public string RichPrintStandAlone(Func<string, string> characterNameGetter, Language language)
+        {
+            return "Favorability Req. " + RichPrint(characterNameGetter, language);
         }
 
         public bool infinite => endHour < 0;

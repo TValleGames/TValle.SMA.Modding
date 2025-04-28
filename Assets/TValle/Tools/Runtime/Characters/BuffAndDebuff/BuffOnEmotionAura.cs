@@ -27,13 +27,17 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         {
             return emotion.ToString() + "->" + modifier.ToString() + "->" + operation.ToString() + " End:" + (endHour < 0 ? "∞" : DateTime.MinValue.AddHours(endHour)) + " By:" + value.ToString();
         }
-
+        public DisplayableBuffCategory category => emotion.ParseToCategory();
         public string RichPrint(Func<string, string> characterNameGetter, Language language)
         {
             var r = TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(emotion, language) + " " +
                 TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(modifier, language) + " " +
                 operation.GetOperationSymbol(value) + value.ToString("0.00");
             return r;
+        }
+        public string RichPrintStandAlone(Func<string, string> characterNameGetter, Language language)
+        {
+            return "Aura " + RichPrint(characterNameGetter, language);
         }
 
 

@@ -296,8 +296,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
 
         float AddFatigueToCurrentJob(float percentage);
         float AddFatigueToMainNonPlayerInCurrentJob(float percentage);
-
-
+        float PayMoneyToManager(float paymnentAmountModifier);
 
         float GetExpToMainPlayerInCurrentJob();
         float GetExpToMainNonPlayerInCurrentJob();
@@ -479,7 +478,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// Shows the default UI for new buffs and debuffs generated in this scene, it yields when the player accepts
         /// </summary>
         /// <returns> yield break to move on</returns>        
-        IEnumerator ShowDefaultEndSessionPanel(bool aborted, float modelingExp, float activityExpGain, float activityExpTotal, float modelFatigueGain, float modelFatigueTotal,
+        IEnumerator ShowDefaultEndSessionPanel(bool aborted, float income, float activityExpGain, float activityExpTotal, float modelFatigueGain, float modelFatigueTotal,
             SceneCharacterFromToBuffAndDebuff BuffAndDebuffOnFrom, SceneCharacterFromToBuffAndDebuff BuffAndDebuffOnTo);
 
 

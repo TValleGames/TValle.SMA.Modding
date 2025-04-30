@@ -2,7 +2,6 @@
 using Assets.TValle.Tools.Runtime.Characters.Atts.Emotions;
 using Assets.TValle.Tools.Runtime.Characters.Intections;
 using Assets.TValle.Tools.Runtime.UI;
-using Codice.CM.Common;
 using System;
 using System.Collections;
 using System.Collections.Generic;

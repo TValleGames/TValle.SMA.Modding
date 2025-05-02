@@ -12,8 +12,6 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts
         Dominant,
         Masochist,
         Hybristophilia,
-        Submissive,
-       
-
+        Submissive,      
     }
 }

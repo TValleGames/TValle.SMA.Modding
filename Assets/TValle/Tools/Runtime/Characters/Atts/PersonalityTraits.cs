@@ -16,8 +16,10 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts
         Imagination,//abstraction
 
         secure,//concern
+        [Label("Hybristophilia", Language.en)]
         Concerned,//concern
-
+       
+        [Label("Submissive", Language.en)]
         submissive,//dominance
         Dominant,//dominance
 
@@ -69,7 +71,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts
         reserved,//warmth
         Outgoing,//warmth
 
-
+        [Label("Masochist", Language.en)]
         sensitive,//resilience
         Resilient//resilience
         

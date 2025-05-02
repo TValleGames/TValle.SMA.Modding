@@ -37,7 +37,7 @@ namespace Assets.TValle.Tools.Runtime.Moddding.Clothing.Maps
         [Space]
         [Header("--- Info -----------------------------------------------------------------------")]
         [Space]
-        public ItemQuality itemQuality = ItemQuality.Epic;
+        public ItemQuality itemQuality = ItemQuality.Rare;
 
         [Space]
         [Header("--- AI Info -----------------------------------------------------------------------")]

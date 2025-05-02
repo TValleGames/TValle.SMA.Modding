@@ -8,9 +8,17 @@ namespace Assets.TValle.Tools.Runtime
 {
     public enum ItemQuality
     {
-        None=0,
+        None = 0,
+
+        Doomed,
+        Cursed,
+        Haunted,
+        Brittle,
+        Defective,
         Poor,
+
         Common,
+
         Uncommon,
         Rare,
         Epic,

@@ -173,5 +173,6 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
     public interface ICharactersSceneInteractionsArchived : ICharactersSceneInteractionsClearable
     {
         void PeekEmotionDamagePair(Emotion main, EmotionPercentageRange mainRange, Emotion secondary, EmotionPercentageRange secondaryRange, out EmotionDamagePair emotionDamagePair);
+        
     }
 }

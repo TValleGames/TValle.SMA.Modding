@@ -2,6 +2,7 @@
 using Assets.TValle.Tools.Runtime.Characters.Scenes;
 using Assets.TValle.Tools.Runtime.Memory;
 using Assets.TValle.Tools.Runtime.Moddding;
+using Assets.TValle.Tools.Runtime.Moddding.Clothing.Maps;
 using Assets.TValle.Tools.Runtime.SMA.Moddding.Jobs.Maps;
 using System;
 using System.Collections;
@@ -307,6 +308,9 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         int CountOfClothingPiecesCoveringBodyPartOfMainPlayer(SensitiveBodyPart bodyPart);
 
         int CountOfClothingPiecesCoveringBodyPartOfMainNonPlayer(SensitiveBodyPart bodyPart);
+
+
+        ClothingItemMap.Type GetFirstOrDefaultClothingPiecesCoveringTypeOfMainNonPlayer(SensitiveBodyPart bodyPart);
     }
     public interface ISMAJobsObjectives
     {
@@ -440,7 +444,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// </summary>
         event Action<ISMAJobsUIManager> showMenuKeyReleased;
 
-
+        bool floatingMainMenuIsShowing {  get; }    
 
         /// <summary>
         /// Displays a floating menu, with the model instance dictating its contents.

@@ -22,7 +22,9 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         kiss,
         slap,
         hump,
-        poke,
+        poke, 
+        [Label("dry Hump", Language.en)]
+        dryhump,
         lick,
         [Label("pouring On", Language.en)]
         pouringOn,

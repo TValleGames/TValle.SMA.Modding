@@ -232,6 +232,12 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// <returns>the memory of the character in the job context</returns>
         IContextMemory GetCharacterInMemory(string jobID, string characterID);
 
+        /// <summary>
+        /// won't save the whole character to memory, just the "brain" or current state.
+        /// </summary>
+        void UpdateCharacterMemory(SceneCharacter character);
+
+
 
 
         /// <summary>

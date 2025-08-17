@@ -134,7 +134,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         {
 #if UNITY_EDITOR
             if(newInteraccion.damagePercentageDone < 0)
-                Debug.LogError("se esta haciendo stack a interaccion con valores negativos");
+                Debug.LogError("A stacking to Interaction with negative values is occurring");
 #endif
 
             if(addTimes)
@@ -157,7 +157,6 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
 
 
         }
-        //[Obsolete("siempre genera problemas, baja mas de lo q deberia, y da;a la data generada", true)]
         public static void UnStack(ref Interaction toReport, ref Interaction newInteraccion, bool removeTimes)
         {
 
@@ -246,7 +245,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
 
 
         /// <summary>
-        /// The in-game date on which the scene occurs.
+        /// The in-game date on which the scene occurs. If this is an archived past interaction then this value is the first time it happened
         /// </summary>
         public string dateString;
         /// <summary>
@@ -268,7 +267,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         public int endFrame;
 
         /// <summary>
-        /// If the interaction is currently taking place, this value shows how many frames passed since it began. If this is an archived past interaction, this value represents the number of times it occurred in the scene.
+        /// If the interaction is currently taking place, IS ALWAYS 1. If this is an archived past interaction, this value represents the number of times it occurred in the scene.
         /// </summary>
         public int times;
 

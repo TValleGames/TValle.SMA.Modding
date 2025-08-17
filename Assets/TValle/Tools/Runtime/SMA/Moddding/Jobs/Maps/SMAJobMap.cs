@@ -14,7 +14,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Moddding.Jobs.Maps
     {
         public bool IsSMAJobMapValid()
         {
-            return !string.IsNullOrWhiteSpace(mainScene?.AssetGUID) && !string.IsNullOrWhiteSpace(portrait?.AssetGUID) && !string.IsNullOrWhiteSpace(mainLogic) && otherPlayersAmount >= 1;
+            return !string.IsNullOrWhiteSpace(mainScene?.AssetGUID) && !string.IsNullOrWhiteSpace(portrait?.AssetGUID) && !string.IsNullOrWhiteSpace(mainLogic) && otherPlayersAmount != 0;
         }
 
 

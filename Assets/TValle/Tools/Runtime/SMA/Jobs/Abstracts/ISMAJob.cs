@@ -27,6 +27,8 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         bool isInit { get; }
         bool isAborted { get; set; }
 
+        bool nonPlayerCharacterWillRememberPlayerCharacter { get; }
+
         /// <summary>
         /// the job must produce the main player, use the ISMAJobsManager to produce it
         /// </summary>
@@ -246,7 +248,8 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// <param name="scene"></param>
         void AddAdditinalLogicToScene(Scene scene, float phoneAndCameraScreenEmissionModifier);
 
-
+        IEnumerator CheckMainCamera();
+        IEnumerator GenerateMaleCharacter(Vector3 feetPosition, Vector3 bodyForwardDirection, Action<SceneCharacter> result);
 
         /// <summary>
         /// load a character from memory, The game only supports a single character. ALWAYS LOAD THE MALE CHARACTER FIRST
@@ -298,7 +301,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// </summary>
         /// <param name="levels">how many lvl this character will increase, Generally this value is less than one, since several sessions are needed to go up a level</param>
         float AddExpToMainNonPlayerInCurrentJob(float levels);
-        float AddModelingExpToMainNonPlayer( float levels);
+        float AddModelingExpToMainNonPlayer(float levels);
 
         float AddFatigueToCurrentJob(float percentage);
         float AddFatigueToMainNonPlayer(float percentage);
@@ -450,7 +453,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// </summary>
         event Action<ISMAJobsUIManager> showMenuKeyReleased;
 
-        bool floatingMainMenuIsShowing {  get; }    
+        bool floatingMainMenuIsShowing { get; }
 
         /// <summary>
         /// Displays a floating menu, with the model instance dictating its contents.

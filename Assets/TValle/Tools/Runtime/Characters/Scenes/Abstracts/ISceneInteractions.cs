@@ -118,15 +118,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
 
 
 
-        /// <summary>
-        /// Get the interactions without removing the interactions form the list
-        /// </summary>     
-        /// <param name="fromPart">The value can be equal to "All".</param>
-        /// <param name="toPart">The value can be equal to "All".</param>
-        /// <param name="interationReceivedType">The value can be equal to "All".</param>
-        /// <param name="emotion">The value can be equal to "All".</param>
-        /// <param name="reachedMaxValue">This should be true for interactions that cause the emotion to reach its maximum value.</param>
-        /// <returns>returns empty List if not found</returns>
+        [Obsolete("all interaction can be stacked into one now, no need for a list",true)]
         IReadOnlyList<Interaction> PeekMany(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue);
 
 
@@ -173,6 +165,6 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
     public interface ICharactersSceneInteractionsArchived : ICharactersSceneInteractionsClearable
     {
         void PeekEmotionDamagePair(Emotion main, EmotionPercentageRange mainRange, Emotion secondary, EmotionPercentageRange secondaryRange, out EmotionDamagePair emotionDamagePair);
-        
+
     }
 }

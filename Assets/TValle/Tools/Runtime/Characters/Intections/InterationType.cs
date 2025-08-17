@@ -47,6 +47,12 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         manipulateBody, 
         [Label("guide Body", Language.en)]
         guideBody,
+
+
+
+        handJob,
+
+
     }
     public enum InterationDirectionType
     {

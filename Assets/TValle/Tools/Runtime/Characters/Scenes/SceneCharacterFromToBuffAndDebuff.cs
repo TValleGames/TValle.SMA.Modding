@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Assets.TValle.Tools.Runtime.Characters.Scenes
@@ -26,18 +27,21 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
 
         public SceneCharacter character => m_character;
 
-        public Dictionary<(SimpleModifier, Operation, int), BuffOnKarma> BuffOnKarma;
-        public Dictionary<(PersonalityTraits, SimpleModifier, Operation, int), BuffOnPersonalityTrait> BuffOnPersonalityTrait;
-        public Dictionary<(Desires, EmotionModifier, Operation, int), BuffOnDesires> BuffOnDesires;
-        public Dictionary<(InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, SimpleModifier, Operation, int), BuffOnFavorabilityReqOfInteraction> BuffOnFavorabilityReqOfInteraction;
-        public Dictionary<(InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, Emotion, InteractionModifier, ProductOperation, int), BuffOnInteraction> BuffOnInteraction;
-        public Dictionary<(Emotion, SimpleEmotionModifier, Operation, int), BuffOnEmotionAura> BuffOnEmotionAura;
-        public Dictionary<(string, Emotion, EmotionModifier, Operation, int), BuffOnEmotionTowardCharacter> BuffOnEmotionTowardCharacter;
-        public Dictionary<(Emotion, EmotionModifier, Operation, int), BuffOnEmotion> BuffOnEmotion;
+        public Dictionary<ITuple, BuffOnKarma> BuffOnKarma;
+        public Dictionary<ITuple, BuffOnPersonalityTrait> BuffOnPersonalityTrait;
+        public Dictionary<ITuple, BuffOnDesires> BuffOnDesires;
+        public Dictionary<ITuple, BuffOnFavorabilityReqOfInteraction> BuffOnFavorabilityReqOfInteraction;
+        public Dictionary<ITuple, BuffOnInteraction> BuffOnInteraction;
+        public Dictionary<ITuple, BuffOnEmotionAura> BuffOnEmotionAura;
+        public Dictionary<ITuple, BuffOnEmotionTowardCharacter> BuffOnEmotionTowardCharacter;
+        public Dictionary<ITuple, BuffOnEmotion> BuffOnEmotion;
 
-        public Dictionary<(SensitiveFemaleHoleWalls, SimpleModifier, AddOperation, int), BuffOnHoleWearingWalls> BuffOnHoleWearingWalls;
-        public Dictionary<(SensitiveFemaleHoleBottom, SimpleModifier, AddOperation, int), BuffOnHoleWearingBottom> BuffOnHoleWearingBottom;
-        public Dictionary<(SensitiveFemaleHole, SimpleModifier, AddOperation, int), BuffOnHoleWearingMotion> BuffOnHoleWearingMotion;
+        public Dictionary<ITuple, BuffOnHoleWearingWalls> BuffOnHoleWearingWalls;
+        public Dictionary<ITuple, BuffOnHoleWearingBottom> BuffOnHoleWearingBottom;
+        public Dictionary<ITuple, BuffOnHoleWearingMotion> BuffOnHoleWearingMotion;
+
+        public Dictionary<ITuple, BuffOnOxygenDemand> BuffOnOxygenDemand;
+
 
         public void Apply()
         {
@@ -47,21 +51,28 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
 
         public List<IPrintableBuff> GetAllPrintables()
         {
-            var r = (BuffOnKarma?.Values ?? (IEnumerable<BuffOnKarma>)Array.Empty<BuffOnKarma>()).Where(buff => buff.isValid && buff.value != 0).Cast<IPrintableBuff>()
-                .Concat((BuffOnPersonalityTrait?.Values ?? (IEnumerable<BuffOnPersonalityTrait>)Array.Empty<BuffOnPersonalityTrait>()).Where(buff => buff.isValid && buff.value != 0).Cast<IPrintableBuff>())
-                 .Concat((BuffOnDesires?.Values ?? (IEnumerable<BuffOnDesires>)Array.Empty<BuffOnDesires>()).Where(buff => buff.isValid && buff.value != 0).Cast<IPrintableBuff>())
-                  .Concat((BuffOnFavorabilityReqOfInteraction?.Values ?? (IEnumerable<BuffOnFavorabilityReqOfInteraction>)Array.Empty<BuffOnFavorabilityReqOfInteraction>()).Where(buff => buff.isValid && buff.value != 0).Cast<IPrintableBuff>())
-                   .Concat((BuffOnInteraction?.Values ?? (IEnumerable<BuffOnInteraction>)Array.Empty<BuffOnInteraction>()).Where(buff => buff.isValid && buff.value != 0).Cast<IPrintableBuff>())
-                    .Concat((BuffOnEmotionAura?.Values ?? (IEnumerable<BuffOnEmotionAura>)Array.Empty<BuffOnEmotionAura>()).Where(buff => buff.isValid && buff.value != 0).Cast<IPrintableBuff>())
-                     .Concat((BuffOnEmotionTowardCharacter?.Values ?? (IEnumerable<BuffOnEmotionTowardCharacter>)Array.Empty<BuffOnEmotionTowardCharacter>()).Where(buff => buff.isValid && buff.value != 0).Cast<IPrintableBuff>())
-                      .Concat((BuffOnEmotion?.Values ?? (IEnumerable<BuffOnEmotion>)Array.Empty<BuffOnEmotion>()).Where(buff => buff.isValid && buff.value != 0).Cast<IPrintableBuff>())
-                       .Concat((BuffOnHoleWearingWalls?.Values ?? (IEnumerable<BuffOnHoleWearingWalls>)Array.Empty<BuffOnHoleWearingWalls>()).Where(buff => buff.isValid && buff.value != 0).Cast<IPrintableBuff>())
-                        .Concat((BuffOnHoleWearingBottom?.Values ?? (IEnumerable<BuffOnHoleWearingBottom>)Array.Empty<BuffOnHoleWearingBottom>()).Where(buff => buff.isValid && buff.value != 0).Cast<IPrintableBuff>())
-                         .Concat((BuffOnHoleWearingMotion?.Values ?? (IEnumerable<BuffOnHoleWearingMotion>)Array.Empty<BuffOnHoleWearingMotion>()).Where(buff => buff.isValid && buff.value != 0).Cast<IPrintableBuff>())
-                         .ToList();
-            return r;
+
+            var rr = GetPrintables(BuffOnKarma)
+                .Concat(GetPrintables(BuffOnPersonalityTrait))
+                 .Concat(GetPrintables(BuffOnDesires))
+                  .Concat(GetPrintables(BuffOnFavorabilityReqOfInteraction))
+                   .Concat(GetPrintables(BuffOnInteraction))
+                    .Concat(GetPrintables(BuffOnEmotionAura))
+                     .Concat(GetPrintables(BuffOnEmotionTowardCharacter))
+                      .Concat(GetPrintables(BuffOnEmotion))
+                       .Concat(GetPrintables(BuffOnHoleWearingWalls))
+                        .Concat(GetPrintables(BuffOnHoleWearingBottom))
+                         .Concat(GetPrintables(BuffOnHoleWearingMotion))
+                          .Concat(GetPrintables(BuffOnOxygenDemand))
+                          .ToList();
+            return rr;
         }
 
+        static IEnumerable<IPrintableBuff> GetPrintables<TKey, TValue>(IReadOnlyDictionary<TKey, TValue> dicc)
+            where TValue : IPrintableBuff, IValidableBuff, IFloatValuableBuff
+        {
+            return (dicc?.Values ?? Array.Empty<TValue>()).Where(buff => buff.isValid && buff.buffValue != 0).Cast<IPrintableBuff>();
+        }
 
         public void DebugPrint()
         {
@@ -77,6 +88,9 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
             DebugPrint(m_character, BuffOnHoleWearingWalls);
             DebugPrint(m_character, BuffOnHoleWearingBottom);
             DebugPrint(m_character, BuffOnHoleWearingMotion);
+            
+            DebugPrint(m_character, BuffOnOxygenDemand);
+
         }
         static void DebugPrint<TKey, TValue>(SceneCharacter character, Dictionary<TKey, TValue> dicc)
             where TValue : IPrintableBuff

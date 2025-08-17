@@ -25,6 +25,10 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
         [Label("tool", Language.en)]
         toy,
         semen,
+
+        vagina,
+        anus,
+
     }
     public enum TriggeringPenetratingBodyPart
     {

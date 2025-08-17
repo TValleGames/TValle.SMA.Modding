@@ -39,8 +39,10 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
     }
    
     public static class IPrintableBuffEXT
-    {       
+    {
+       
         public static DisplayableBuffCategory ParseToCategory(this Emotion emo)
+
         {
             switch(emo)
             {

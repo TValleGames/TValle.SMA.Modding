@@ -11,7 +11,7 @@ namespace Assets.TValle.Tools.Runtime.UI
     {
         public event Action<JobWithClientDefaultMenuModel> onShowModelInfo;
         public event Action<JobWithClientDefaultMenuModel> onShowClientInfo;
-        public event Action<JobWithClientDefaultMenuModel> onClientDismissed;
+        public event Action<JobWithClientDefaultMenuModel> onLeave;
 
        
         [Label("Model Curriculum", Language.en)]
@@ -28,11 +28,11 @@ namespace Assets.TValle.Tools.Runtime.UI
             onShowClientInfo?.Invoke(this);
         }
 
-        [Label("Send the client off", Language.en)]
-        [Description("-Start a conversation with the client to guide them to leave.", Language.en)]
-        public void DismissClient()
+        [Label("Leave", Language.en)]
+        [Description("-Exit the room and continue on with the rest of the day.", Language.en)]
+        public void Leave()
         {
-            onClientDismissed?.Invoke(this);
+            onLeave?.Invoke(this);
         }
     }
     //TODO: Coworker 
@@ -59,7 +59,7 @@ namespace Assets.TValle.Tools.Runtime.UI
         }
 
         [Label("Conclude Assignment", Language.en)]
-        [Description("-Concludes the assignment and returns to the main office.", Language.en)]
+        [Description("-Concludes the assignment.", Language.en)]
         public void DismissClient()
         {
             onModelDismissed?.Invoke();
@@ -81,7 +81,7 @@ namespace Assets.TValle.Tools.Runtime.UI
 
         }
         [Label("Conclude Assignment", Language.en)]
-        [Description("-Concludes the assignment and returns to the main office.", Language.en)]
+        [Description("-Concludes the assignment.", Language.en)]
         public void EndSession()
         {
             onEndSession?.Invoke();

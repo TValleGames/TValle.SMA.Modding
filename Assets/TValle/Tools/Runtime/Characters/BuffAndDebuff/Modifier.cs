@@ -37,8 +37,15 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         damage,
         [Label("gain Interval Expand", Language.en)]
         gainIntervalExpand,
+      
         [Label("gain Interval Position", Language.en)]
-        gainIntervalPosition,
+        gainMinMaxIntervalPosition,
+
+        [Label("gain Min Interval Position", Language.en)]
+        gainMinIntervalPosition,
+
+        [Label("gain Max Interval Position", Language.en)]
+        gainMaxIntervalPosition,
 
     }
     //public enum FavorabilityModifier

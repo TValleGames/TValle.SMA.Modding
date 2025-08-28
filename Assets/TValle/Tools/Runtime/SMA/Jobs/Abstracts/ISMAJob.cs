@@ -175,7 +175,25 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
 
 
 
+    public interface IMaleRandomGeneratorOverrider
+    {
+        public float? s { get; }
+        public float? v { get; }
+        public float? h { get; }
 
+
+        public float? fat { get; }
+        public float? thin { get; }
+        public float? muscle { get; }
+        public float? old { get; }
+        public float? height { get; }
+        public float? package { get; }
+        public float? dickSize { get; }
+        public float? dickGirth { get; }
+        public float? money { get; }
+        public float? clothes { get; }
+
+    }
     public interface ISMAJobsManager
     {
         ISceneInteractions interactions { get; }
@@ -249,7 +267,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         void AddAdditinalLogicToScene(Scene scene, float phoneAndCameraScreenEmissionModifier);
 
         IEnumerator CheckMainCamera();
-        IEnumerator GenerateMaleCharacter(Vector3 feetPosition, Vector3 bodyForwardDirection, Action<SceneCharacter> result);
+        IEnumerator GenerateMaleCharacter(Vector3 feetPosition, Vector3 bodyForwardDirection, IMaleRandomGeneratorOverrider overrider, Action<SceneCharacter> result, Action<SceneCharacter> beforeAwake);
 
         /// <summary>
         /// load a character from memory, The game only supports a single character. ALWAYS LOAD THE MALE CHARACTER FIRST
@@ -257,7 +275,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// <param name="id">empty to load random male character</param>
         /// <param name="feetPosition"></param>
         /// <param name="bodyForwardDirection"></param>
-        IEnumerator LoadMaleCharacter(Guid id, Vector3 feetPosition, Vector3 bodyForwardDirection, Action<SceneCharacter> result);
+        IEnumerator LoadMaleCharacter(Guid id, Vector3 feetPosition, Vector3 bodyForwardDirection, Action<SceneCharacter> result, Action<SceneCharacter> beforeAwake);
 
         /// <summary>
         /// load a character from memory, The game only supports a single character.

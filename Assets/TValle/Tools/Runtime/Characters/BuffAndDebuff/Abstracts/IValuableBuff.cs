@@ -10,6 +10,5 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         where T : struct
     {
         T buffValue { get; }
-
     }
 }

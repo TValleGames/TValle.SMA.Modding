@@ -55,27 +55,34 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
             return Other.towardID == towardID && Other.emotion == emotion && Other.modifier == modifier && Other.operation == operation && Other.endHour == endHour;
         }
 
-        public BuffOnEmotionTowardCharacter StackToNew(ref BuffOnEmotionTowardCharacter Other)
-        {
-            var r = this;
-            switch(operation)
-            {
-                case Operation.None:
-                    break;
-                case Operation.add:
-                    r.value += Other.value;
-                    break;
-                case Operation.mult:
-                    r.value *= Other.value;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(operation.ToString());
-            }
-            return r;
-        }
+        //public BuffOnEmotionTowardCharacter StackToNew(ref BuffOnEmotionTowardCharacter Other)
+        //{
+        //    var r = this;
+        //    switch(operation)
+        //    {
+        //        case Operation.None:
+        //            break;
+        //        case Operation.add:
+        //            r.value += Other.value;
+        //            break;
+        //        case Operation.mult:
+        //            r.value *= Other.value;
+        //            break;
+        //        default:
+        //            throw new ArgumentOutOfRangeException(operation.ToString());
+        //    }
+        //    return r;
+        //}
 
         public void StackToSelf(ref BuffOnEmotionTowardCharacter Other)
         {
+            if(!Other.ValueIsValid())
+            {
+#if UNITY_EDITOR
+                Debug.LogError("other buff " + this.GetType().Name + ", to be stacked upon has invalid value, buff: " + Other.DebugPrint());
+#endif
+                return;
+            }
             switch(operation)
             {
                 case Operation.None:

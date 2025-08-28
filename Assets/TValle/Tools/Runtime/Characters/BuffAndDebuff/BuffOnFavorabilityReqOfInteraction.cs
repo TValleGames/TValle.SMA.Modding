@@ -59,27 +59,34 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
                 Other.interationReceivedType == interationReceivedType && Other.fromPart == fromPart && Other.toPart == toPart && Other.modifier == modifier && Other.operation == operation && Other.endHour == endHour;
         }
 
-        public BuffOnFavorabilityReqOfInteraction StackToNew(ref BuffOnFavorabilityReqOfInteraction Other)
-        {
-            var r = this;
-            switch(operation)
-            {
-                case Operation.None:
-                    break;
-                case Operation.mult:
-                    r.value *= Other.value;
-                    break;
-                case Operation.add:
-                    r.value += Other.value;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(operation.ToString());
-            }
-            return r;
-        }
+        //public BuffOnFavorabilityReqOfInteraction StackToNew(ref BuffOnFavorabilityReqOfInteraction Other)
+        //{
+        //    var r = this;
+        //    switch(operation)
+        //    {
+        //        case Operation.None:
+        //            break;
+        //        case Operation.mult:
+        //            r.value *= Other.value;
+        //            break;
+        //        case Operation.add:
+        //            r.value += Other.value;
+        //            break;
+        //        default:
+        //            throw new ArgumentOutOfRangeException(operation.ToString());
+        //    }
+        //    return r;
+        //}
 
         public void StackToSelf(ref BuffOnFavorabilityReqOfInteraction Other)
         {
+            if(!Other.ValueIsValid())
+            {
+#if UNITY_EDITOR
+                Debug.LogError("other buff " + this.GetType().Name + ", to be stacked upon has invalid value, buff: " + Other.DebugPrint());
+#endif
+                return;
+            }
             switch(operation)
             {
                 case Operation.None:

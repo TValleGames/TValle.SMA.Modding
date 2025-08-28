@@ -125,39 +125,89 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
     [Serializable]
     public struct Interaction
     {
-        public static void Add(ref Interaction toReport, ref Interaction newInteraccion)
+        /// <summary>
+        /// Warning: The calculation of duration and frames will only be valid if the interactions belong to the same interaction recording.
+        /// </summary>
+        public static void AddFromDifferentRecordings(ref Interaction mutable, ref Interaction inmutable)
         {
-            Stack(ref toReport, ref newInteraccion, false);
-            toReport.times = toReport.times + newInteraccion.times;
+            var dm = mutable.duration;
+            var di = inmutable.duration;
+
+            var fm = mutable.frames;
+            var fi = inmutable.frames;
+
+
+            StackFromSameRecording(ref mutable, ref inmutable, false, false);
+
+            mutable.startTime = 0;
+            mutable.startFrame = 0;
+            mutable.endTime = dm + di;
+            mutable.endFrame = fm + fi;
+
+
+            mutable.times = mutable.times + inmutable.times;
+
+            var m_d = mutable.date;
+            var i_d = inmutable.date;
+
+            mutable.date = (m_d < i_d) ? m_d : i_d;
+
+
         }
-        public static void Stack(ref Interaction toReport, ref Interaction newInteraccion, bool addTimes)
+
+        /// <summary>
+        /// Warning: The calculation of duration and frames will only be valid if the interactions belong to the same interaction recording.
+        /// </summary>
+        public static void AddFromSameRecording(ref Interaction toReport, ref Interaction newInteraccion)
+        {
+            StackFromSameRecording(ref toReport, ref newInteraccion, false, true);
+            toReport.times = toReport.times + newInteraccion.times;
+
+            var r_d = toReport.date;
+            var n_d = newInteraccion.date;
+
+            toReport.date = (r_d < n_d) ? r_d : n_d;
+
+        }//
+
+        /// <summary>
+        /// Warning: The calculation of duration and frames will only be valid if the interactions belong to the same interaction recording.
+        /// </summary>
+        public static void StackFromSameRecording(ref Interaction toReport, ref Interaction newInteraccion, bool addTimes, bool fixStartTime)
         {
 #if UNITY_EDITOR
             if(newInteraccion.damagePercentageDone < 0)
                 Debug.LogError("A stacking to Interaction with negative values is occurring");
 #endif
-
             if(addTimes)
                 toReport.times = toReport.times + 1;
 
             toReport.stacks = toReport.stacks + 1;
 
+            if(fixStartTime)
+            {
+                var timeJump = newInteraccion.startTime - toReport.endTime;
+                var frameJump = newInteraccion.startFrame - toReport.endFrame;
+
+                if(timeJump > 0)
+                    toReport.startTime = toReport.startTime + timeJump;
+                if(frameJump > 0)
+                    toReport.startFrame = toReport.startFrame + frameJump;
+            }
+
             toReport.endTime = Mathf.Max(newInteraccion.endTime, toReport.endTime);
             toReport.endFrame = Mathf.Max(newInteraccion.endFrame, toReport.endFrame);
 
-            toReport.emotionAtMaxValueTimes = newInteraccion.emotionAtMaxValue ? toReport.emotionAtMaxValueTimes + 1 : toReport.emotionAtMaxValueTimes;
-            toReport.triggerMaxValueTimes = newInteraccion.triggerMaxValue ? toReport.triggerMaxValueTimes + 1 : toReport.triggerMaxValueTimes;
-
+            toReport.emotionAtMaxValueTimes = toReport.emotionAtMaxValue ? Mathf.Clamp(toReport.emotionAtMaxValueTimes + newInteraccion.emotionAtMaxValueTimes, 1, int.MaxValue) : 0;
+            toReport.triggerMaxValueTimes = toReport.triggerMaxValue ? Mathf.Clamp(toReport.triggerMaxValueTimes + newInteraccion.triggerMaxValueTimes, 1, int.MaxValue) : 0;
 
             toReport.damagePercentageDone += newInteraccion.damagePercentageDone;
 
             toReport.overshootOrUndershootTotal += newInteraccion.overshootOrUndershoot;
 
             toReport.damageScoreTotal += newInteraccion.damageScore;
-
-
         }
-        public static void UnStack(ref Interaction toReport, ref Interaction newInteraccion, bool removeTimes)
+        public static void UnStack(ref Interaction toReport, ref Interaction oldInteraccion, bool removeTimes)
         {
 
 
@@ -165,20 +215,21 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
                 toReport.times = toReport.times - 1;
 
 
-            toReport.stacks = toReport.stacks - 1;
+            toReport.stacks = toReport.stacks - oldInteraccion.stacks;
 
-            toReport.endTime = Mathf.Clamp(toReport.endTime - newInteraccion.duration, toReport.startTime, toReport.endTime);
-            toReport.endFrame = Mathf.Clamp(toReport.endFrame - newInteraccion.frames, toReport.startFrame, toReport.endFrame);
+            //there is no need to cahnge time, UnStack its only used on happening interactions, happening interactions will always use max values as end values
+            //toReport.endTime = Mathf.Clamp(toReport.endTime - oldInteraccion.duration, toReport.startTime, toReport.endTime);
+            //toReport.endFrame = Mathf.Clamp(toReport.endFrame - oldInteraccion.frames, toReport.startFrame, toReport.endFrame);
 
 
-            toReport.emotionAtMaxValueTimes = newInteraccion.emotionAtMaxValue ? toReport.emotionAtMaxValueTimes - 1 : toReport.emotionAtMaxValueTimes;
-            toReport.triggerMaxValueTimes = newInteraccion.triggerMaxValue ? toReport.triggerMaxValueTimes - 1 : toReport.triggerMaxValueTimes;
+            toReport.emotionAtMaxValueTimes = toReport.emotionAtMaxValue ? Mathf.Clamp(toReport.emotionAtMaxValueTimes - oldInteraccion.emotionAtMaxValueTimes, 1, int.MaxValue) : 0;
+            toReport.triggerMaxValueTimes = toReport.triggerMaxValue ? Mathf.Clamp(toReport.triggerMaxValueTimes - oldInteraccion.triggerMaxValueTimes, 1, int.MaxValue) : 0;
 
-            toReport.damagePercentageDone -= newInteraccion.damagePercentageDone;
+            toReport.damagePercentageDone -= oldInteraccion.damagePercentageDone;
 
-            toReport.overshootOrUndershootTotal -= newInteraccion.overshootOrUndershoot;
+            toReport.overshootOrUndershootTotal -= oldInteraccion.overshootOrUndershoot;
 
-            toReport.damageScoreTotal -= newInteraccion.damageScore;
+            toReport.damageScoreTotal -= oldInteraccion.damageScore;
 
 
         }
@@ -231,8 +282,32 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
 
         public bool isValid => toID != null && toPart != SensitiveBodyPart.None && fromPart != TriggeringBodyPart.None && interationReceivedType != InterationReceivedType.None && emotion != Emotion.None && times > 0 && stacks > 0;
 
-        public DateTime date { get { if(string.IsNullOrWhiteSpace(dateString)) return DateTime.MinValue; return DateTime.Parse(dateString, CultureInfo.InvariantCulture); } set { dateString = value.ToString(CultureInfo.InvariantCulture); } }
 
+        /// <summary>
+        /// The in-game date on which the scene occurs. If this is an archived past interaction then this value is the first time it happened
+        /// </summary>
+        public DateTime date
+        {
+            get
+            {
+                if(!m_date.HasValue)
+                {
+                    if(string.IsNullOrWhiteSpace(dateString))
+                        m_date = DateTime.MinValue;
+                    else
+                        m_date = DateTime.Parse(dateString, CultureInfo.InvariantCulture);
+                }
+                return m_date.Value;
+            }
+            set
+            {
+                m_date = value;
+                dateString = m_date.Value.ToString(CultureInfo.InvariantCulture);
+            }
+        }
+
+        [NonSerialized]
+        DateTime? m_date;
 
 
         public string fromID;

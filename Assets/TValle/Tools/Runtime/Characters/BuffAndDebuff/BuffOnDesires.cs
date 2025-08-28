@@ -18,7 +18,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public int endHour;
         public float value;
 
-        public bool isValid => desires != Desires.None  && modifier != EmotionModifier.None && operation != Operation.None && endHour != 0;
+        public bool isValid => desires != Desires.None && modifier != EmotionModifier.None && operation != Operation.None && endHour != 0;
 
         public string DebugPrint()
         {
@@ -44,33 +44,40 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public string stringId => valueId.ToString();
         public float buffValue => value;
 
-      
+
         public bool IsStackableWith(ref BuffOnDesires Other)
         {
             return Other.desires == desires && Other.modifier == modifier && Other.operation == operation && Other.endHour == endHour;
         }
 
-        public BuffOnDesires StackToNew(ref BuffOnDesires Other)
-        {
-            var r = this;
-            switch(operation)
-            {
-                case Operation.None:
-                    break;
-                case Operation.add:
-                    r.value += Other.value;
-                    break;
-                case Operation.mult:
-                    r.value *= Other.value;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(operation.ToString());
-            }
-            return r;
-        }
+        //public BuffOnDesires StackToNew(ref BuffOnDesires Other)
+        //{
+        //    var r = this;
+        //    switch(operation)
+        //    {
+        //        case Operation.None:
+        //            break;
+        //        case Operation.add:
+        //            r.value += Other.value;
+        //            break;
+        //        case Operation.mult:
+        //            r.value *= Other.value;
+        //            break;
+        //        default:
+        //            throw new ArgumentOutOfRangeException(operation.ToString());
+        //    }
+        //    return r;
+        //}
 
         public void StackToSelf(ref BuffOnDesires Other)
         {
+            if(!Other.ValueIsValid())
+            {
+#if UNITY_EDITOR
+                Debug.LogError("other buff " + this.GetType().Name + ", to be stacked upon has invalid value, buff: " + Other.DebugPrint());
+#endif
+                return;
+            }
             switch(operation)
             {
                 case Operation.None:

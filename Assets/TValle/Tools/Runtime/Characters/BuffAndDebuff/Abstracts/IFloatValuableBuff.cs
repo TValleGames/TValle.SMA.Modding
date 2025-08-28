@@ -11,4 +11,11 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         void InverseValue();
 
     }
+    public static class IFloatValuableBuffEXT
+    {
+        public static bool ValueIsValid(this IFloatValuableBuff valuable)
+        {
+            return float.IsFinite(valuable.buffValue);
+        }
+    }
 }

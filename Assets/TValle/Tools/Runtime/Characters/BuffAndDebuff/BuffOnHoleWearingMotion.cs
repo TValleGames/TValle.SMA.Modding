@@ -51,24 +51,31 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
             return Other.toPart == toPart && Other.modifier == modifier && Other.operation == operation && Other.endHour == endHour;
         }
 
-        public BuffOnHoleWearingMotion StackToNew(ref BuffOnHoleWearingMotion Other)
-        {
-            var r = this;
-            switch(operation)
-            {
-                case AddOperation.None:
-                    break;
-                case AddOperation.add:
-                    r.value += Other.value;
-                    break;                
-                default:
-                    throw new ArgumentOutOfRangeException(operation.ToString());
-            }
-            return r;
-        }
+        //public BuffOnHoleWearingMotion StackToNew(ref BuffOnHoleWearingMotion Other)
+        //{
+        //    var r = this;
+        //    switch(operation)
+        //    {
+        //        case AddOperation.None:
+        //            break;
+        //        case AddOperation.add:
+        //            r.value += Other.value;
+        //            break;                
+        //        default:
+        //            throw new ArgumentOutOfRangeException(operation.ToString());
+        //    }
+        //    return r;
+        //}
 
         public void StackToSelf(ref BuffOnHoleWearingMotion Other)
         {
+            if(!Other.ValueIsValid())
+            {
+#if UNITY_EDITOR
+                Debug.LogError("other buff " + this.GetType().Name + ", to be stacked upon has invalid value, buff: " + Other.DebugPrint());
+#endif
+                return;
+            }
             switch(operation)
             {
                 case AddOperation.None:

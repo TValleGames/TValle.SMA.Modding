@@ -193,6 +193,17 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         public float? money { get; }
         public float? clothes { get; }
 
+
+
+
+        public float? pleasureGain { get; }
+        public float? pleasureInterExp { get; }
+        public float? pleasureInterInc { get; }
+        public float? pleasureMaxValue { get; }
+
+        public float? eyacTimes { get; }
+        public float? eyacAmount { get; }
+
     }
     public interface ISMAJobsManager
     {
@@ -323,7 +334,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
 
         float AddFatigueToCurrentJob(float percentage);
         float AddFatigueToMainNonPlayer(float percentage);
-        float PayMoneyToManager(float paymnentAmountModifier);
+        float PayMoneyToManager(float paymnentAmountModifier, float paymnentAmountAddBonus);
 
         float GetExpToMainPlayerInCurrentJob();
         float GetExpToMainNonPlayerInCurrentJob();

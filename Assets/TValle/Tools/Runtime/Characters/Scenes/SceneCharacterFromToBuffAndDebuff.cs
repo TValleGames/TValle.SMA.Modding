@@ -14,6 +14,74 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
     [Serializable]
     public class SceneCharacterFromToBuffAndDebuff
     {
+        public static SceneCharacterFromToBuffAndDebuff Combine(IReadOnlyList<SceneCharacterFromToBuffAndDebuff> items)
+        {
+            if(items == null || items.Count == 0)
+                return null;
+            var main = items[0];
+            if(items.Count == 1)
+                return main;
+
+            for(int i = 1; i < items.Count; i++)
+            {
+                Combine(main, items[i]);
+            }
+            return main;
+        }
+
+        static void Combine(SceneCharacterFromToBuffAndDebuff main, SceneCharacterFromToBuffAndDebuff other)
+        {
+            if(main.character != other.character)
+                Debug.LogError("Trying to Combine Buff data from different characters");
+
+            Combine(ref main.BuffOnKarma, other.BuffOnKarma);
+            Combine(ref main.BuffOnPersonalityTrait, other.BuffOnPersonalityTrait);
+            Combine(ref main.BuffOnDesires, other.BuffOnDesires);
+            Combine(ref main.BuffOnFavorabilityReqOfInteraction, other.BuffOnFavorabilityReqOfInteraction);
+            Combine(ref main.BuffOnInteraction, other.BuffOnInteraction);
+            Combine(ref main.BuffOnEmotionAura, other.BuffOnEmotionAura);
+            Combine(ref main.BuffOnEmotionTowardCharacter, other.BuffOnEmotionTowardCharacter);
+            Combine(ref main.BuffOnEmotion, other.BuffOnEmotion);
+
+            Combine(ref main.BuffOnHoleWearingWalls, other.BuffOnHoleWearingWalls);
+            Combine(ref main.BuffOnHoleWearingBottom, other.BuffOnHoleWearingBottom);
+            Combine(ref main.BuffOnHoleWearingMotion, other.BuffOnHoleWearingMotion);
+
+            Combine(ref main.BuffOnOxygenDemand, other.BuffOnOxygenDemand);
+        }
+        static void Combine<TBuff>(ref Dictionary<ITuple, TBuff> main, Dictionary<ITuple, TBuff> other)
+            where TBuff : IStackableBuff<TBuff>, IIdentifiableBuff
+        {
+            if(other == null || other.Count == 0)
+                return;
+            if(main == null)
+                main = new Dictionary<ITuple, TBuff>();
+
+            foreach(var otherPar in other)
+            {
+                if(!main.TryAdd(otherPar.Key, otherPar.Value))
+                {
+                    var mainBuff = main[otherPar.Key];
+                    var otherBuff = otherPar.Value;
+#if UNITY_EDITOR
+                    if(otherPar.Key.ToString() != otherBuff.stringId)
+                        Debug.LogError("other buff id dont match " + otherPar.Key.ToString() + " vs " + otherBuff.stringId);
+                    if(otherPar.Key.ToString() != mainBuff.stringId)
+                        Debug.LogError("main buff id dont match " + otherPar.Key.ToString() + " vs " + mainBuff.stringId);
+#endif
+
+                    if(!mainBuff.IsStackableWith(ref otherBuff))
+                    {
+                        Debug.LogError("cant stack buff: " + otherPar.Key.ToString());
+                        continue;
+                    }
+                    mainBuff.StackToSelf(ref otherBuff);
+                    main[otherPar.Key] = mainBuff;
+                }
+            }
+        }
+
+
         public SceneCharacterFromToBuffAndDebuff(SceneCharacter Character)
         {
 
@@ -88,7 +156,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
             DebugPrint(m_character, BuffOnHoleWearingWalls);
             DebugPrint(m_character, BuffOnHoleWearingBottom);
             DebugPrint(m_character, BuffOnHoleWearingMotion);
-            
+
             DebugPrint(m_character, BuffOnOxygenDemand);
 
         }

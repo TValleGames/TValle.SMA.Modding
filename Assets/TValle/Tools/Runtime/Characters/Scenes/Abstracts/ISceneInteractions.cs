@@ -40,11 +40,12 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         /// <summary>
         /// Get the MAIN interactions between two characters so far. Taking Place Interactions will be ignored
         /// <para>MAIN means interactions that were not produced as a result of any other interaction, that is, by direct actions of the player</para>
+        /// <para>USE THIS ONE, since the other two (GetSecondaryArchivedInteractions,GetMainAndSecondaryArchivedInteractions) may get obsolete
         /// </summary>        
         /// <param name="from">for now, always the male character</param>
         /// <param name="to">for now, always the female character</param>
         /// <returns></returns>
-        ICharactersSceneInteractionsArchived GetMainArchivedInteractions(SceneCharacter from, SceneCharacter to);
+        ICharactersSceneInteractionsArchived GetMainArchivedInteractions( Guid from,  Guid to);
 
         /// <summary>
         /// Get the SECONDARY interactions between two characters so far. Taking Place Interactions will be ignored
@@ -53,7 +54,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         /// <param name="from">for now, always the male character</param>
         /// <param name="to">for now, always the female character</param>
         /// <returns></returns>
-        ICharactersSceneInteractionsArchived GetSecondaryArchivedInteractions(SceneCharacter from, SceneCharacter to);
+        ICharactersSceneInteractionsArchived GetSecondaryArchivedInteractions( Guid from,  Guid to);
 
         /// <summary>
         /// Get the interactions between two characters so far. Taking Place Interactions will be ignored        
@@ -61,16 +62,32 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         /// <param name="from">for now, always the male character</param>
         /// <param name="to">for now, always the female character</param>
         /// <returns></returns>
-        ICharactersSceneInteractionsArchived GetMainAndSecondaryArchivedInteractions(SceneCharacter from, SceneCharacter to);
+        ICharactersSceneInteractionsArchived GetMainAndSecondaryArchivedInteractions( Guid from,  Guid to);
 
         void EndRecordign();
 
         void Clear();
 
         /// <summary>
-        /// Generates buffs and debuffs of characters "from" and "to" using the current scene interactions.
+        /// Generates buffs and debuffs of characters "male" and "female" using the current scene interactions.
         /// </summary>
-        void DefaultBuffAndDebuffGenerate(SceneCharacter from, SceneCharacter to, bool sceneAborted, DateTime now, out SceneCharacterFromToBuffAndDebuff BuffAndDebuffOnFrom, out SceneCharacterFromToBuffAndDebuff BuffAndDebuffOnTo);
+        void DefaultBuffAndDebuffGenerate(SceneCharacter male, SceneCharacter female, bool sceneAborted, DateTime now,
+            out SceneCharacterFromToBuffAndDebuff maleBuffByInteractions, out SceneCharacterFromToBuffAndDebuff femaleBuffByInteractions);
+
+
+        /// <summary>
+        /// Generates buffs and debuffs of character "male" Only, using the current scene interactions.
+        /// <para>use this if the female characters wont be in memory, if they are discarded</para>
+        /// </summary>
+        void DefaultBuffAndDebuffGenerate(SceneCharacter male, Guid female, bool sceneAborted, DateTime now,
+            out SceneCharacterFromToBuffAndDebuff maleBuffByInteractions);
+
+        /// <summary>
+        /// Generates buffs and debuffs of character "female" Only, using the current scene interactions.
+        /// <para>use this if the male characters wont be in memory, if they are discarded</para>
+        /// </summary>
+        void DefaultBuffAndDebuffGenerate(Guid male, SceneCharacter female, bool sceneAborted, DateTime now,
+            out SceneCharacterFromToBuffAndDebuff femaleBuffByInteractions);
 
     }
     public delegate void OnInteractionHandler(ref Interaction newInteraction, ICharactersSceneInteractions sender);

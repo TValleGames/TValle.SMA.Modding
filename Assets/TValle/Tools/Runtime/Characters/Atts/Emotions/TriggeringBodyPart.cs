@@ -55,5 +55,55 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
 
 
         public static readonly IReadOnlyList<TriggeringBodyPart> canPenetrateParts;
+
+
+        public static bool TryInverse(this TriggeringBodyPart  parte, out SensitiveBodyPart sensitiveBodyPart)
+        {
+            sensitiveBodyPart=SensitiveBodyPart.None;
+            switch(parte)
+            {
+                case TriggeringBodyPart.semen:
+                case TriggeringBodyPart.toy:
+                case TriggeringBodyPart.notSpecified:
+                case TriggeringBodyPart.All:
+                case TriggeringBodyPart.None:
+                   return false;
+
+                
+                case TriggeringBodyPart.eyes:
+                    sensitiveBodyPart = SensitiveBodyPart.eyes;
+                    break;
+                case TriggeringBodyPart.mouth:
+                    sensitiveBodyPart = SensitiveBodyPart.throat;
+                    break;
+                case TriggeringBodyPart.torso:
+                    sensitiveBodyPart = SensitiveBodyPart.chest;
+                    break;
+                case TriggeringBodyPart.hand:
+                    sensitiveBodyPart = SensitiveBodyPart.hands;
+                    break;
+                case TriggeringBodyPart.finger:
+                    sensitiveBodyPart = SensitiveBodyPart.hands;
+                    break;
+                case TriggeringBodyPart.leg:
+                    sensitiveBodyPart = SensitiveBodyPart.legs;
+                    break;
+                case TriggeringBodyPart.tongue:
+                    sensitiveBodyPart = SensitiveBodyPart.tongue;
+                    break;
+                case TriggeringBodyPart.penis:
+                    sensitiveBodyPart = SensitiveBodyPart.clitorisOrPenis;
+                    break;
+                case TriggeringBodyPart.vagina:
+                    sensitiveBodyPart = SensitiveBodyPart.vag;
+                    break;
+                case TriggeringBodyPart.anus:
+                    sensitiveBodyPart = SensitiveBodyPart.anus;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(parte.ToString());
+            }
+            return true;
+        }
     }
 }

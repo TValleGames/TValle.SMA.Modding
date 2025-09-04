@@ -254,7 +254,8 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         /// </summary>
         public float damageScore => stacks <= 0 ? 0f : damageScoreTotal / (float)stacks;
         public float scoredDamagePercentageDone => damagePercentageDone * damageScore * 2f;
-        public float GetScoredDamagePercentageDone(float mod) => damagePercentageDone * damageScore * mod;
+        public float GetScoredDamagePercentageDone(float mod, float defaultMod = 2) => damagePercentageDone * damageScore * mod * defaultMod;
+        public float GetScoredAndAddedDamagePercentageDone(float mod, float add, float defaultMod = 2) => (damagePercentageDone * damageScore * mod * defaultMod) + add;
 
 
 

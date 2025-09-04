@@ -45,7 +45,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         /// <param name="from">for now, always the male character</param>
         /// <param name="to">for now, always the female character</param>
         /// <returns></returns>
-        ICharactersSceneInteractionsArchived GetMainArchivedInteractions( Guid from,  Guid to);
+        ICharactersSceneInteractionsArchived GetMainArchivedInteractions(Guid from, Guid to);
 
         /// <summary>
         /// Get the SECONDARY interactions between two characters so far. Taking Place Interactions will be ignored
@@ -54,7 +54,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         /// <param name="from">for now, always the male character</param>
         /// <param name="to">for now, always the female character</param>
         /// <returns></returns>
-        ICharactersSceneInteractionsArchived GetSecondaryArchivedInteractions( Guid from,  Guid to);
+        ICharactersSceneInteractionsArchived GetSecondaryArchivedInteractions(Guid from, Guid to);
 
         /// <summary>
         /// Get the interactions between two characters so far. Taking Place Interactions will be ignored        
@@ -62,7 +62,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         /// <param name="from">for now, always the male character</param>
         /// <param name="to">for now, always the female character</param>
         /// <returns></returns>
-        ICharactersSceneInteractionsArchived GetMainAndSecondaryArchivedInteractions( Guid from,  Guid to);
+        ICharactersSceneInteractionsArchived GetMainAndSecondaryArchivedInteractions(Guid from, Guid to);
 
         void EndRecordign();
 
@@ -135,7 +135,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
 
 
 
-        [Obsolete("all interaction can be stacked into one now, no need for a list",true)]
+        [Obsolete("all interaction can be stacked into one now, no need for a list", true)]
         IReadOnlyList<Interaction> PeekMany(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue);
 
 
@@ -157,13 +157,92 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         int PeekEndFrame(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue);
         int PeekStartFrame(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue);
 
+      
 
 
 
+    }
+    public class EmptyCharactersSceneInteractions : ICharactersSceneInteractions, ICharactersSceneInteractionsArchived
+    {
+        static EmptyCharactersSceneInteractions()
+        {
+            Instance = new EmptyCharactersSceneInteractions();
+        }
+        public static EmptyCharactersSceneInteractions Instance { get; private set; }
 
 
+        private EmptyCharactersSceneInteractions()
+        {
+        }
 
+        public event OnInteractionHandler onInteraction { add { } remove { } }
+        public event OnInteractionStackHandler onStackingInteraction { add { } remove { } }
+        public event OnInteractionStackHandler onInteractionStacked { add { } remove { } }
 
+        public void Clear()
+        {
+
+        }
+
+        public IReadOnlyList<Interaction> Peek()
+        {
+            return new List<Interaction>();
+        }
+
+        public void Peek(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue, out Interaction interaction)
+        {
+            interaction = default;
+        }
+
+        public void PeekEmotionDamagePair(Emotion main, EmotionPercentageRange mainRange, Emotion secondary, EmotionPercentageRange secondaryRange, out EmotionDamagePair emotionDamagePair)
+        {
+            emotionDamagePair = default;
+        }
+
+        public int PeekEndFrame(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue)
+        {
+            return 0;
+        }
+
+        public bool PeekIsValid(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue)
+        {
+            return false;
+        }
+
+        public IReadOnlyList<Interaction> PeekMany(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue)
+        {
+            return new List<Interaction>();
+        }
+
+        public int PeekStartFrame(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue)
+        {
+            return 0;
+        }
+
+        public int PeekTimes(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue)
+        {
+            return 0;
+        }
+
+        public int PeekTriggeringBodyPartCount(SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue)
+        {
+            return 0;
+        }
+
+        public int PeekSensitiveBodyPartCount(TriggeringBodyPart fromPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue)
+        {
+            return 0;
+        }
+
+        public int PeekInterationReceivedTypeCount(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, Emotion emotion, bool reachedMaxValue)
+        {
+            return 0;
+        }
+
+        public int PeekEmotionCount(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, bool reachedMaxValue)
+        {
+            return 0;
+        }
     }
     /// <summary>
     /// no interaction on the same parts of the same type of the same emotion will be duplicated
@@ -182,6 +261,11 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
     public interface ICharactersSceneInteractionsArchived : ICharactersSceneInteractionsClearable
     {
         void PeekEmotionDamagePair(Emotion main, EmotionPercentageRange mainRange, Emotion secondary, EmotionPercentageRange secondaryRange, out EmotionDamagePair emotionDamagePair);
-
+        
+        
+        int PeekTriggeringBodyPartCount(SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue);
+        int PeekSensitiveBodyPartCount(TriggeringBodyPart fromPart, InterationReceivedType interationReceivedType, Emotion emotion, bool reachedMaxValue);
+        int PeekInterationReceivedTypeCount(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, Emotion emotion, bool reachedMaxValue);
+        int PeekEmotionCount(TriggeringBodyPart fromPart, SensitiveBodyPart toPart, InterationReceivedType interationReceivedType, bool reachedMaxValue);
     }
 }

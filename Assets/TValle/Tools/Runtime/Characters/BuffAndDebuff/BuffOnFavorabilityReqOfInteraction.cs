@@ -23,7 +23,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public Operation operation;
         public int endHour;
         public float value;
-        public bool isValid => interationReceivedType != InterationReceivedType.None && fromPart != TriggeringBodyPart.None && toPart != SensitiveBodyPart.None && modifier != SimpleModifier.None && operation != Operation.None && endHour != 0;
+        public bool isValid => interationReceivedType != InterationReceivedType.None && fromPart != TriggeringBodyPart.None && toPart != SensitiveBodyPart.None && modifier != SimpleModifier.None && operation != Operation.None && endHour != 0 && float.IsFinite(value);
 
         public string DebugPrint()
         {

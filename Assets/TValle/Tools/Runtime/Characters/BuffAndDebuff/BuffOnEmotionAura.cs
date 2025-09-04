@@ -21,7 +21,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 
         public float value;
 
-        public bool isValid => emotion != Emotion.None && modifier != SimpleEmotionModifier.None && operation != Operation.None && endHour != 0;
+        public bool isValid => emotion != Emotion.None && modifier != SimpleEmotionModifier.None && operation != Operation.None && endHour != 0 && float.IsFinite(value);
 
         public string DebugPrint()
         {

@@ -22,7 +22,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         kiss,
         slap,
         hump,
-        poke, 
+        poke,
         [Label("dry Hump", Language.en)]
         dryhump,
         lick,
@@ -36,7 +36,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         fingering,
         propped,
 
-        expose, 
+        expose,
         [Label("ask To Expose", Language.en)]
         askToExpose,
         [Label("force Pose", Language.en)]
@@ -44,7 +44,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         [Label("ask To Pose", Language.en)]
         askToPose,
         [Label("manipulate Body", Language.en)]
-        manipulateBody, 
+        manipulateBody,
         [Label("guide Body", Language.en)]
         guideBody,
 
@@ -64,9 +64,29 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
     {
         None = 0,
 
-        penetration= InterationReceivedType.penetration,
-        fingering= InterationReceivedType.fingering,
+        penetration = InterationReceivedType.penetration,
+        fingering = InterationReceivedType.fingering,
         propped = InterationReceivedType.propped,
     }
+    public static class InterationReceivedTypeEXT
+    {
 
+        public static bool TryInverse(this InterationReceivedType inter, out InterationReceivedType interInversed)
+        {
+            interInversed = inter;
+            switch(inter)
+            {
+                case InterationReceivedType.All:
+                case InterationReceivedType.None:
+                    return false;                
+                case InterationReceivedType.handJob:
+                    interInversed = InterationReceivedType.dryhump;
+                    break;
+                default:
+                    break;
+            }
+            return true;
+        }
+
+    }
 }

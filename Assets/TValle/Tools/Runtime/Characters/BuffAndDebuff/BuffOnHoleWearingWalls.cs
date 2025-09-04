@@ -19,7 +19,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public int endHour;
         public float value;
 
-        public bool isValid => toPart != SensitiveFemaleHoleWalls.None && modifier != SimpleModifier.None && operation != AddOperation.None && endHour != 0;
+        public bool isValid => toPart != SensitiveFemaleHoleWalls.None && modifier != SimpleModifier.None && operation != AddOperation.None && endHour != 0 && float.IsFinite(value);
 
         public string DebugPrint()
         {

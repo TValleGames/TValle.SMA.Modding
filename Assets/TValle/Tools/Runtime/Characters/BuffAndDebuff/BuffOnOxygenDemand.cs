@@ -29,7 +29,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         }
         public string RichPrintStandAlone(Func<string, string> characterNameGetter, Language language)
         {
-            return "OxygenDemand " + RichPrint(characterNameGetter, language);
+            return "Fatigability " + RichPrint(characterNameGetter, language);
         }
         public bool infinite => endHour < 0; 
         public DateTime endTime => infinite ? DateTime.MaxValue : DateTime.MinValue.AddHours(endHour);

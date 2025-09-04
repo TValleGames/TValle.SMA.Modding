@@ -20,7 +20,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public int endHour;
         public float value;
 
-        public bool isValid => !string.IsNullOrWhiteSpace(towardID) && emotion != Emotion.None && modifier != EmotionModifier.None && operation != Operation.None && endHour != 0;
+        public bool isValid => !string.IsNullOrWhiteSpace(towardID) && emotion != Emotion.None && modifier != EmotionModifier.None && operation != Operation.None && endHour != 0 && float.IsFinite(value);
 
         public string DebugPrint()
         {

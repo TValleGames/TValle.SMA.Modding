@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine.Experimental.GlobalIllumination;
 
 namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
 {
@@ -185,7 +186,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
         public static readonly IReadOnlyList<SensitiveBodyPart> breastParts;
 
 
-
+       
         public static bool CanBePenetrated(this SensitiveBodyPart parte)
         {
             switch(parte)
@@ -205,6 +206,101 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
                 default:
                     return false;
             }
+        }
+
+        public static bool TryInverse(this SensitiveBodyPart parte, out TriggeringBodyPart triggeringBodyPart)
+        {
+            triggeringBodyPart=TriggeringBodyPart.None;
+            switch(parte)
+            {
+                case SensitiveBodyPart.None:
+                case SensitiveBodyPart.All:
+                    return false;
+
+                case SensitiveBodyPart.perineum:
+                case SensitiveBodyPart.chest:
+                case SensitiveBodyPart.breasts:
+                case SensitiveBodyPart.nipples:
+                case SensitiveBodyPart.back:
+                case SensitiveBodyPart.abdomen:
+                case SensitiveBodyPart.waist:
+                case SensitiveBodyPart.hips:
+                case SensitiveBodyPart.belly:
+                case SensitiveBodyPart.navel:           
+                case SensitiveBodyPart.coccyx:
+                case SensitiveBodyPart.buttocks:
+                case SensitiveBodyPart.crotch:
+                case SensitiveBodyPart.arms:
+                case SensitiveBodyPart.ears:
+                case SensitiveBodyPart.neck:
+                case SensitiveBodyPart.shoulders:
+                case SensitiveBodyPart.armpits:
+                case SensitiveBodyPart.eyebrows:
+                case SensitiveBodyPart.head:
+                case SensitiveBodyPart.temples:
+                case SensitiveBodyPart.forehead:
+                case SensitiveBodyPart.nose:
+                case SensitiveBodyPart.cheeks:
+                    triggeringBodyPart = TriggeringBodyPart.torso;
+                    break;
+
+
+
+                case SensitiveBodyPart.eyes:
+                case SensitiveBodyPart.eyeballs:
+                    triggeringBodyPart = TriggeringBodyPart.eyes;
+                    break;
+
+
+                case SensitiveBodyPart.throat:
+                case SensitiveBodyPart.throatBottom:
+                case SensitiveBodyPart.throatWalls:
+                case SensitiveBodyPart.jaw:
+                case SensitiveBodyPart.lips:
+                    triggeringBodyPart = TriggeringBodyPart.mouth;
+                    break;
+                case SensitiveBodyPart.tongue:
+                    triggeringBodyPart = TriggeringBodyPart.tongue;
+                    break;
+
+
+                case SensitiveBodyPart.forearms:
+                case SensitiveBodyPart.hands:
+                    triggeringBodyPart = TriggeringBodyPart.hand;
+                    break;
+               
+                case SensitiveBodyPart.vaginalLipsOrBalls:
+                case SensitiveBodyPart.clitorisOrPenis:
+                    triggeringBodyPart = TriggeringBodyPart.penis;
+                    break;
+
+
+
+              
+                case SensitiveBodyPart.legs:
+                case SensitiveBodyPart.knees:
+                case SensitiveBodyPart.calf:        
+                case SensitiveBodyPart.feet:
+                    triggeringBodyPart = TriggeringBodyPart.leg;
+                         break;
+
+
+                case SensitiveBodyPart.vag:
+                case SensitiveBodyPart.vagBottom:
+                case SensitiveBodyPart.vagWalls:
+                    triggeringBodyPart = TriggeringBodyPart.vagina;
+                    break;
+
+                case SensitiveBodyPart.anus:
+                case SensitiveBodyPart.anusBottom:
+                case SensitiveBodyPart.anusWalls:
+                    triggeringBodyPart = TriggeringBodyPart.anus;
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(parte.ToString());
+            }
+            return true;
         }
     }
 }

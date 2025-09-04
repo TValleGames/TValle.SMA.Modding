@@ -1,5 +1,6 @@
 ﻿using Assets.TValle.Tools.Runtime.Characters.Atts.Emotions;
 using Assets.TValle.Tools.Runtime.Characters.Scenes;
+using Assets.TValle.Tools.Runtime.Clothing;
 using Assets.TValle.Tools.Runtime.Memory;
 using Assets.TValle.Tools.Runtime.Moddding;
 using Assets.TValle.Tools.Runtime.Moddding.Clothing.Maps;
@@ -190,6 +191,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         public float? package { get; }
         public float? dickSize { get; }
         public float? dickGirth { get; }
+        public float? dickStiffness { get; }
         public float? money { get; }
         public float? clothes { get; }
 
@@ -339,6 +341,20 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         float GetExpToMainPlayerInCurrentJob();
         float GetExpToMainNonPlayerInCurrentJob();
 
+
+
+        /// <summary>
+        /// A value of zero means the heroine prefers to avoid the action. Values greater than zero indicate her willingness to perform it (these are weight values). A value of one signifies a high level of willingness.
+        ///<para>By "willingness," I am referring to her inherent morale or personality being disposed to accept the action.However, even if the opportunity arises and she is generally willing, she will still require a sufficient desire or a sufficient favorability level toward that particular action or interaction to proceed.</para>
+        /// </summary>
+        /// <param name="nonSexual">non pirvates touching</param>
+        /// <param name="softCore">kissing, sevicing</param>
+        /// <param name="hardcore">explicit sex</param>
+        void GetPreferredTreatmentForClientsWeights(Guid characterID, out float nonSexual, out float softCore, out float hardcore);
+       
+        
+        void SetOutfit(Guid characterID, ITValleOutfit outfit);
+        IEnumerator SetOutfitAndWait(Guid characterID, ITValleOutfit outfit);
     }
     public interface ISMAJobsOutfits
     {
@@ -526,5 +542,5 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
 
     }
 
-
+    
 }

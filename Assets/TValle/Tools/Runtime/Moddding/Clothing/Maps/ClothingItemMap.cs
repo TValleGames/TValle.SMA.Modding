@@ -74,6 +74,8 @@ namespace Assets.TValle.Tools.Runtime.Moddding.Clothing.Maps
         [Space]
         [Header("--- Optionals -----------------------------------------------------------------------")]
         [Space]
+        [Tooltip("If the surface of the clothing is too high above the skin, you need to add a little more distance, maybe one or two centimeters (0.01f, 0.02f)\r\n")]
+        public float semenDistanceCastAdd;
         [Tooltip("EXPERIMENTAL: Create custom scripts implementing ICustomClothingItemScript and declare them here to be loaded into the game.")]
         public List<CustomScript> customScripts;
         [Tooltip("thow a armature root GameObject. WARNING: Use ONLY if the piece of clothing has a custom armature, such as glasses, a skirt, a tail, etc., whose bones do not exist in the game yet. (You'll have to animate them yourself.")]
@@ -182,7 +184,7 @@ namespace Assets.TValle.Tools.Runtime.Moddding.Clothing.Maps
             [Tooltip("Drop the sub-garment's map here. Keep in mind that this sub-map and its associated assets must be placed in the same modding package or group.")]
             public ClothingItemMap subClothingItemMap;
             [Tooltip("When the interaction animation is running, which shape in the mesh should be active?")]
-            public string toSubClothingItemShapeName;
+            public string toSubClothingItemShapeName;          
             [Tooltip("When activating the shape morph on a sub-garment, there may be visible unwanted results; specify here what corrective shapes your mesh has.")]
             public List<CorrectiveShapes> corrections = new List<CorrectiveShapes>();
             [Serializable]

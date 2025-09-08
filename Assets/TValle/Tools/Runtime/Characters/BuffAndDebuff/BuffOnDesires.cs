@@ -24,7 +24,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         {
             return desires.ToString() + "->" + modifier.ToString() + "->" + operation.ToString() + " End:" + (endHour < 0 ? "∞" : DateTime.MinValue.AddHours(endHour)) + " By:" + value.ToString();
         }
-        public DisplayableBuffCategory category => DisplayableBuffCategory.other;
+        public DisplayableBuffCategory category => DisplayableBuffCategory.desires;
         public string RichPrint(Func<string, string> characterNameGetter, Language language)
         {
             var r = TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(desires, language) + " " +

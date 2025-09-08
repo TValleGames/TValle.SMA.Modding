@@ -11,7 +11,7 @@ namespace Assets.TValle.Tools.Runtime.Memory
     /// </summary>
     public interface IContextMemory
     {
-
+        string id {  get; }
 
         //strings
         void AddData(string id, string data, bool replace = true);

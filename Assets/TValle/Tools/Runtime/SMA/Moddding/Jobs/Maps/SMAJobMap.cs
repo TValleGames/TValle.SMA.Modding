@@ -14,7 +14,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Moddding.Jobs.Maps
     {
         public bool IsSMAJobMapValid()
         {
-            return !string.IsNullOrWhiteSpace(mainScene?.AssetGUID) && !string.IsNullOrWhiteSpace(portrait?.AssetGUID) && !string.IsNullOrWhiteSpace(mainLogic) && otherPlayersAmount != 0;
+            return !string.IsNullOrWhiteSpace(mainScene?.AssetGUID) && !string.IsNullOrWhiteSpace(portrait?.AssetGUID) && !string.IsNullOrWhiteSpace(mainLogic) && otherPlayersFromPoolsAmount != 0;
         }
 
 
@@ -45,7 +45,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Moddding.Jobs.Maps
         [Header("Logic")]
 
         public OtherPlayerType otherPlayerType;
-        public int otherPlayersAmount = 1;
+        public int otherPlayersFromPoolsAmount = -1;
 
         [Space]
         [Tooltip("(Optional)You can get this data in-game with the id.")]
@@ -169,9 +169,10 @@ namespace Assets.TValle.Tools.Runtime.SMA.Moddding.Jobs.Maps
 
         public enum OtherPlayerType
         {
-            employer,
-            client,
-            stranger,
+            selfAdmin,//the job will decide by it seld who is the male player
+            employer_FromPool,
+            client_FromPool,
+            stranger_FromPool,
         }
     }
 }

@@ -34,7 +34,13 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         /// <param name="to">for now, always the female character</param>
         /// <returns></returns>
         ICharactersSceneInteractions GetTakingPlaceInteractions(SceneCharacter from, SceneCharacter to);
-
+        /// <summary>
+        /// Get the interactions between two characters currently taking place.
+        /// </summary>
+        /// <param name="from">for now, always the male character</param>
+        /// <param name="to">for now, always the female character</param>
+        /// <returns></returns>
+        ICharactersSceneInteractions GetTakingPlaceInteractionsNotNull(SceneCharacter from, SceneCharacter to);
 
 
         /// <summary>
@@ -63,6 +69,17 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         /// <param name="to">for now, always the female character</param>
         /// <returns></returns>
         ICharactersSceneInteractionsArchived GetMainAndSecondaryArchivedInteractions(Guid from, Guid to);
+        
+        /// <summary>
+        /// Get the interactions between two characters so far. Taking Place Interactions will be ignored        
+        /// </summary>        
+        /// <param name="from">for now, always the male character</param>
+        /// <param name="to">for now, always the female character</param>
+        /// <returns></returns>
+        ICharactersSceneInteractionsArchived GetMainAndSecondaryArchivedInteractionsNotNull(SceneCharacter from, SceneCharacter to);
+
+
+
 
         void EndRecordign();
 

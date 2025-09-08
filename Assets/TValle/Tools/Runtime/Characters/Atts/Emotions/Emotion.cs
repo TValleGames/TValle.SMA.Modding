@@ -27,13 +27,35 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
     }
     public static class EmotionExt
     {
-        public static readonly Emotion[] emotionsWithDefaultValueBuff = new Emotion[] { Emotion.pleasure, Emotion.enjoyment, Emotion.disappointment, Emotion.rage, Emotion.pain, Emotion.fear };
-       
-        
-        
-        
-        public static readonly Emotion[] femaleEmotions = new Emotion[] { Emotion.arousal, Emotion.pleasure, Emotion.favorability, Emotion.relief, Emotion.enjoyment, Emotion.disappointment, Emotion.rage, Emotion.pain, Emotion.fear };
+        static EmotionExt()
+        {
+            femaleEmotions = new Emotion[] { Emotion.arousal, Emotion.pleasure, Emotion.favorability, Emotion.relief, Emotion.enjoyment, Emotion.disappointment, Emotion.rage, Emotion.pain, Emotion.fear };
+            femaleEmotionsSet = femaleEmotions.Cast<int>().ToHashSet();
 
+            maleEmotions = new Emotion[] {  Emotion.pleasure,  Emotion.disgust };
+            maleEmotionsSet = maleEmotions.Cast<int>().ToHashSet();
+        }
+
+
+        public static readonly Emotion[] emotionsWithDefaultValueBuff = new Emotion[] { Emotion.pleasure, Emotion.enjoyment, Emotion.disappointment, Emotion.rage, Emotion.pain, Emotion.fear };
+
+
+
+
+        public static readonly Emotion[] femaleEmotions;
+        public static readonly HashSet<int> femaleEmotionsSet;
+
+        public static readonly Emotion[] maleEmotions;
+        public static readonly HashSet<int> maleEmotionsSet;
+
+        public static bool IsFemale(this Emotion emo)
+        {
+            return femaleEmotionsSet.Contains((int)emo);
+        }
+        public static bool IsMale(this Emotion emo)
+        {
+            return maleEmotionsSet.Contains((int)emo);
+        }
         public static bool IsGood(this Emotion emo)
         {
             switch(emo)

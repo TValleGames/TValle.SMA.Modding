@@ -70,6 +70,8 @@ namespace Assets.TValle.Tools.Runtime.SMA.Moddding.Jobs.Maps
             public float incomePerSession;
             [Tooltip("(Optional)You can get this data in-game with the id.")]
             public SMAJobObjectivesTextForLevelMap objectivesTextMap;
+            [Tooltip("(Optional)Black color to ignore.")]
+            public Color customColor = Color.black;
 
             [Header("Model Requirements")]
             [Tooltip("Only models that accept modeling can be deployed to this level.")]
@@ -78,6 +80,16 @@ namespace Assets.TValle.Tools.Runtime.SMA.Moddding.Jobs.Maps
             public bool requiresLingerieModeling;
             [Tooltip("Only models that accept erotic modeling can be deployed to this level.")]
             public bool requiresEroticModeling;
+
+            [Tooltip("")]
+            public bool requiresNonSexualInterest;
+            [Tooltip("")]
+            public bool requiresSoftcoreInterest;
+            [Tooltip("")]
+            public bool requiresHardcoreInterest;
+
+            public string requiresJobId;
+            public int requiresJobLvl;
 
 
             [Header("Text")]

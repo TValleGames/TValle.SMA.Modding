@@ -42,6 +42,10 @@ namespace Assets.TValle.Tools.Runtime.Moddding
 
 
         Dictionary<int, InGameName> m_inGameNamesInitiated;
+        public string GetIngameName(Language language)
+        {
+            return GetIngameName(language, out bool isPlural);
+        }
         public string GetIngameName(Language language, out bool isPlural)
         {
             if(m_inGameNamesInitiated == null)

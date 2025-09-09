@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
+    [Serializable]
     public struct BuffOnOxygenDemand : IIdentifiableBuff<(SimpleModifier, ProductOperation, int)>, IStackableBuff<BuffOnOxygenDemand>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff, IValidableBuff
     {
         public SimpleModifier modifier;
@@ -37,6 +38,18 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public ITuple id => valueId;
         public string stringId => valueId.ToString();
         public float buffValue => value;
+
+
+
+        public bool IsStackableWith(object Other)
+        {
+            if(!(Other is BuffOnOxygenDemand))
+            {
+                return false;
+            }
+            var OtherBuff = (BuffOnOxygenDemand)Other;
+            return IsStackableWith(ref OtherBuff);
+        }
         public bool IsStackableWith(ref BuffOnOxygenDemand Other)
         {
             return Other.modifier == modifier && Other.operation == operation && Other.endHour == endHour;

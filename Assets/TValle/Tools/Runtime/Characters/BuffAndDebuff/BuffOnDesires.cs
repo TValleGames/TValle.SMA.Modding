@@ -44,7 +44,15 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public string stringId => valueId.ToString();
         public float buffValue => value;
 
-
+        public bool IsStackableWith(object Other)
+        {
+            if(!(Other is BuffOnDesires))
+            {
+                return false;
+            }
+            var OtherBuff = (BuffOnDesires)Other;
+            return IsStackableWith(ref OtherBuff);
+        }
         public bool IsStackableWith(ref BuffOnDesires Other)
         {
             return Other.desires == desires && Other.modifier == modifier && Other.operation == operation && Other.endHour == endHour;

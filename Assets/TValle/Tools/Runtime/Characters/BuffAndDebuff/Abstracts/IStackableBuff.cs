@@ -14,6 +14,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
     }
     public interface IStackableBuff
     {
+        bool IsStackableWith(object Other);
         void StackToSelf(object Other);
     }
 

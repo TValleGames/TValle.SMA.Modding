@@ -46,6 +46,16 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public float buffValue => value;
 
 
+
+        public bool IsStackableWith(object Other)
+        {
+            if(!(Other is BuffOnHoleWearingWalls))
+            {
+                return false;
+            }
+            var OtherBuff = (BuffOnHoleWearingWalls)Other;
+            return IsStackableWith(ref OtherBuff);
+        }
         public bool IsStackableWith(ref BuffOnHoleWearingWalls Other)
         {
             return Other.toPart == toPart && Other.modifier == modifier && Other.operation == operation && Other.endHour == endHour;

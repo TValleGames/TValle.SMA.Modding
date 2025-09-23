@@ -11,7 +11,7 @@ using UnityEngine;
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
     [Serializable]
-    public struct BuffOnKarma : IIdentifiableBuff<(SimpleModifier, Operation, int)>, IStackableBuff<BuffOnKarma>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff, IValidableBuff
+    public struct BuffOnKarma : IIdentifiableBuff<(SimpleModifier, Operation, int)>, IStackableBuff<BuffOnKarma>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff, IValidableBuff, IContextValidableBuff
     {
 
 
@@ -20,21 +20,22 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public int endHour;
         public float value;
         public bool isValid => modifier != SimpleModifier.None && operation != Operation.None && endHour != 0 && float.IsFinite(value);
+        public bool isContextValid => true;
 
         public string DebugPrint()
         {
             return modifier.ToString() + "->" + modifier.ToString() + "->" + operation.ToString() + " End:" + (endHour < 0 ? "∞" : DateTime.MinValue.AddHours(endHour)) + " By:" + value.ToString();
         }
         public DisplayableBuffCategory category => DisplayableBuffCategory.other;
-        public string RichPrint(Func<string, string> characterNameGetter, Language language)
+        public string RichPrint(Func<string, string> characterNameGetter, float UIValue, Language language)
         {
             var r = TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(modifier, language) + " " +
-                operation.GetOperationSymbol(value) + value.ToString("0.00");
+                operation.GetOperationSymbol(UIValue) + UIValue.ToString("0.00");
             return r;
         }
         public string RichPrintStandAlone(Func<string, string> characterNameGetter, Language language)
         {
-            return "Karma " + RichPrint(characterNameGetter, language);
+            return "Karma " + RichPrint(characterNameGetter, value, language);
         }
         public bool infinite => endHour < 0;
         public DateTime endTime => infinite ? DateTime.MaxValue : DateTime.MinValue.AddHours(endHour);

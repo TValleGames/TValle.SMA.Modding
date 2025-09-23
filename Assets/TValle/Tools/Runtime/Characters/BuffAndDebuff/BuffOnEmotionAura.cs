@@ -11,7 +11,7 @@ using UnityEngine;
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
     [Serializable]
-    public struct BuffOnEmotionAura : IIdentifiableBuff<(Emotion, SimpleEmotionModifier, Operation, int)>, IStackableBuff<BuffOnEmotionAura>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff, IValidableBuff
+    public struct BuffOnEmotionAura : IIdentifiableBuff<(Emotion, SimpleEmotionModifier, Operation, int)>, IStackableBuff<BuffOnEmotionAura>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff, IValidableBuff, IContextValidableBuff
     {
         public Emotion emotion;
 
@@ -22,22 +22,23 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public float value;
 
         public bool isValid => emotion != Emotion.None && modifier != SimpleEmotionModifier.None && operation != Operation.None && endHour != 0 && float.IsFinite(value);
+        public bool isContextValid => true;
 
         public string DebugPrint()
         {
             return emotion.ToString() + "->" + modifier.ToString() + "->" + operation.ToString() + " End:" + (endHour < 0 ? "∞" : DateTime.MinValue.AddHours(endHour)) + " By:" + value.ToString();
         }
         public DisplayableBuffCategory category => emotion.ParseToCategory();
-        public string RichPrint(Func<string, string> characterNameGetter, Language language)
+        public string RichPrint(Func<string, string> characterNameGetter, float UIValue, Language language)
         {
             var r = TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(emotion, language) + " " +
                 TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(modifier, language) + " " +
-                operation.GetOperationSymbol(value) + value.ToString("0.00");
+                operation.GetOperationSymbol(UIValue) + UIValue.ToString("0.00");
             return r;
         }
         public string RichPrintStandAlone(Func<string, string> characterNameGetter, Language language)
         {
-            return "Aura " + RichPrint(characterNameGetter, language);
+            return "Aura " + RichPrint(characterNameGetter,value, language);
         }
 
 

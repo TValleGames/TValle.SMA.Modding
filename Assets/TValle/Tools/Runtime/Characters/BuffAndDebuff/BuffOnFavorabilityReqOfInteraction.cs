@@ -13,7 +13,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
     [Serializable]
     public struct BuffOnFavorabilityReqOfInteraction : IIdentifiableBuff<(InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, SimpleModifier, Operation, int)>,
-        IStackableBuff<BuffOnFavorabilityReqOfInteraction>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff, IValidableBuff
+        IStackableBuff<BuffOnFavorabilityReqOfInteraction>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff, IValidableBuff, IContextValidableBuff
     {
         public InterationReceivedType interationReceivedType;
         public TriggeringBodyPart fromPart;
@@ -24,24 +24,25 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public int endHour;
         public float value;
         public bool isValid => interationReceivedType != InterationReceivedType.None && fromPart != TriggeringBodyPart.None && toPart != SensitiveBodyPart.None && modifier != SimpleModifier.None && operation != Operation.None && endHour != 0 && float.IsFinite(value);
+        public bool isContextValid => true;
 
         public string DebugPrint()
         {
             return interationReceivedType.ToString() + "->" + fromPart.ToString() + "->" + toPart.ToString() + "->" + modifier.ToString() + "->" + operation.ToString() + " End:" + (endHour < 0 ? "∞" : DateTime.MinValue.AddHours(endHour)) + " By:" + value.ToString();
         }
         public DisplayableBuffCategory category => DisplayableBuffCategory.favorability;
-        public string RichPrint(Func<string, string> characterNameGetter, Language language)//
+        public string RichPrint(Func<string, string> characterNameGetter, float UIValue, Language language)//
         {
-            var r = TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(fromPart, language) + " " + 
+            var r = TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(fromPart, language) + " " +
                 TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(interationReceivedType, language) + " " +
-                TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(toPart, language) + " " + 
-                TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(modifier, language) + " " + 
-                operation.GetOperationSymbol(value) + value.ToString("0.00");
+                TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(toPart, language) + " " +
+                TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(modifier, language) + " " +
+                operation.GetOperationSymbol(UIValue) + UIValue.ToString("0.00");
             return r;
         }
         public string RichPrintStandAlone(Func<string, string> characterNameGetter, Language language)
         {
-            return "Favorability Req. " + RichPrint(characterNameGetter, language);
+            return "Favorability Req. " + RichPrint(characterNameGetter, value, language);
         }
 
         public bool infinite => endHour < 0;

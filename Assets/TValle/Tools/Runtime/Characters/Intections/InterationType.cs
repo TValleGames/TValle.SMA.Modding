@@ -1,4 +1,5 @@
-﻿using Assets.TValle.Tools.Runtime.UI;
+﻿using Assets.TValle.Tools.Runtime.Characters.Atts.Emotions;
+using Assets.TValle.Tools.Runtime.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,7 +71,32 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
     }
     public static class InterationReceivedTypeEXT
     {
-
+        public static bool IsContextValid(this InterationReceivedType inter, Emotion emo)
+        {
+            switch(emo)
+            {               
+                case Emotion.pain:
+                {
+                    switch(inter)
+                    {
+                        case InterationReceivedType.lookAt:
+                        case InterationReceivedType.photoshoot:
+                        case InterationReceivedType.putInFront:
+                        case InterationReceivedType.pouringOn:
+                        case InterationReceivedType.pouringIn:
+                        case InterationReceivedType.askToExpose:
+                        case InterationReceivedType.askToPose:
+                        case InterationReceivedType.guideBody:
+                            return false;
+                        default:
+                            return true;
+                    }
+                }
+                default:
+                    return true;
+            }
+           
+        }
         public static bool TryInverse(this InterationReceivedType inter, out InterationReceivedType interInversed)
         {
             interInversed = inter;
@@ -78,7 +104,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
             {
                 case InterationReceivedType.All:
                 case InterationReceivedType.None:
-                    return false;                
+                    return false;
                 case InterationReceivedType.handJob:
                     interInversed = InterationReceivedType.dryhump;
                     break;

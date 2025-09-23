@@ -11,7 +11,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
     [Serializable]
     public struct BuffOnPersonalityTrait : IIdentifiableBuff<(PersonalityTraits, SimpleModifier, Operation, int)>, IStackableBuff<BuffOnPersonalityTrait>,
-        IEquatable<BuffOnPersonalityTrait>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff, IValidableBuff
+        IEquatable<BuffOnPersonalityTrait>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff, IValidableBuff, IContextValidableBuff
     {
         public PersonalityTraits trait;
 
@@ -21,22 +21,23 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public float value;
 
         public bool isValid => trait != PersonalityTraits.None && modifier != SimpleModifier.None && operation != Operation.None && endHour != 0;
+        public bool isContextValid => true;
 
         public string DebugPrint()
         {
             return trait.ToString() + "->" + modifier.ToString() + "->" + operation.ToString() + " End:" + (endHour < 0 ? "∞" : DateTime.MinValue.AddHours(endHour)) + " By:" + value.ToString();
         }
         public DisplayableBuffCategory category => DisplayableBuffCategory.other;
-        public string RichPrint(Func<string, string> characterNameGetter, Language language)
+        public string RichPrint(Func<string, string> characterNameGetter, float UIValue, Language language)
         {
             var r = TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(trait, language) + " " + 
                 TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(modifier, language) + " " + 
-                operation.GetOperationSymbol(value) + value.ToString("0.00");
+                operation.GetOperationSymbol(UIValue) + UIValue.ToString("0.00");
             return r;
         }
         public string RichPrintStandAlone(Func<string, string> characterNameGetter, Language language)
         {
-            return "Personality Trait " + RichPrint(characterNameGetter, language);
+            return "Personality Trait " + RichPrint(characterNameGetter, value, language);
         }
 
         public bool infinite => endHour < 0;

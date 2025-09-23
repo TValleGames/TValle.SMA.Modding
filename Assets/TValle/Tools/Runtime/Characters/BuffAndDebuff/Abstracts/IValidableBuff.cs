@@ -11,4 +11,9 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         bool isValid { get; }
 
     }
+    public interface IContextValidableBuff
+    {
+        bool isContextValid { get; }
+
+    }
 }

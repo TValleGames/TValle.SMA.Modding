@@ -11,7 +11,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
     public interface IPrintableBuff
     {
         string DebugPrint();
-        string RichPrint(Func<string, string> characterNameGetter, Language language);
+        string RichPrint(Func<string, string> characterNameGetter, float UIValue, Language language);
         string RichPrintStandAlone(Func<string, string> characterNameGetter, Language language);
 
         DisplayableBuffCategory category { get; }
@@ -37,10 +37,10 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         [Label("Additional Development", Language.en)]
         other,
     }
-   
+
     public static class IPrintableBuffEXT
     {
-       
+
         public static DisplayableBuffCategory ParseToCategory(this Emotion emo)
 
         {

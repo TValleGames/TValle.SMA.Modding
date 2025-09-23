@@ -11,7 +11,7 @@ using UnityEngine;
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
     [Serializable]
-    public struct BuffOnEmotion : IIdentifiableBuff<(Emotion, EmotionModifier, Operation, int)>, IStackableBuff<BuffOnEmotion>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff, IValidableBuff
+    public struct BuffOnEmotion : IIdentifiableBuff<(Emotion, EmotionModifier, Operation, int)>, IStackableBuff<BuffOnEmotion>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff, IValidableBuff, IContextValidableBuff
     {
         public Emotion emotion;
 
@@ -21,22 +21,23 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public float value;
 
         public bool isValid => emotion != Emotion.None && modifier != EmotionModifier.None && operation != Operation.None && endHour != 0 && float.IsFinite(value);
+        public bool isContextValid => true;
 
         public string DebugPrint()
         {
             return emotion.ToString() + "->" + modifier.ToString() + "->" + operation.ToString() + " End:" + (endHour < 0 ? "∞" : DateTime.MinValue.AddHours(endHour)) + " By:" + value.ToString();
         }
         public DisplayableBuffCategory category => emotion.ParseToCategory();
-        public string RichPrint(Func<string, string> characterNameGetter, Language language)
+        public string RichPrint(Func<string, string> characterNameGetter, float UIValue, Language language)
         {
             var r = TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(emotion, language) + " " + 
                 TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(modifier, language) + " " + 
-                operation.GetOperationSymbol(value) + value.ToString("0.00");
+                operation.GetOperationSymbol(UIValue) + UIValue.ToString("0.00");
             return r;
         }
         public string RichPrintStandAlone(Func<string, string> characterNameGetter, Language language)
         {
-            return "Feelings " + RichPrint(characterNameGetter, language);
+            return "Feelings " + RichPrint(characterNameGetter,value, language);
         }
 
 

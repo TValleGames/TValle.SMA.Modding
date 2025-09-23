@@ -13,7 +13,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
     [Serializable]
     public struct BuffOnInteraction : IIdentifiableBuff<(InterationReceivedType, TriggeringBodyPart, SensitiveBodyPart, Emotion, InteractionModifier, ProductOperation, int)>,
-        IStackableBuff<BuffOnInteraction>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff, IValidableBuff
+        IStackableBuff<BuffOnInteraction>, IFloatValuableBuff, IEndableOnDateBuff, IPrintableBuff, IValidableBuff, IContextValidableBuff
     {
         public InterationReceivedType interationReceivedType;
         public TriggeringBodyPart fromPart;
@@ -26,25 +26,28 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public float value;
 
         public bool isValid => emotion != Emotion.None && interationReceivedType != InterationReceivedType.None && fromPart != TriggeringBodyPart.None && toPart != SensitiveBodyPart.None && modifier != InteractionModifier.None && operation != ProductOperation.None && endHour != 0 && float.IsFinite(value);
+        public bool isContextValid => interationReceivedType.IsContextValid(emotion);
+
+
 
         public string DebugPrint()
         {
             return interationReceivedType.ToString() + "->" + fromPart.ToString() + "->" + toPart.ToString() + "->" + modifier.ToString() + "->" + operation.ToString() + " End:" + (endHour < 0 ? "∞" : DateTime.MinValue.AddHours(endHour)) + " By:" + value.ToString();
         }
         public DisplayableBuffCategory category => emotion.ParseToCategory();
-        public string RichPrint(Func<string, string> characterNameGetter, Language language)
+        public string RichPrint(Func<string, string> characterNameGetter, float UIValue, Language language)
         {
-            var r = TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(fromPart, language) + " " + 
+            var r = TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(fromPart, language) + " " +
                 TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(interationReceivedType, language) + " " +
                 TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(toPart, language) + " " +
                 TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(emotion, language) + " " +
-                TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(modifier, language) + " " + 
-                operation.GetOperationSymbol(value) + value.ToString("0.00");
+                TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(modifier, language) + " " +
+                operation.GetOperationSymbol(UIValue) + UIValue.ToString("0.00");
             return r;
         }
         public string RichPrintStandAlone(Func<string, string> characterNameGetter, Language language)
         {
-            return "Interaction " + RichPrint(characterNameGetter, language);
+            return "Interaction " + RichPrint(characterNameGetter, value, language);
         }
 
         public bool infinite => endHour < 0;
@@ -124,7 +127,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
             {
                 case ProductOperation.None:
                     break;
-               
+
                 case ProductOperation.mult:
                     value = 1f / value;
                     break;

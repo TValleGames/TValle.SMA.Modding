@@ -1,4 +1,5 @@
 ﻿using Assets.TValle.Tools.MeshNormalImporter.Clases;
+using Assets.TValle.Tools.Runtime.MeshNormalImporter;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,18 +18,30 @@ namespace Assets.TValle.Tools.MeshNormalImporter
         static readonly HashSet<string> ShapesToQuarter = new HashSet<string>() { "PEZON_Typo_Zero" };
 
         public const string label = "CorrectBlendShapeNormals";
+        public const string labelRemember = "RememberCustomNormals";
+
+        bool flagRememberCustomNormals = false;
+
         void OnPostprocessModel(GameObject g)
         {
             var lables = AssetDatabase.GetLabels(assetImporter);
-            if(lables.Contains(label, StringComparer.Ordinal))
+            try
             {
-                Debug.Log("****Fixing Blend Shape Normals on: " + g.name);
-                var renderers = g.GetComponentsInChildren<SkinnedMeshRenderer>();
-                foreach(var item in renderers)
+                if(lables.Contains(label, StringComparer.Ordinal))
                 {
-                    FixBlendShapeNormals(item);
+                    flagRememberCustomNormals = lables.Contains(labelRemember, StringComparer.Ordinal);
+                    Debug.Log("****Fixing Blend Shape Normals on: " + g.name);
+                    var renderers = g.GetComponentsInChildren<SkinnedMeshRenderer>();
+                    foreach(var item in renderers)
+                    {
+                        FixBlendShapeNormals(item);
+                    }
+                    Debug.Log("****Finished*****");
                 }
-                Debug.Log("****Finished*****");
+            }
+            finally
+            {
+                flagRememberCustomNormals = false;
             }
         }
         void FixBlendShapeNormals(SkinnedMeshRenderer renderer)
@@ -45,7 +58,7 @@ namespace Assets.TValle.Tools.MeshNormalImporter
             shapes.RemoveShapesFromMesh();
 
             Debug.Log("calculing corrected normals: " + renderer.name);
-            shapes.CalculeNormals();
+            shapes.CalculeNormals(flagRememberCustomNormals);
 
             Debug.Log("loading currected normals to mesh: " + renderer.name);
             shapes.CorrectShapes();
@@ -106,18 +119,29 @@ namespace Assets.TValle.Tools.MeshNormalImporter
             {
                 mesh.ClearBlendShapes();
             }
-            public void CalculeNormals()
+            public void CalculeNormals(bool flagRememberCustomNormals)
             {
                 JobHandle jobHandle = m_corrector.CalculeNormals(default);
                 jobHandle = m_corrector.CalculeCustomNormals(jobHandle);
+              
+                
                 NativeArray<JobHandle> handles = new NativeArray<JobHandle>(blendShapes.Count, Allocator.Temp);
                 for(int i = 0; i < blendShapes.Count; i++)
                 {
                     handles[i] = blendShapes[i].CalculeNormals(m_corrector, jobHandle);
                 }
+
                 jobHandle.Complete();
+
+                if(flagRememberCustomNormals)
+                {
+                    var cn = renderer.gameObject.AddComponent<MeshCustomNormals>();
+                    ((IMeshCustomNormalsImporter)cn).Import(m_corrector.calculedNormals, m_corrector.customNormals);
+                }
+
+
                 JobHandle.CompleteAll(handles);
-                handles.Dispose();
+                handles.Dispose();                             
 
                 for(int i = 0; i < blendShapes.Count; i++)
                 {

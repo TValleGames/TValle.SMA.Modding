@@ -131,9 +131,10 @@ namespace Assets.TValle.Tools.MeshBindPosesCorrector
                 if(!m_data.TryGetValue(boneName, out Matrix4x4 bindPose))
                     continue;
                 bindPoses[boneIndex] = bindPose;
+                Debug.Log("bind pose were replaced: " + boneName);
             }
             mesh.bindposes = bindPoses;
-            Debug.Log("bind poses were replaced: " + renderer.name);
+            Debug.Log("Bind Poses were replaced: " + renderer.name);
         }
         void FixMissingBones(SkinnedMeshRenderer renderer, GameObject g)
         {

@@ -110,7 +110,9 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
 
         public Dictionary<ITuple, BuffOnOxygenDemand> BuffOnOxygenDemand;
 
-
+        public Dictionary<ITuple, BuffOnEyaculationTimes> BuffOnEyaculationTimes;
+        public Dictionary<ITuple, BuffOnEyaculationAmount> BuffOnEyaculationAmount;
+       
         public void Apply()
         {
             m_character?.GetComponentInChildren<IBuffableBySceneInteractionsCharacter>()?.Apply(this);

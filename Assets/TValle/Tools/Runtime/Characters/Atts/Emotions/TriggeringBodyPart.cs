@@ -29,6 +29,9 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
         vagina,
         anus,
 
+        water,
+        orine,
+
     }
     public enum TriggeringPenetratingBodyPart
     {

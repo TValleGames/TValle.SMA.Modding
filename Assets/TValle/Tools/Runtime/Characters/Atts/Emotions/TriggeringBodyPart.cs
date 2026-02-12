@@ -30,6 +30,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
         anus,
 
         water,
+        lubricant,
         orine,
 
     }

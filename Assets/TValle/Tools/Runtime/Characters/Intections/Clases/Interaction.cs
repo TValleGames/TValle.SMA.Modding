@@ -296,14 +296,14 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
                     if(string.IsNullOrWhiteSpace(dateString))
                         m_date = DateTime.MinValue;
                     else
-                        m_date = DateTime.Parse(dateString, CultureInfo.InvariantCulture);
+                        m_date = Deserialize(dateString);//DateTime.Parse(dateString, CultureInfo.InvariantCulture);
                 }
                 return m_date.Value;
             }
             set
             {
                 m_date = value;
-                dateString = m_date.Value.ToString(CultureInfo.InvariantCulture);
+                dateString = Serialize(value);//dateString = m_date.Value.ToString(CultureInfo.InvariantCulture);
             }
         }
 
@@ -406,6 +406,25 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         }
 
 
+        public static string Serialize(DateTime dateTime)
+        {
+            return dateTime.ToString("o", CultureInfo.InvariantCulture);
+        }
+        public static DateTime Deserialize(string date)
+        {
+            if(string.IsNullOrWhiteSpace(date))
+                return DateTime.MinValue;
 
+            DateTime dateTime;
+            if(DateTime.TryParseExact(date, "o", CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out dateTime))
+                return dateTime;
+
+
+            if(DateTime.TryParse(date, out dateTime))
+                return dateTime;
+
+
+            return DateTime.MinValue;
+        }
     }
 }

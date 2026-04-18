@@ -419,6 +419,8 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
             if(DateTime.TryParseExact(date, "o", CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out dateTime))
                 return dateTime;
 
+            if(DateTime.TryParse(date, CultureInfo.InvariantCulture, DateTimeStyles.None, out dateTime))
+                return dateTime;
 
             if(DateTime.TryParse(date, out dateTime))
                 return dateTime;

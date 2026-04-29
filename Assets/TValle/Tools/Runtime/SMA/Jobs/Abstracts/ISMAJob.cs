@@ -296,7 +296,9 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// <param name="id">empty to load random female character</param>
         /// <param name="feetPosition"></param>
         /// <param name="bodyForwardDirection"></param>
-        IEnumerator LoadFemaleCharacter(Guid id, Vector3 feetPosition, Vector3 bodyForwardDirection, Action<SceneCharacter> result);
+        /// <param name="result"></param>
+        /// <param name="onLoading">before all character's Start calls</param>
+        IEnumerator LoadFemaleCharacter(Guid id, Vector3 feetPosition, Vector3 bodyForwardDirection, Action<SceneCharacter> result, Action<SceneCharacter> onLoading = null);
 
         /// <summary>
         /// destroy the character in the scene

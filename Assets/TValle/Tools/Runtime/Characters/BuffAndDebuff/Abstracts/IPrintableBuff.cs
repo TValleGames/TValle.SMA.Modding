@@ -67,6 +67,45 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
                     return DisplayableBuffCategory.None;
             }
         }
+        public static string GetOperationSymbolAndValue(this Operation op, float value)
+        {
+            switch(op)
+            {
+                case Operation.None:
+                    return "error";
+                case Operation.add:
+                    return (value < 0 ? string.Empty : "+") + value.ToString("0.00");
+                case Operation.mult:
+                    return ((value * 100f) - 100f).ToString("0.00") + "%";
+                default:
+                    throw new ArgumentOutOfRangeException(op.ToString());
+            }
+        }
+        public static string GetOperationSymbolAndValue(this AddOperation op, float value)
+        {
+            switch(op)
+            {
+                case AddOperation.None:
+                    return "error";
+                case AddOperation.add:
+                    return (value < 0 ? string.Empty : "+") + value.ToString("0.00");
+                default:
+                    throw new ArgumentOutOfRangeException(op.ToString());
+            }
+        }
+        public static string GetOperationSymbolAndValue(this ProductOperation op, float value)
+        {
+            switch(op)
+            {
+                case ProductOperation.None:
+                    return "error";
+                case ProductOperation.mult:
+                    return ((value * 100f) - 100f).ToString("0.00") + "%";
+                default:
+                    throw new ArgumentOutOfRangeException(op.ToString());
+            }
+        }
+
         public static string GetOperationSymbol(this Operation op, float value)
         {
             switch(op)

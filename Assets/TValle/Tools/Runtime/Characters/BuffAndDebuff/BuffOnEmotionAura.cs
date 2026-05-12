@@ -33,7 +33,8 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         {
             var r = TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(emotion, language) + " " +
                 TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(modifier, language) + " " +
-                operation.GetOperationSymbol(UIValue) + UIValue.ToString("0.00");
+                //operation.GetOperationSymbol(UIValue) + UIValue.ToString("0.00");
+                 operation.GetOperationSymbolAndValue(UIValue);
             return r;
         }
         public string RichPrintStandAlone(Func<string, string> characterNameGetter, Language language)
@@ -143,6 +144,39 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
             return IsStackableWith(ref p);
         }
         public override int GetHashCode() => valueId.GetHashCode();
+
+
+        public bool ValueIsEmpty()
+        {
+            switch(operation)
+            {
+                case Operation.None:
+                    return true;
+                case Operation.add:
+                    return Mathf.Approximately(value, 0f);
+                case Operation.mult:
+                    return Mathf.Approximately(value, 1f);
+                default:
+                    throw new ArgumentOutOfRangeException(operation.ToString());
+            }
+        }
+        public bool ValueIsDisplayable()
+        {
+            if(ValueIsEmpty())
+                return false;
+            switch(operation)
+            {
+                case Operation.None:
+                    return false;
+                case Operation.add:
+                    return Mathf.Abs(value) > 0.01f;
+                case Operation.mult:
+                    return Mathf.Abs(value - 1f) > 0.001f;
+                default:
+                    throw new ArgumentOutOfRangeException(operation.ToString());
+            }
+        }
+
         public static bool operator ==(BuffOnEmotionAura lhs, BuffOnEmotionAura rhs)
         {
             return lhs.Equals(rhs);

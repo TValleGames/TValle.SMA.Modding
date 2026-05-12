@@ -461,7 +461,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// </summary>
         /// <param name="objective"></param> 
         /// <param name="required">false for optional objectives</param>
-        void AddObjective(ISMAJobObjective objective, bool required);
+        void AddObjective(ISMAJobObjective objective, bool required, bool msgOnComplete);
 
         /// <summary>
         /// remove this objective from the in game job objectives
@@ -481,6 +481,9 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// </summary>
         /// <param name="objective"></param>
         void RemoveObjectives(IReadOnlyList<ISMAJobObjective> objective);
+
+
+        void RefreshUI();
     }
 
     public interface ISMAJobsUIManager

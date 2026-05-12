@@ -71,7 +71,10 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
                 case TriggeringBodyPart.notSpecified:
                 case TriggeringBodyPart.All:
                 case TriggeringBodyPart.None:
-                   return false;
+                case TriggeringBodyPart.water:
+                case TriggeringBodyPart.lubricant:
+                case TriggeringBodyPart.orine:
+                    return false;
 
                 
                 case TriggeringBodyPart.eyes:

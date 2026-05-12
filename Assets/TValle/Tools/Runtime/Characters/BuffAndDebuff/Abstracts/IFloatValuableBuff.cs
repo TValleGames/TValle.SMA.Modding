@@ -9,7 +9,8 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
     public interface IFloatValuableBuff : IValuableBuff<float>
     {
         void InverseValue();
-
+        bool ValueIsEmpty();
+        bool ValueIsDisplayable();
     }
     public static class IFloatValuableBuffEXT
     {

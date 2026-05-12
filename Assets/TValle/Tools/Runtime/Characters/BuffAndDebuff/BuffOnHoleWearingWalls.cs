@@ -31,7 +31,8 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         {
             var r = TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(toPart, language) + " " +
                 TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(modifier, language) + " " +
-                operation.GetOperationSymbol(UIValue) + UIValue.ToString("0.00");
+                //operation.GetOperationSymbol(UIValue) + UIValue.ToString("0.00");
+                  operation.GetOperationSymbolAndValue(UIValue);
             return r;
         }
         public string RichPrintStandAlone(Func<string, string> characterNameGetter, Language language)
@@ -132,6 +133,37 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
             return IsStackableWith(ref p);
         }
         public override int GetHashCode() => valueId.GetHashCode();
+
+
+        public bool ValueIsEmpty()
+        {
+            switch(operation)
+            {
+                case AddOperation.None:
+                    return true;
+                case AddOperation.add:
+                    return Mathf.Approximately(value, 0f);
+              
+                default:
+                    throw new ArgumentOutOfRangeException(operation.ToString());
+            }
+        }
+        public bool ValueIsDisplayable()
+        {
+            if(ValueIsEmpty())
+                return false;
+            switch(operation)
+            {
+                case AddOperation.None:
+                    return false;
+                case AddOperation.add:
+                    return Mathf.Abs(value) > 0.01f;
+               
+                default:
+                    throw new ArgumentOutOfRangeException(operation.ToString());
+            }
+        }
+
         public static bool operator ==(BuffOnHoleWearingWalls lhs, BuffOnHoleWearingWalls rhs)
         {
             return lhs.Equals(rhs);

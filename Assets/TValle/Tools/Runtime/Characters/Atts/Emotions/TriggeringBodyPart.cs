@@ -22,8 +22,8 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
         leg,
         tongue,
         penis,
-        [Label("tool", Language.en)]
-        toy,
+        [Label("toy", Language.en)]
+        toy,//a tool that is penetrating a hole, turns/is a toy
         semen,
 
         vagina,
@@ -33,6 +33,10 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
         lubricant,
         orine,
 
+        [Label("applicator", Language.en)]
+        toyApplicator,//is a toy that ejaculates (water lube etc)
+        [Label("tool", Language.en)]
+        tool,//a prop
     }
     public enum TriggeringPenetratingBodyPart
     {
@@ -41,7 +45,8 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
         tongue = TriggeringBodyPart.tongue,
         penis = TriggeringBodyPart.penis,
         toy = TriggeringBodyPart.toy,
-
+        toyApplicator = TriggeringBodyPart.toyApplicator,
+        tool = TriggeringBodyPart.tool,
     }
     public static class TriggeringBodyPartHelper
     {
@@ -52,7 +57,9 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
                 p.Add(TriggeringBodyPart.penis);
                 p.Add(TriggeringBodyPart.finger);
                 p.Add(TriggeringBodyPart.toy);
+                p.Add(TriggeringBodyPart.toyApplicator);
                 p.Add(TriggeringBodyPart.tongue);
+                p.Add(TriggeringBodyPart.tool);
                 canPenetrateParts = p;
             }
         }
@@ -61,13 +68,15 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
         public static readonly IReadOnlyList<TriggeringBodyPart> canPenetrateParts;
 
 
-        public static bool TryInverse(this TriggeringBodyPart  parte, out SensitiveBodyPart sensitiveBodyPart)
+        public static bool TryInverse(this TriggeringBodyPart parte, out SensitiveBodyPart sensitiveBodyPart)
         {
-            sensitiveBodyPart=SensitiveBodyPart.None;
+            sensitiveBodyPart = SensitiveBodyPart.None;
             switch(parte)
             {
                 case TriggeringBodyPart.semen:
                 case TriggeringBodyPart.toy:
+                case TriggeringBodyPart.tool:
+                case TriggeringBodyPart.toyApplicator:
                 case TriggeringBodyPart.notSpecified:
                 case TriggeringBodyPart.All:
                 case TriggeringBodyPart.None:
@@ -76,7 +85,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
                 case TriggeringBodyPart.orine:
                     return false;
 
-                
+
                 case TriggeringBodyPart.eyes:
                     sensitiveBodyPart = SensitiveBodyPart.eyes;
                     break;

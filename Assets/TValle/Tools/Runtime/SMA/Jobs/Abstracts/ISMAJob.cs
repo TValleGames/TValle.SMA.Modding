@@ -353,8 +353,8 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// <param name="softCore">kissing, sevicing</param>
         /// <param name="hardcore">explicit sex</param>
         void GetPreferredTreatmentForClientsWeights(Guid characterID, out float nonSexual, out float softCore, out float hardcore);
-       
-        
+
+
         void SetOutfit(Guid characterID, ITValleOutfit outfit);
         IEnumerator SetOutfitAndWait(Guid characterID, ITValleOutfit outfit);
     }
@@ -368,6 +368,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
 
         ClothingItemMap.Type GetFirstOrDefaultClothingPiecesCoveringTypeOfMainNonPlayer(SensitiveBodyPart bodyPart);
     }
+           
     public interface ISMAJobsObjectives
     {
 
@@ -455,6 +456,11 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         public bool CheckCompleted();
         public void Status(out int totalRequiredObjectives, out int completedRequiredObjectives, out int totalOptionalObjectives, out int completedOptionalObjectives);
 
+
+
+        public void StartSession();
+        public void SessionStatus(out int totalRequiredObjectives, out int completedRequiredObjectives, out int totalOptionalObjectives, out int completedOptionalObjectives);
+        public void EndSession();
 
         /// <summary>
         /// add this objective to the in game job objectives
@@ -547,5 +553,5 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
 
     }
 
-    
+
 }

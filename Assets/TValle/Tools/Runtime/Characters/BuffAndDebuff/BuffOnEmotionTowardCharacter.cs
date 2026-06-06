@@ -174,7 +174,23 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
                     throw new ArgumentOutOfRangeException(operation.ToString());
             }
         }
-
+        public int ValuePriorty()
+        {
+            if(ValueIsEmpty())
+                return 0;
+            var pola = emotion.IsGood() ? 1f : -1f;
+            switch(operation)
+            {
+                case Operation.None:
+                    return 0;
+                case Operation.add:
+                    return emotion == Emotion.arousal ? this.CalcAddingValuePriority(-3, 3) : this.CalcAddingValuePriority(-10 * pola, 10 * pola);
+                case Operation.mult:
+                    return emotion == Emotion.arousal ? this.CalcAddingValuePriority(-20, 20) : this.CalcMultiplyValuePriority(-50 * pola, 50 * pola);
+                default:
+                    throw new ArgumentOutOfRangeException(operation.ToString());
+            }
+        }
         public static bool operator ==(BuffOnEmotionTowardCharacter lhs, BuffOnEmotionTowardCharacter rhs)
         {
             return lhs.Equals(rhs);

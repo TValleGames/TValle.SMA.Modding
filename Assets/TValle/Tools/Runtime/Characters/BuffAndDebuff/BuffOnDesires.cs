@@ -170,6 +170,22 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
                     throw new ArgumentOutOfRangeException(operation.ToString());
             }
         }
+        public int ValuePriorty()
+        {
+            if(ValueIsEmpty())
+                return 0;
+            switch(operation)
+            {
+                case Operation.None:
+                    return 0;
+                case Operation.add:
+                    return this.CalcAddingValuePriority(-5,5);
+                case Operation.mult:
+                    return this.CalcMultiplyValuePriority(-50, 50);
+                default:
+                    throw new ArgumentOutOfRangeException(operation.ToString());
+            }
+        }
 
         public static bool operator ==(BuffOnDesires lhs, BuffOnDesires rhs)
         {

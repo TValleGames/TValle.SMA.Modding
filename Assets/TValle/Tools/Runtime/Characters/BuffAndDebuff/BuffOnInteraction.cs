@@ -42,7 +42,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
                 TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(toPart, language) + " " +
                 TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(emotion, language) + " " +
                 TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(modifier, language) + " " +
-                //operation.GetOperationSymbol(UIValue) + UIValue.ToString("0.00");
+                 //operation.GetOperationSymbol(UIValue) + UIValue.ToString("0.00");
                  operation.GetOperationSymbolAndValue(UIValue);
             return r;
         }
@@ -151,7 +151,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
             switch(operation)
             {
                 case ProductOperation.None:
-                    return true;               
+                    return true;
                 case ProductOperation.mult:
                     return Mathf.Approximately(value, 1f);
                 default:
@@ -166,9 +166,47 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
             {
                 case ProductOperation.None:
                     return false;
-               
+
                 case ProductOperation.mult:
                     return Mathf.Abs(value - 1f) > 0.001f;
+                default:
+                    throw new ArgumentOutOfRangeException(operation.ToString());
+            }
+        }
+        public int ValuePriorty()
+        {
+            if(ValueIsEmpty())
+                return 0;
+
+            
+            var pola = emotion.IsGood() ? 1f : -1f;
+
+            switch(operation)
+            {
+                case ProductOperation.None:
+                    return 0;
+
+                case ProductOperation.mult:
+                {
+                    switch(modifier)
+                    {
+                        case InteractionModifier.None:
+                            return 0;
+                        case InteractionModifier.damage:
+                            return this.CalcMultiplyValuePriority(-33 * pola, 33 * pola);
+                        case InteractionModifier.gainIntervalExpand:
+                            return this.CalcMultiplyValuePriority(-33 * pola, 33 * pola);
+                        case InteractionModifier.gainMinMaxIntervalPosition:
+                            return this.CalcMultiplyValuePriority(33 * pola, -33 * pola);
+                        case InteractionModifier.gainMinIntervalPosition:
+                            return this.CalcMultiplyValuePriority(33 * pola, -33 * pola);
+                        case InteractionModifier.gainMaxIntervalPosition:
+                            return this.CalcMultiplyValuePriority(33 * pola, -33 * pola);
+                        default:
+                            throw new ArgumentOutOfRangeException(modifier.ToString());
+                    }
+                }
+
                 default:
                     throw new ArgumentOutOfRangeException(operation.ToString());
             }

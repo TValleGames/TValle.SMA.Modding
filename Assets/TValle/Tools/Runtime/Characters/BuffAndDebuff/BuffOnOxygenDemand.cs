@@ -156,6 +156,20 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
                     throw new ArgumentOutOfRangeException(operation.ToString());
             }
         }
+        public int ValuePriorty()
+        {
+            if(ValueIsEmpty())
+                return 0;
+            switch(operation)
+            {
+                case ProductOperation.None:
+                    return 0;                
+                case ProductOperation.mult:
+                    return this.CalcMultiplyValuePriority(-33, 33);
+                default:
+                    throw new ArgumentOutOfRangeException(operation.ToString());
+            }
+        }
 
         public static bool operator ==(BuffOnOxygenDemand lhs, BuffOnOxygenDemand rhs)
         {

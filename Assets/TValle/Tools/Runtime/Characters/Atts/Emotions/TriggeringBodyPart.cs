@@ -60,12 +60,37 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
                 p.Add(TriggeringBodyPart.toyApplicator);
                 p.Add(TriggeringBodyPart.tongue);
                 p.Add(TriggeringBodyPart.tool);
-                canPenetrateParts = p;
+                canPenetrateParts = p.ToHashSet().ToArray();
+            }
+            {
+                var p = new List<TriggeringBodyPart>();
+                p.Add(TriggeringBodyPart.penis);
+                p.Add(TriggeringBodyPart.finger);
+                p.Add(TriggeringBodyPart.toy);
+                p.Add(TriggeringBodyPart.toyApplicator);
+                p.Add(TriggeringBodyPart.tongue);
+                p.Add(TriggeringBodyPart.tool);
+
+                p.Add(TriggeringBodyPart.torso);
+                p.Add(TriggeringBodyPart.hand);
+
+                p.Add(TriggeringBodyPart.leg);
+                p.Add(TriggeringBodyPart.semen);
+
+                p.Add(TriggeringBodyPart.vagina);
+                p.Add(TriggeringBodyPart.anus);
+
+                p.Add(TriggeringBodyPart.water);
+                p.Add(TriggeringBodyPart.lubricant);
+                p.Add(TriggeringBodyPart.orine);
+
+                canTouchParts = p.ToHashSet().ToArray();
             }
         }
 
 
         public static readonly IReadOnlyList<TriggeringBodyPart> canPenetrateParts;
+        public static readonly IReadOnlyList<TriggeringBodyPart> canTouchParts;
 
 
         public static bool TryInverse(this TriggeringBodyPart parte, out SensitiveBodyPart sensitiveBodyPart)

@@ -280,7 +280,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         void AddAdditinalLogicToScene(Scene scene, float phoneAndCameraScreenEmissionModifier);
 
         IEnumerator CheckMainCamera();
-        IEnumerator GenerateMaleCharacter(Vector3 feetPosition, Vector3 bodyForwardDirection, IMaleRandomGeneratorOverrider overrider, Action<SceneCharacter> result, Action<SceneCharacter> beforeAwake);
+        IEnumerator GenerateMaleCharacter(Vector3 feetPosition, Vector3 bodyForwardDirection, IMaleRandomGeneratorOverrider overrider, Action<SceneCharacter> result, Action<SceneCharacter> beforeAwake, string outfitID);
 
         /// <summary>
         /// load a character from memory, The game only supports a single character. ALWAYS LOAD THE MALE CHARACTER FIRST

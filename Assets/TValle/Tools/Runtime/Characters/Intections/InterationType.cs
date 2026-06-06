@@ -69,12 +69,33 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         fingering = InterationReceivedType.fingering,
         propped = InterationReceivedType.propped,
     }
+    public enum AllTocuhInterationReceivedType
+    {
+        None = 0,
+
+        caress = InterationReceivedType.caress,
+        kiss = InterationReceivedType.kiss,
+        slap = InterationReceivedType.slap,
+        hump = InterationReceivedType.hump,
+        poke = InterationReceivedType.poke,
+        dryhump = InterationReceivedType.dryhump,
+        lick = InterationReceivedType.lick,
+        pouringOn = InterationReceivedType.pouringOn,
+        pouringIn = InterationReceivedType.pouringIn,
+        punch = InterationReceivedType.punch,
+
+        expose = InterationReceivedType.expose,
+        forcePose = InterationReceivedType.forcePose,
+        manipulateBody = InterationReceivedType.manipulateBody,
+
+        handJob = InterationReceivedType.handJob,
+    }
     public static class InterationReceivedTypeEXT
     {
         public static bool IsContextValid(this InterationReceivedType inter, Emotion emo)
         {
             switch(emo)
-            {               
+            {
                 case Emotion.pain:
                 {
                     switch(inter)
@@ -95,7 +116,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
                 default:
                     return true;
             }
-           
+
         }
         public static bool TryInverse(this InterationReceivedType inter, out InterationReceivedType interInversed)
         {

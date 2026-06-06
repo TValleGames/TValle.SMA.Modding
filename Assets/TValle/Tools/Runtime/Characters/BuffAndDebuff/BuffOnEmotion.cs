@@ -30,15 +30,15 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         public DisplayableBuffCategory category => emotion.ParseToCategory();
         public string RichPrint(Func<string, string> characterNameGetter, float UIValue, Language language)
         {
-            var r = TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(emotion, language) + " " + 
-                TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(modifier, language) + " " + 
+            var r = TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(emotion, language) + " " +
+                TValleUILocalTextAttribute.LocalizadoFirstCharToUpper(modifier, language) + " " +
                 //operation.GetOperationSymbol(UIValue) + UIValue.ToString("0.00");
                 operation.GetOperationSymbolAndValue(UIValue);
             return r;
         }
         public string RichPrintStandAlone(Func<string, string> characterNameGetter, Language language)
         {
-            return "Feelings " + RichPrint(characterNameGetter,value, language);
+            return "Feelings " + RichPrint(characterNameGetter, value, language);
         }
 
 
@@ -171,6 +171,23 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
                     return Mathf.Abs(value) > 0.01f;
                 case Operation.mult:
                     return Mathf.Abs(value - 1f) > 0.001f;
+                default:
+                    throw new ArgumentOutOfRangeException(operation.ToString());
+            }
+        }
+        public int ValuePriorty()
+        {
+            if(ValueIsEmpty())
+                return 0;
+            var pola = emotion.IsGood() ? 1f : -1f;
+            switch(operation)
+            {
+                case Operation.None:
+                    return 0;
+                case Operation.add:
+                    return emotion == Emotion.arousal ? this.CalcAddingValuePriority(-3, 3) : this.CalcAddingValuePriority(-10* pola, 10* pola);
+                case Operation.mult:
+                    return emotion == Emotion.arousal ? this.CalcAddingValuePriority(-20, 20) : this.CalcMultiplyValuePriority(-50 * pola, 50 * pola);
                 default:
                     throw new ArgumentOutOfRangeException(operation.ToString());
             }

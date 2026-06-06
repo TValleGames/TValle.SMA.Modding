@@ -160,6 +160,20 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
                     throw new ArgumentOutOfRangeException(operation.ToString());
             }
         }
+        public int ValuePriorty()
+        {
+            if(ValueIsEmpty())
+                return 0;
+            switch(operation)
+            {
+                case AddOperation.None:
+                    return 0;
+                case AddOperation.add:
+                    return this.CalcAddingValuePriority(33, -33);               
+                default:
+                    throw new ArgumentOutOfRangeException(operation.ToString());
+            }
+        }
 
         public static bool operator ==(BuffOnHoleWearingBottom lhs, BuffOnHoleWearingBottom rhs)
         {

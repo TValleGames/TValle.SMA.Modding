@@ -337,7 +337,9 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         float AddModelingExpToMainNonPlayer(float levels);
 
         float AddFatigueToCurrentJob(float percentage);
-        float AddFatigueToMainNonPlayer(float percentage);
+        float AddFatigueToMainNonPlayer(float percentage); 
+        float AddFatigueToMainNonPlayerInJob(float percentage);
+
         float PayMoneyToManager(float paymnentAmountModifier, float paymnentAmountAddBonus);
 
         float GetExpToMainPlayerInCurrentJob();

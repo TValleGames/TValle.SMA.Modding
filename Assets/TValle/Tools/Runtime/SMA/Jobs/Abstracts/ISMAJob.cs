@@ -162,7 +162,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
         /// <returns> yield break to move on</returns>
         IEnumerator UnLoad();
 
-
+      
     }
 
 
@@ -359,6 +359,9 @@ namespace Assets.TValle.Tools.Runtime.SMA.Jobs
 
         void SetOutfit(Guid characterID, ITValleOutfit outfit);
         IEnumerator SetOutfitAndWait(Guid characterID, ITValleOutfit outfit);
+
+
+        public void DropAllProps(Guid characterID);
     }
     public interface ISMAJobsOutfits
     {

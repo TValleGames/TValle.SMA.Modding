@@ -27,6 +27,8 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         void StartRecording();
 
 
+        void FinalizeTakingPlaceInteractions();
+
         /// <summary>
         /// Get the interactions between two characters currently taking place.
         /// </summary>
@@ -103,8 +105,14 @@ namespace Assets.TValle.Tools.Runtime.Characters.Scenes
         /// Generates buffs and debuffs of character "female" Only, using the current scene interactions.
         /// <para>use this if the male characters wont be in memory, if they are discarded</para>
         /// </summary>
-        void DefaultBuffAndDebuffGenerate(Guid male, SceneCharacter female, bool sceneAborted, DateTime now,
+        void DefaultBuffAndDebuffGenerateOnlyFemale(Guid male, SceneCharacter female, bool sceneAborted, DateTime now,
             out SceneCharacterFromToBuffAndDebuff femaleBuffByInteractions);
+        /// <summary>
+        /// Generates buffs and debuffs of character "male" Only, using the current scene interactions.
+        /// <para>use this if the female characters wont be in memory, if they are discarded</para>
+        /// </summary>
+        public void DefaultBuffAndDebuffGenerateOnlyMale(Guid female, SceneCharacter male, bool sceneAborted, DateTime now,
+           out SceneCharacterFromToBuffAndDebuff maleBuffByInteractions);
 
     }
     public delegate void OnInteractionHandler(ref Interaction newInteraction, ICharactersSceneInteractions sender);

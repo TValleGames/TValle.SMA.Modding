@@ -10,5 +10,9 @@ namespace Assets.TValle.Tools.Runtime
     {
         None = 0,
         en,
+        es,
+        ch,
+        tw,
+        ru,
     }
 }

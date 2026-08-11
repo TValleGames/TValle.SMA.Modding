@@ -16,7 +16,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 
         DisplayableBuffCategory category { get; }
     }
-
+    [TValleDoLocalizeEnum]
     public enum DisplayableBuffCategory
     {
         None,

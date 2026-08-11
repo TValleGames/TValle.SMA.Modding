@@ -123,7 +123,7 @@ namespace Assets.TValle.Tools.Runtime.SMA.Moddding.Jobs.Maps
                 var r = levels[level].inGameDescription.FirstOrDefault(d => d.language == language);
                 if(r != null)
                     return r;
-                return levels[level].inGameDescription.FirstOrDefault(d => d.language == Language.None);
+                return levels[level].inGameDescription.FirstOrDefault();
             }
             return null;
         }

@@ -36,7 +36,7 @@ namespace Assets.TValle.Tools.Runtime.UI
             var enumType = typeof(Tenum);
             var atributeType = typeof(TLocal);
             InitLocalStrings(enumType, valor, out Dictionary<Language, (string, string)> dicc, atributeType);
-            return GetLocalizado(enumType, valor, dicc, localizacion,false);
+            return GetLocalizado(enumType, valor, dicc, localizacion, false);
         }
         public static string Localizado<Tenum>(Tenum valor, Language localizacion)
             where Tenum : Enum, IConvertible
@@ -114,11 +114,19 @@ namespace Assets.TValle.Tools.Runtime.UI
         {
             switch(input)
             {
-                case null: throw new ArgumentNullException(nameof(input));
-                case "": throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input));
-                default: return input[0].ToString().ToUpper() + input.Substring(1);
+                case null:
+                    throw new ArgumentNullException(nameof(input));
+                case "":
+                    throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input));
+                default:
+                    return input[0].ToString().ToUpper() + input.Substring(1);
             }
         }
 
+    }
+
+    [AttributeUsage(AttributeTargets.Enum, AllowMultiple = false)]
+    public class TValleDoLocalizeEnumAttribute : Attribute
+    {
     }
 }

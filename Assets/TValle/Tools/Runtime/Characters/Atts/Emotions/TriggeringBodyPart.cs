@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
 {
+    [TValleDoLocalizeEnum]
     public enum TriggeringBodyPart
     {
         All = -1,
@@ -38,13 +39,15 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
         [Label("tool", Language.en)]
         tool,//a prop
     }
+    [TValleDoLocalizeEnum]
     public enum TriggeringPenetratingBodyPart
     {
         None = 0,
         finger = TriggeringBodyPart.finger,
         tongue = TriggeringBodyPart.tongue,
         penis = TriggeringBodyPart.penis,
-        toy = TriggeringBodyPart.toy,
+        toy = TriggeringBodyPart.toy, 
+        [Label("applicator", Language.en)]
         toyApplicator = TriggeringBodyPart.toyApplicator,
         tool = TriggeringBodyPart.tool,
     }

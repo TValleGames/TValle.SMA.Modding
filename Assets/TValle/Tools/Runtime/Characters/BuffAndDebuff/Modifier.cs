@@ -7,12 +7,13 @@ using UnityEngine;
 
 namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
 {
+    [TValleDoLocalizeEnum]
     public enum SimpleModifier
     {
         None = 0,
         value,
     }
-    
+    [TValleDoLocalizeEnum]
     public enum EmotionModifier
     {
         None = 0,
@@ -24,6 +25,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         maxValue,
         gain,
     }
+    [TValleDoLocalizeEnum]
     public enum SimpleEmotionModifier
     {
         None = 0, 
@@ -31,6 +33,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.BuffAndDebuff
         defaultValue,
         gain,
     }
+    [TValleDoLocalizeEnum]
     public enum InteractionModifier 
     {
         None = 0,

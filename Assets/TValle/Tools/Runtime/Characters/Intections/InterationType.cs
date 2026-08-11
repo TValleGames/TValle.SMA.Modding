@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Assets.TValle.Tools.Runtime.Characters.Intections
 {
-
+    [TValleDoLocalizeEnum]
     public enum InterationReceivedType
     {
         All = -1,
         None = 0,
-
+        [Label("look At", Language.en)]
         lookAt,
         photoshoot,
         [Label("put In Front", Language.en)]
@@ -55,12 +55,14 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
 
 
     }
+    [TValleDoLocalizeEnum]
     public enum InterationDirectionType
     {
         None = 0,
         received,
         given,
     }
+    [TValleDoLocalizeEnum]
     public enum IntercouseInterationReceivedType
     {
         None = 0,
@@ -69,6 +71,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         fingering = InterationReceivedType.fingering,
         propped = InterationReceivedType.propped,
     }
+    [TValleDoLocalizeEnum]
     public enum AllTocuhInterationReceivedType
     {
         None = 0,
@@ -78,14 +81,19 @@ namespace Assets.TValle.Tools.Runtime.Characters.Intections
         slap = InterationReceivedType.slap,
         hump = InterationReceivedType.hump,
         poke = InterationReceivedType.poke,
+        [Label("dry Hump", Language.en)]
         dryhump = InterationReceivedType.dryhump,
         lick = InterationReceivedType.lick,
+        [Label("pouring On", Language.en)]
         pouringOn = InterationReceivedType.pouringOn,
+        [Label("pouring In", Language.en)]
         pouringIn = InterationReceivedType.pouringIn,
         punch = InterationReceivedType.punch,
 
         expose = InterationReceivedType.expose,
+        [Label("force Pose", Language.en)]
         forcePose = InterationReceivedType.forcePose,
+        [Label("manipulate Body", Language.en)]
         manipulateBody = InterationReceivedType.manipulateBody,
 
         handJob = InterationReceivedType.handJob,

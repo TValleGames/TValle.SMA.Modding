@@ -8,6 +8,7 @@ using UnityEngine.Experimental.GlobalIllumination;
 
 namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
 {
+    [TValleDoLocalizeEnum]
     public enum SensitiveBodyPart
     {
         All = -1,
@@ -83,6 +84,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
         [Label("rectum", Language.en)]
         anusWalls,//stretch damage
     }
+    [TValleDoLocalizeEnum]
     public enum SensitiveFemaleHoleType
     {
         None = 0,
@@ -91,6 +93,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
         walls,
         bottom
     }
+    [TValleDoLocalizeEnum]
     public enum SensitiveFemaleHole
     {
         None = 0,
@@ -110,6 +113,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts.Emotions
         [Label("rectum", Language.en)]
         anusWalls = SensitiveBodyPart.anusWalls,
     }
+    [TValleDoLocalizeEnum]
     public enum SensitiveFemaleHoleBottom
     {
         None = 0,

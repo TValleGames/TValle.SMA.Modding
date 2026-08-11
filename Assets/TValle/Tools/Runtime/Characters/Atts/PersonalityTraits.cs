@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Assets.TValle.Tools.Runtime.Characters.Atts
 {
+    [TValleDoLocalizeEnum]
     public enum PersonalityTraits
     {
         All = -1,
@@ -77,6 +78,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts
         
 
     }
+    [TValleDoLocalizeEnum]
     public enum HalfPersonalityTraits
     {
         /// <summary>
@@ -94,6 +96,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts
         /// <summary>
         ///: unstable / Calm
         /// </summary>
+        [Label("emotional stability", Language.en)]
         emotionalstability = 8,
         /// <summary>
         ///: content / Spontaneous
@@ -102,6 +105,7 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts
         /// <summary>
         ///: attached to the familiar / Flexible
         /// </summary>
+        [Label("openness To Change", Language.en)]
         opennessToChange = 32,
         /// <summary>
         ///: undisciplined / Controlled
@@ -118,10 +122,12 @@ namespace Assets.TValle.Tools.Runtime.Characters.Atts
         /// <summary>
         ///: non-conforming / Conforming to standards
         /// </summary>
+        [Label("normative Consciousness", Language.en)]
         normativeConsciousness = 512,
         /// <summary>
         ///: dependency / Self-sufficiency
         /// </summary>
+        [Label("self Confidence", Language.en)]
         selfConfidence = 1024,
         /// <summary>
         ///: toughness / Warmth
